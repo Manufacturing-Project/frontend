@@ -38,7 +38,7 @@ const MenuBar: React.FC = () => {
           isActive={activeItem === 'Registration'} 
           onClick={() => handleMenuItemClick('Registration')}
         />
-        <MenuItem 
+        <MenuItem  
           icon={<img src={PurchaseIcon} alt="Purchase" />} 
           label="Manufacture" 
           isActive={activeItem === 'Manufacture'} 
