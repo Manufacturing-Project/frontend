@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import MenuItem from './MenuItem'; // Adjust the import path as needed
-import DashboardIcon from '../../../Assets/Dashboard.png'; // Import as a React component if SVG
+import DashboardIcon from '../../../assets/Dashboard.png'; // Import as a React component if SVG
 
 const meta: Meta<typeof MenuItem> = {
   title: 'Components/Molecules/MenuItem',
