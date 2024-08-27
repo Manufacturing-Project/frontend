@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/system';
-import defaultLogo from '../../../assets/logo.png'; // Corrected path to logo
+import defaultLogo from '../../../Assets/logo.png'; // Corrected path to logo
 
 interface LogoProps {
   
