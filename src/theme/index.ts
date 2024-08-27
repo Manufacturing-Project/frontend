@@ -1,6 +1,6 @@
 
-import  Palette  from '../components/theme';
-import Typography from '../components/theme'
+import  Palette  from '../theme/Palette';
+import Typography from '../theme/Typography'
 
 export  {
     Palette,
