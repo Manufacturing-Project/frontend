@@ -18,12 +18,12 @@ const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onClick }) =
       className={`menu-item ${isActive ? 'active' : ''}`}
       onClick={onClick}
       style={{
-        width: '150px',
-        height: '65px',
+        width: '200px',
+        height: '50px',
         marginLeft: '50px',
         display: 'flex',
         alignItems: 'center',
-        gap: '25px',
+        gap: '40px',
         borderBottom: isActive ? `3px solid ${theme.colors.font_color_textfeild}` : 'none',
         cursor: 'pointer',
       }}
