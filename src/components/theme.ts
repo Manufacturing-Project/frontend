@@ -26,7 +26,9 @@ export const colors = {
     button_background_Logout: '#979A9C',
     button_background_table: '#624DE3',
 
-   textfeild_color: '#EDF0F2'
+   textfeild_color: '#EDF0F2',
+
+   searchbar_color: '#9E9E9E'
 };
 
 export const font = {
