@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import MenuItem from '../MenuItem/MenuItem'; // Adjust the import path as needed
 import theme from '../../theme';
-import DashboardIcon from '../../../components/Assets/Icon/Dashboard.png';
-import RegistrationIcon from '../../../components/Assets/Icon/Registration.png';
-import PurchaseIcon from '../../../components/Assets/Icon/manufacture.png';
-import SettingIcon from '../../../components/Assets/Icon/Setting.png';
+import DashboardIcon from '../../../Assets/Dashboard.png';
+import RegistrationIcon from '../../../Assets/Registration.png';
+import PurchaseIcon from '../../../Assets/manufacture.png';
+import SettingIcon from '../../../Assets/Setting.png';
 
 const MenuBar: React.FC = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
