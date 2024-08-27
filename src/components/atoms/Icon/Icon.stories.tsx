@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Icon } from './Icon'; // Adjust the import path as needed
 
 const meta: Meta<typeof Icon> = {
-  title: 'Atoms/Icon',
+  title: 'Components/Atoms/Icon',
   component: Icon,
   parameters: {
     docs: {

@@ -3,7 +3,7 @@ import MenuItem from './MenuItem'; // Adjust the import path as needed
 import DashboardIcon from '../../../components/Assets/Icon/Dashboard.png'; // Import as a React component if SVG
 
 const meta: Meta<typeof MenuItem> = {
-  title: 'Molecules/MenuItem',
+  title: 'Components/Molecules/MenuItem',
   component: MenuItem,
   parameters: {
     docs: {

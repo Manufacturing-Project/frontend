@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Box ,useTheme} from '@mui/material';
+import { Box } from '@mui/material';
 import MenuItem from '../MenuItem/MenuItem'; // Adjust the import path as needed
-
+import theme from '../../theme';
 import DashboardIcon from '../../../components/Assets/Icon/Dashboard.png';
 import RegistrationIcon from '../../../components/Assets/Icon/Registration.png';
 import PurchaseIcon from '../../../components/Assets/Icon/manufacture.png';
@@ -9,7 +9,7 @@ import SettingIcon from '../../../components/Assets/Icon/Setting.png';
 
 const MenuBar: React.FC = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
-  const theme = useTheme();
+  
 
   const handleMenuItemClick = (label: string) => {
     setActiveItem(label);
