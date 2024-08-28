@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import {MenuItem} from '../menuItem/MenuItem'; // Adjust the import path as needed
+import MenuItem from '../MenuItem/MenuItem'; // Adjust the import path as needed
 import theme from '../../theme';
 import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
 import PurchaseIcon from '../../../assets/manufacture.png';
 import SettingIcon from '../../../assets/Setting.png';
-import { LeftPanel } from '../../organisms/leftPanel/LeftPanel';
 
- // Import the LeftPanel component
-
-export const MenuBar: React.FC = () => {
+const MenuBar: React.FC = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
+  
 
   const handleMenuItemClick = (label: string) => {
     setActiveItem(label);
@@ -24,6 +22,7 @@ export const MenuBar: React.FC = () => {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 20px',
+        width: '1000px',
         backgroundColor: theme.colors.secondary_background_color,
       }}
     >
@@ -40,8 +39,8 @@ export const MenuBar: React.FC = () => {
           isActive={activeItem === 'Registration'} 
           onClick={() => handleMenuItemClick('Registration')}
         />
-        <MenuItem 
-          icon={<img src={PurchaseIcon} alt="Manufacture" />} 
+        <MenuItem  
+          icon={<img src={PurchaseIcon} alt="Purchase" />} 
           label="Manufacture" 
           isActive={activeItem === 'Manufacture'} 
           onClick={() => handleMenuItemClick('Manufacture')}
@@ -53,11 +52,8 @@ export const MenuBar: React.FC = () => {
           onClick={() => handleMenuItemClick('Setting')}
         />
       </Box>
-
-      {/* Left Panel */}
-      {activeItem !== 'Dashboard' && <LeftPanel activeItem={activeItem} />}
     </Box>
   );
 };
 
-
+export default MenuBar;
