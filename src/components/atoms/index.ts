@@ -1,4 +1,3 @@
-export { ImageLeft } from "./imageLeft/ImageLeft";
 export { Icon } from "./icon/Icon";
 export {MenuText} from "./MenuText/MenuText";
 export  {TableCells} from './tableCell/TableCells';

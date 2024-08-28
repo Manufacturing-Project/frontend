@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import {MenuBar} from '../../molecules/MenuBar/MenuBar'; // Adjust the import path as needed
+import MenuBar from '../../molecules/MenuBar/MenuBar'; // Adjust the import path as needed
 import { SearchBar } from '../../atoms/searchBar/SearchBar'; // Adjust the import path as needed
 import theme from '../../theme';
-import { Logo } from '../../atoms/logo/Logo';
+import { Logo } from '../../atoms/Logo/Logo';
 import { ProfilePhoto } from '../../atoms/profilePhoto/ProfilePhoto';
 import ProfileIcon from '../../../assets/user.png';
 
-export const Header: React.FC = () => {
+const Header: React.FC = () => {
   const searchOptions = ['Dashboard', 'Registration', 'Manufacture', 'Setting']; // Example options
 
   const handleSearchChange = (event: React.SyntheticEvent, value: string | null) => {
@@ -57,4 +57,4 @@ export const Header: React.FC = () => {
   );
 };
 
-
+export default Header;

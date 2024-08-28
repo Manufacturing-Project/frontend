@@ -1,6 +1,6 @@
 
 
-import {MenuBar} from './MenuBar';
+import MenuBar from './MenuBar';
 import { Meta, StoryObj } from '@storybook/react';
 
 
