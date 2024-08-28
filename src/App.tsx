@@ -1,17 +1,12 @@
 import React from 'react';
-import { MenuBar } from './components/molecules/MenuBar/MenuBar';
-
-
+import {Header} from './components/organisms/header/Header';
 
 
 function App() {
   
   return (
     <div>
-      <MenuBar/>
-      
-  
-      
+      <Header/>
     </div>
   );
 }

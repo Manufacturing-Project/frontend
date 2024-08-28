@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import MenuItem from '../MenuItem/MenuItem'; // Adjust the import path as needed
+import {MenuItem} from '../menuItem/MenuItem'; // Adjust the import path as needed
 import theme from '../../theme';
 import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
@@ -18,16 +18,16 @@ export const MenuBar: React.FC = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      {/* Menu Bar */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row', // Keep the top menu horizontal
-          padding: '0 20px',
-          backgroundColor: theme.colors.secondary_background_color,
-        }}
-      >
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '0 20px',
+        backgroundColor: theme.colors.secondary_background_color,
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <MenuItem 
           icon={<img src={DashboardIcon} alt="Dashboard" />} 
           label="Dashboard" 
