@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import MenuBar from '../../molecules/MenuBar/MenuBar'; // Adjust the import path as needed
 import { SearchBar } from '../../atoms/searchBar/SearchBar'; // Adjust the import path as needed
 import theme from '../../theme';
-import { Logo } from '../../atoms/Logo/Logo';
+import { Logo } from '../../atoms/logo/Logo';
 import { ProfilePhoto } from '../../atoms/profilePhoto/ProfilePhoto';
 import ProfileIcon from '../../../assets/user.png';
 
