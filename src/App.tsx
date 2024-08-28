@@ -1,11 +1,12 @@
 import React from 'react';
-import Header from './components/organizum/header/Header';
+import {Header} from './components/organisms/header/Header';
 
 
 function App() {
+  
   return (
     <div>
-      < Header />
+      <Header/>
     </div>
   );
 }
