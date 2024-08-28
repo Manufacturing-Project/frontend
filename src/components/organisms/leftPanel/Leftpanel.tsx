@@ -80,7 +80,7 @@ export const LeftPanel: React.FC<LeftPanelProps> = ({ activeItem }) => {
           flexDirection: 'column',
           alignItems: 'center',
           marginTop: '140px', // Pushes the content to the bottom
-          paddingBottom:'25px' // Space for the logout button
+          paddingBottom:'26px' // Space for the logout button
         }}
       >
         <ImageLeft src={getImageForActiveItem()} alt="Active Section Image" />
