@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './components/organizum/header/Header';
+import Header from './components/organisam/header/Header';
 
 
 function App() {
