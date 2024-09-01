@@ -1,11 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { rawMaterialsApi } from "./features/rawMaterials/rawMaterialApiSlice";
 
 
 export const store = configureStore({
-    reducer: {},
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),  
+    reducer: {
+        [rawMaterialsApi.reducerPath]: rawMaterialsApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
+        rawMaterialsApi.middleware,
+    ),  
 });
 
 export default store;
 
- 
+  
