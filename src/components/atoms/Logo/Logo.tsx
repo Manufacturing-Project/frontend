@@ -21,7 +21,7 @@ const StyledImg = styled('img')<LogoProps>(({ width, height }) => ({
   cursor: 'pointer',        // Pointer cursor if the logo is clickable
 }));
 
-export const Logo: React.FC<LogoProps> = ({
+const Logo: React.FC<LogoProps> = ({
   width,
   height,
   altText = 'Logo',
@@ -49,3 +49,5 @@ export const Logo: React.FC<LogoProps> = ({
     logoElement
   );
 };
+
+export { Logo };

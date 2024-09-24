@@ -1,6 +1,5 @@
 import React from 'react';
-import { Icon } from '../../atoms';
-import { MenuText } from '../../atoms';
+import { Icon, Menutext } from '../../atoms';
 import theme from '../../theme';
 
 
@@ -30,9 +29,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onClick }) =
     >
       {/* Use the Icon and Menutext components */}
       <Icon icon={icon} />
-      <MenuText text={label} />
+      <Menutext text={label} />
     </div>
   );
 };
 
-export default MenuItem;
+export { MenuItem };

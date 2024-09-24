@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import MenuItem from '../MenuItem/MenuItem'; // Adjust the import path as needed
+import {MenuItem} from '../index'; // Adjust the import path as needed
 import theme from '../../theme';
 import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
@@ -55,4 +55,4 @@ const MenuBar: React.FC = () => {
   );
 };
 
-export default MenuBar;
+export  {MenuBar};
