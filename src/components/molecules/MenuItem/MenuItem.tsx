@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Icon, MenuText } from '../../atoms';
 import { Box } from '@mui/material';
 import theme from '../../theme';

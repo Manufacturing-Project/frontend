@@ -28,7 +28,9 @@ export const colors = {
 
    textfeild_color: '#EDF0F2',
 
-   searchbar_color: '#9E9E9E'
+   searchbar_color: '#9E9E9E',
+
+   Itembox_background_color: '#D9D9D9'
 };
 
 export const font = {
