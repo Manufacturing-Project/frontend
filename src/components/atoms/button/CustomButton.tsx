@@ -12,7 +12,7 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-export const CustomButton = ({
+const CustomButton = ({
   primary = false,
   backgroundColor,
   color,
@@ -48,3 +48,4 @@ export const CustomButton = ({
   );
 };
 
+export { CustomButton };

@@ -22,5 +22,5 @@ root.render(
 );
 
 
-// reportWebVitals(console.log))
-// reportWebVitals();
+reportWebVitals(console.log);
+reportWebVitals();

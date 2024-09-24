@@ -10,7 +10,7 @@ export interface ProfilePhotoProps {
 }
 
 
-export const ProfilePhoto = ({
+const ProfilePhoto = ({
     src,
     alt, 
     }: ProfilePhotoProps) => {
@@ -20,3 +20,5 @@ export const ProfilePhoto = ({
     </Stack> 
   )
 }
+
+export { ProfilePhoto }

@@ -13,4 +13,4 @@ const MenuText: React.FC<LabelProps> = ({ text }) => {
   );
 };
 
-export  {MenuText};
+export  {Menutext};

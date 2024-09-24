@@ -1,5 +1,6 @@
 // MenuItem.tsx
 import React from 'react';
+import { Icon, Menutext } from '../../atoms';
 import { Box } from '@mui/material';
 import theme from '../../theme';
 
@@ -32,8 +33,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onCli
         },
       }}
     >
-      {icon}
-      <span>{label}</span>
-    </Box>
+      {/* Use the Icon and Menutext components */}
+      <Icon icon={icon} />
+      <Menutext text={label} />
+    </div>
   );
 };
+
+export { MenuItem };
+

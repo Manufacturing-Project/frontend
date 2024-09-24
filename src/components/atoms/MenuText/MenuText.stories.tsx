@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import {MenuText} from './MenuText'; // Adjust the import path as needed
+import {Menutext} from './MenuText'; // Adjust the import path as needed
 
 const meta: Meta<typeof MenuText> = {
   title: 'Components/Atoms/MenuText',
