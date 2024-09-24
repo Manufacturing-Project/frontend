@@ -1,4 +1,3 @@
-// MenuItem.tsx
 import React from 'react';
 import { Icon, Menutext } from '../../atoms';
 import { Box } from '@mui/material';
