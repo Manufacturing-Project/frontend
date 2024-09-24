@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from "../organism";
-import { AddRawMaterial } from "../molecules";
+import { Header } from "../../organism";
+import { AddRawMaterial } from "../../molecules";
 
 interface Props {
     

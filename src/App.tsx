@@ -1,6 +1,6 @@
 import React from 'react';
 //import {Header} from './components/organisam/header/Header';
-import { AddRawMaterialPage } from './components/page/AddRawMaterialPage';
+import { AddRawMaterialPage } from './components/page';
 
 
 function App() {
