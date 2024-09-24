@@ -6,10 +6,12 @@ import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
 import PurchaseIcon from '../../../assets/manufacture.png';
 import SettingIcon from '../../../assets/Setting.png';
+import { LeftPanel } from '../../organisam/leftPanel/LeftPanal';
+
+ // Import the LeftPanel component
 
 const MenuBar: React.FC = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
-  
 
   const handleMenuItemClick = (label: string) => {
     setActiveItem(label);
@@ -22,7 +24,6 @@ const MenuBar: React.FC = () => {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 20px',
-        width: '1000px',
         backgroundColor: theme.colors.secondary_background_color,
       }}
     >
@@ -39,8 +40,8 @@ const MenuBar: React.FC = () => {
           isActive={activeItem === 'Registration'} 
           onClick={() => handleMenuItemClick('Registration')}
         />
-        <MenuItem  
-          icon={<img src={PurchaseIcon} alt="Purchase" />} 
+        <MenuItem 
+          icon={<img src={PurchaseIcon} alt="Manufacture" />} 
           label="Manufacture" 
           isActive={activeItem === 'Manufacture'} 
           onClick={() => handleMenuItemClick('Manufacture')}
@@ -52,8 +53,13 @@ const MenuBar: React.FC = () => {
           onClick={() => handleMenuItemClick('Setting')}
         />
       </Box>
+
+      {/* Left Panel */}
+      {activeItem !== 'Dashboard' && <LeftPanel activeItem={activeItem} />}
     </Box>
   );
 };
 
+
 export  {MenuBar};
+

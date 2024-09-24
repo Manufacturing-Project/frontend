@@ -1,4 +1,4 @@
-
+export { ImageLeft } from "./imageLeft/ImageLeft";
 export { Icon } from "./icon/Icon";
 export {Menutext} from "./MenuText/MenuText";
 export  {TableCells} from './tableCell/TableCells';
@@ -11,7 +11,3 @@ export { Logo } from "./logo/Logo";
 export { ProfilePhoto } from "./profilePhoto/ProfilePhoto";
 export { SearchBar } from "./searchBar/SearchBar";
 export { CustomSwitch } from "./switch/Switch";
-
-
-
-
