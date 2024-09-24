@@ -1,2 +1,2 @@
-// export { LeftPanel } from './leftPanel/LeftPanal';
 export { Header } from './header/Header';
+export { LeftPanel } from './leftPanel/LeftPanal';
