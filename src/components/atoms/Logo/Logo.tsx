@@ -16,9 +16,10 @@ interface LogoProps {
 // Use styled('img') to style the img element
 const StyledImg = styled('img')<LogoProps>(({ width, height }) => ({
   display: 'inline-block',
-  width: width || '100px',  // Default width
+  width: width || '120px',  // Default width
   height: height || 'auto', // Auto-adjust height based on the aspect ratio
-  cursor: 'pointer',        // Pointer cursor if the logo is clickable
+  cursor: 'pointer',   
+  padding: '20px'     // Pointer cursor if the logo is clickable
 }));
 
 const Logo: React.FC<LogoProps> = ({

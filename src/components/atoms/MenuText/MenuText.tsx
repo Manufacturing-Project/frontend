@@ -5,7 +5,7 @@ interface LabelProps {
   text: string;
 }
 
-const Menutext: React.FC<LabelProps> = ({ text }) => {
+const MenuText: React.FC<LabelProps> = ({ text }) => {
   return (
     <Typography variant="body1" sx={{ fontWeight: 'bold', ml: 1 }}>
       {text}

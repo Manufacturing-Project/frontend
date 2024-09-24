@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import theme from '../../theme';
 
 interface SearchBarProps {
   options: string[];
@@ -13,17 +14,39 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ options, label, onChange }): JSX.Element => {
   return (
-    <Stack spacing={2} sx={{ width: 300, borderRadius: '28px' }}>
+    <Stack spacing={2} sx={{ width: 400, borderRadius: '28px', height: '45px', backgroundColor: theme.colors.searchbar_color }}>
       <Autocomplete
         freeSolo
         id="free-solo-search-bar"
         disableClearable
-        options={options} 
+        options={options}
         onChange={onChange}
         renderInput={(params) => (
           <TextField
             {...params}
             label={label}
+            variant="outlined"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'transparent', // Remove the border
+                },
+                '&:hover fieldset': {
+                  borderColor: 'transparent', // Remove the border on hover
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'transparent', // Remove the border when focused
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.colors.font_color_button, // Use your theme's placeholder color
+              },
+              '& .MuiInputBase-input': {
+                padding: '8px',
+             // Adjust padding to fit your design
+              },
+            
+            }}
             InputProps={{
               ...params.InputProps,
               type: 'search',
@@ -43,4 +66,4 @@ const SearchBar: React.FC<SearchBarProps> = ({ options, label, onChange }): JSX.
   );
 };
 
-export {SearchBar};
+export { SearchBar };

@@ -22,6 +22,7 @@ const MenuBar: React.FC = () => {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 20px',
+        width: '1000px',
         backgroundColor: theme.colors.secondary_background_color,
       }}
     >

@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import {Menutext} from './MenuText'; // Adjust the import path as needed
 
-const meta: Meta<typeof Menutext> = {
+const meta: Meta<typeof MenuText> = {
   title: 'Components/Atoms/MenuText',
-  component: Menutext,
+  component: MenuText,
   parameters: {
     docs: {
       description: {
@@ -16,7 +16,7 @@ const meta: Meta<typeof Menutext> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Menutext>;
+type Story = StoryObj<typeof MenuText>;
 
 export const Default: Story = {
   args: {

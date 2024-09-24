@@ -1,4 +1,5 @@
-import { Logo } from './Logo';
+
+import { Logo } from "./Logo";
 
 const meta = {
   title: 'Components/Atoms/Logo',
