@@ -6,7 +6,7 @@ import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
 import PurchaseIcon from '../../../assets/manufacture.png';
 import SettingIcon from '../../../assets/Setting.png';
-import { LeftPanel } from '../../organisam/leftPanel/LeftPanal';
+import { LeftPanel } from '../../organism/leftPanel/LeftPanal';
 
  // Import the LeftPanel component
 
@@ -60,6 +60,4 @@ const MenuBar: React.FC = () => {
   );
 };
 
-
 export  {MenuBar};
-

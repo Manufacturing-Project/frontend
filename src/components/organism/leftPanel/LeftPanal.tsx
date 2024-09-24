@@ -15,7 +15,7 @@ interface LeftPanelProps {
   activeItem: string;
 }
 
-export const LeftPanel: React.FC<LeftPanelProps> = ({ activeItem }) => {
+const LeftPanel: React.FC<LeftPanelProps> = ({ activeItem }) => {
   const getImageForActiveItem = () => {
     switch (activeItem) {
       case 'Registration':
@@ -99,3 +99,6 @@ export const LeftPanel: React.FC<LeftPanelProps> = ({ activeItem }) => {
     </Box>
   );
 };
+
+
+export { LeftPanel };

@@ -1,4 +1,3 @@
-// MenuItem.tsx
 import React from 'react';
 import { Icon, Menutext } from '../../atoms';
 import { Box } from '@mui/material';
@@ -11,7 +10,7 @@ interface MenuItemProps {
   onClick?: () => void;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onClick }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onClick }) => {
   return (
     <Box
       onClick={onClick}
@@ -36,9 +35,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onCli
       {/* Use the Icon and Menutext components */}
       <Icon icon={icon} />
       <Menutext text={label} />
-    </div>
+    </Box>
   );
 };
 
 export { MenuItem };
-
