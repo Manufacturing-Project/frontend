@@ -5,5 +5,5 @@ export interface CreateRawMaterial{
     unitOfMeasure: string;
     reorderLevel: number;
     description?: string;
-    hasVariants: boolean;
+    hasVariants: boolean; //boolean
   }
