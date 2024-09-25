@@ -1,11 +1,22 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import {
   CustomButton,
   InputSelectField,
   InputTextField,
   TextareaField,
 } from "../../atoms";
+import {
+  setMName,
+  setMCode,
+  setCategory,
+  setUnit,
+  setReorderLevel,
+  setDescription,
+  resetForm,
+} from "../../../slices/RawMaterialSlice";
+import { RootState } from "../../../slices/store/Store";
+import { useDispatch, useSelector } from "react-redux";
 
 
 interface Option {
@@ -31,12 +42,12 @@ const AddRawMaterial: React.FC<Props> = ({
   unitoption,
   onsubmit,
 }) => {
-  const [m_name, setM_name] = useState<string>("");
-  const [m_code, setM_code] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [unit, setUnit] = useState<string>("");
-  const [reorderlevel, setReorderlevel] = useState<number>(0);
-  const [description, setDescription] = useState<string>("");
+  
+  const dispatch = useDispatch();
+
+  const { m_name, m_code, category, unit, reorderlevel, description } = useSelector(
+    (state: RootState) => state.rawMaterial
+  );
 
   const handleRawMaterial = () => {
     onsubmit(m_name, m_code, category, unit, reorderlevel, description);
@@ -67,7 +78,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Material Name"
             textPlaceholder="Enter Material Name"
             value={m_name}
-            onchange={(e) => setM_name(e.target.value)}
+            onchange={(e) => dispatch(setMName(e.target.value))}
           />
         </Box>
         <Box>
@@ -75,7 +86,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Material Code"
             textPlaceholder="Enter Material Code"
             value={m_code}
-            onchange={(e) => setM_code(e.target.value)}
+            onchange={(e) => dispatch(setMCode(e.target.value))}
           />
         </Box>
       </Box>
@@ -91,7 +102,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Category"
             options={categoryoption}
             value={category}
-            onChange={(e) => setCategory(e.target.value as string)}
+            onChange={(e) => dispatch(setCategory(e.target.value))}
           />
         </Box>
         <Box>
@@ -99,7 +110,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Unit"
             options={unitoption}
             value={unit}
-            onChange={(e) => setUnit(e.target.value as string)}
+            onChange={(e) => dispatch(setUnit(e.target.value))}
           />
         </Box>
       </Box>
@@ -109,7 +120,7 @@ const AddRawMaterial: React.FC<Props> = ({
           label="Re-OrderLevel"
           textPlaceholder="Enter Re-OrderLevel"
           value={reorderlevel}
-          onchange={(e) => setReorderlevel(Number(e.target.value))}
+          onchange={(e) => dispatch(setReorderLevel(Number(e.target.value)))}
         />
       </Box>
 
@@ -119,7 +130,7 @@ const AddRawMaterial: React.FC<Props> = ({
           ariaLabel="Description"
           placeholder="Enter Description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => dispatch(setDescription(e.target.value))}
         />
       </Box>
 
@@ -135,7 +146,7 @@ const AddRawMaterial: React.FC<Props> = ({
         </Box>
 
         <Box>
-          <CustomButton primary label="Cancel" />
+          <CustomButton primary label="Cancel" onClick={() => dispatch(resetForm())} />
         </Box>
       </Box>
     </Box>

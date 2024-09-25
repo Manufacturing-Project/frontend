@@ -1,4 +1,4 @@
-import { AddRawMaterialPage } from "./addRawMaterial/AddRawMaterialPage";
+import { AddRawMaterialPage } from "./AddRawMaterialPage";
 
 export default {
     title: "Page/AddRawMaterialPage",

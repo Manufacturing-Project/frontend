@@ -10,15 +10,25 @@ import PurchaseIcon from '../../../assets/manufacture.png';
 import SettingIcon from '../../../assets/Setting.png';
 import PurchaseImage from '../../../assets/PurchaseImage.png'; // Adjust path
 import SettingImage from '../../../assets/SettingImage.png'; // Adjust path
+import { useLocation } from 'react-router-dom';
 
 interface LeftPanelProps {
-  activeItem: string;
 }
 
-const LeftPanel: React.FC<LeftPanelProps> = ({ activeItem }) => {
+const LeftPanel: React.FC<LeftPanelProps> = () => {
+
+  const location = useLocation();
+
+  const getPathName = () => {
+    const path = location.pathname.split('/')[1];
+    return path.charAt(0).toUpperCase() + path.slice(1);
+  };
+
+  const activeItem = getPathName();
+  
   const getImageForActiveItem = () => {
     switch (activeItem) {
-      case 'Registration':
+      case 'Register':
         return SettingImage;
       case 'Setting':
         return SettingImage;
@@ -31,26 +41,26 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ activeItem }) => {
 
   const renderPanelItems = () => {
     switch (activeItem) {
-      case 'Registration':
+      case 'Register':
         return (
           <>
-            <MenuItem icon={<img src={DashboardIcon} alt="Dashboard" />} label="Product Registration" onClick={() => {}} />
-            <MenuItem icon={<img src={RegistrationIcon} alt="Registration" />} label="Raw Material Registration" onClick={() => {}} />
+            <MenuItem icon={<img src={DashboardIcon} alt="Dashboard" />} label="Product Registration" path='/register/product' />
+            <MenuItem icon={<img src={RegistrationIcon} alt="Registration" />} label="Raw Material Registration" path='/register/material'  />
           </>
         );
       case 'Setting':
         return (
           <>
-            <MenuItem icon={<img src={SettingIcon} alt="Setting" />} label="Unit of Measure" onClick={() => {}} />
-            <MenuItem icon={<img src={DashboardIcon} alt="Setting" />} label="Category" onClick={() => {}} />
-            <MenuItem icon={<img src={PurchaseIcon} alt="Supplier" />} label="Supplier Information" onClick={() => {}} />
+            <MenuItem icon={<img src={SettingIcon} alt="Setting" />} label="Unit of Measure" path='/setting/unit' />
+            <MenuItem icon={<img src={DashboardIcon} alt="Setting" />} label="Category" path='/setting/category'  />
+            <MenuItem icon={<img src={PurchaseIcon} alt="Supplier" />} label="Supplier Information" path='/setting/supplier'  />
           </>
         );
       case 'Manufacture':
         return (
           <>
-            <MenuItem icon={<img src={PurchaseIcon} alt="Manufacture" />} label="Add Raw Material" onClick={() => {}} />
-            <MenuItem icon={<img src={RegistrationIcon} alt="Manufacture" />} label="Purchase History" onClick={() => {}} />
+            <MenuItem icon={<img src={PurchaseIcon} alt="Manufacture" />} label="Add Raw Material" path='/manufacture/material'  />
+            <MenuItem icon={<img src={RegistrationIcon} alt="Manufacture" />} label="Purchase History" path='/manufacture/purchase' />
           </>
         );
       default:
