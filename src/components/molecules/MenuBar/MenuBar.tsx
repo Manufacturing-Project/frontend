@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import React from 'react';
+import { Box} from '@mui/material';
 import {MenuItem} from '../index'; // Adjust the import path as needed
 import theme from '../../theme';
 import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
 import PurchaseIcon from '../../../assets/manufacture.png';
 import SettingIcon from '../../../assets/Setting.png';
-import { LeftPanel } from '../../organism/leftPanel/LeftPanal';
+import { useLocation } from 'react-router-dom';
 
  // Import the LeftPanel component
 
 const MenuBar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState('Dashboard');
+  
+  const location = useLocation();
 
-  const handleMenuItemClick = (label: string) => {
-    setActiveItem(label);
-  };
+  const isActive = (path: string) => location.pathname.startsWith(path);
+
 
   return (
     <Box
@@ -30,32 +30,31 @@ const MenuBar: React.FC = () => {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <MenuItem 
           icon={<img src={DashboardIcon} alt="Dashboard" />} 
+          path='/dashboard'
           label="Dashboard" 
-          isActive={activeItem === 'Dashboard'} 
-          onClick={() => handleMenuItemClick('Dashboard')}
+          isActive={isActive('/dashboard')}
         />
+
         <MenuItem 
           icon={<img src={RegistrationIcon} alt="Registration" />} 
+          path='/register'
           label="Registration" 
-          isActive={activeItem === 'Registration'} 
-          onClick={() => handleMenuItemClick('Registration')}
+          isActive={isActive('/registration')}
         />
         <MenuItem 
           icon={<img src={PurchaseIcon} alt="Manufacture" />} 
+          path='/manufacture'
           label="Manufacture" 
-          isActive={activeItem === 'Manufacture'} 
-          onClick={() => handleMenuItemClick('Manufacture')}
+          isActive={isActive('/manufacture')}
         />
         <MenuItem 
           icon={<img src={SettingIcon} alt="Setting" />} 
+          path='/setting'
           label="Setting" 
-          isActive={activeItem === 'Setting'} 
-          onClick={() => handleMenuItemClick('Setting')}
+          isActive={isActive('/setting')}
         />
       </Box>
 
-      {/* Left Panel */}
-      {activeItem !== 'Dashboard' && <LeftPanel activeItem={activeItem} />}
     </Box>
   );
 };
