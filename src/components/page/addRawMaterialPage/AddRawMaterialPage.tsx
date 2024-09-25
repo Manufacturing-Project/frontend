@@ -40,7 +40,7 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
 
   return (
     <>
-        <Header />
+       
         
         <AddRawMaterial
             categoryoption={categoryOptions}
@@ -51,4 +51,4 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
   );
 };
 
-export { AddRawMaterialPage };
+export {AddRawMaterialPage};
