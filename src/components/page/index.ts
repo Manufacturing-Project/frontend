@@ -1,2 +1,2 @@
-export { AddRawMaterialPage } from './addRawMaterial/AddRawMaterialPage';
+export { AddRawMaterialPage } from './addRawMaterialPage/AddRawMaterialPage';
 export { Dashboard } from './dashboard/Dashboard';
