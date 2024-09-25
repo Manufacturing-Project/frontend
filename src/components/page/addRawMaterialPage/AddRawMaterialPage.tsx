@@ -47,7 +47,7 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
     reorderlevel: number,
     description: string
   ) => {
-    console.log('Raw Material Data:', {
+    console.log('Raw Material Data:', { 
       m_name,
       m_code,
       category,
@@ -59,7 +59,7 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
 
   return (
     <>
-        <Header />
+       
         
         <AddRawMaterial
             categoryoption={categoryOptions}

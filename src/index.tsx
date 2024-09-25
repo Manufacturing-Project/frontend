@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './components/theme'; 
 import { Provider } from 'react-redux';
-import { store } from './slices/store/Store';
+import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 
 
