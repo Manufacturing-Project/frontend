@@ -14,7 +14,7 @@ function App() {
 
 
   return (
-    <Box>
+    <Box> 
       <Header />
       <Box sx={{ display: 'flex' }}>
      
