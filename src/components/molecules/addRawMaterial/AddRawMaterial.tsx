@@ -98,7 +98,7 @@ const AddRawMaterial: React.FC<Props> = ({
       onsubmit(m_name, m_code, category, unit, reorderlevel, description);
     } catch (error) {
       console.error('Failed to create material:', error);
-    }
+    } 
   };
 
 
