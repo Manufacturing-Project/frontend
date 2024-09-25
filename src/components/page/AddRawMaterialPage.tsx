@@ -1,24 +1,43 @@
 import React from 'react';
 import { Header } from "../organism";
 import { AddRawMaterial } from "../molecules";
+import { useGetUnitsQuery } from '../../features/units/unitsSlice';
+import { useGetCategoriesQuery } from '../../features/categories/categoriesSlice';
 
 interface Props {
     
 }
 
 
+type Option = {
+  id: string;
+  name: string;
+};
+
+type Unit = {
+  _id: string;
+  unitName: string;
+};
 
 const AddRawMaterialPage: React.FC<Props> = (props) => {
 
-  const categoryOptions = [
-    { id: '1', name: 'Paper' },
-    { id: '2', name: 'Plastic'},
-  ];
+  const { data: units, error, isLoading } = useGetUnitsQuery({});
+  const { data: categories } = useGetCategoriesQuery({});
 
-  const unitOptions = [
-    { id: '1', name: 'Kilogram' },
-    { id: '2', name: 'Gram' },
-  ];
+  
+  const unitOptions: Option[] = units
+    ? units.map((unit: Unit) => ({
+        id: unit._id,
+        name: unit.unitName,
+      }))
+    : [];
+
+    const categoryOptions: Option[] = categories
+    ? categories.map((category: any) => ({
+        id: category._id,
+        name: category.name,
+      }))
+    : [];
 
   const handleSubmit = (
     m_name: string,

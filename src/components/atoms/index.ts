@@ -1,6 +1,6 @@
 export { ImageLeft } from "./imageLeft/ImageLeft";
 export { Icon } from "./icon/Icon";
-export {Menutext} from "./MenuText/MenuText";
+export {MenuText} from "./MenuText/MenuText";
 export  {TableCells} from './tableCell/TableCells';
 export { CustomButton } from "./button/CustomButton";
 export { InputSelectField } from "./inputField/inputSelectFeild/InputSelectField";

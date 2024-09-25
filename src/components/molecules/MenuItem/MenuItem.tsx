@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Menutext } from '../../atoms';
+import { Icon, MenuText } from '../../atoms';
 import { Box } from '@mui/material';
 import theme from '../../theme';
 
@@ -34,7 +34,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ icon, label, isActive, onClick }) =
     >
       {/* Use the Icon and Menutext components */}
       <Icon icon={icon} />
-      <Menutext text={label} />
+      <MenuText text={label} />
     </Box>
   );
 };
