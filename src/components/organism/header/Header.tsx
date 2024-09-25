@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { MenuBar } from '../../molecules/menuBar/MenuBar'; // Adjust the import path as needed
-import { SearchBar } from '../../atoms/searchBar/SearchBar'; // Adjust the import path as needed
+import { MenuBar } from '../../molecules'; // Adjust the import path as needed
+import { SearchBar } from '../../atoms'; // Adjust the import path as needed
 import theme from '../../theme';
 import { Logo } from '../../atoms/logo/Logo';
 import { ProfilePhoto } from '../../atoms/profilePhoto/ProfilePhoto';
@@ -57,4 +57,5 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export  {Header};
+

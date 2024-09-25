@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import {MenuItem} from '../menuItem/MenuItem'; // Adjust the import path as needed
+import {MenuItem} from '../index'; // Adjust the import path as needed
 import theme from '../../theme';
 import DashboardIcon from '../../../assets/Dashboard.png';
 import RegistrationIcon from '../../../assets/Registration.png';
 import PurchaseIcon from '../../../assets/manufacture.png';
 import SettingIcon from '../../../assets/Setting.png';
-import { LeftPanel } from '../../organisam/leftPanel/LeftPanal';
+import { LeftPanel } from '../../organism/leftPanel/LeftPanal';
 
  // Import the LeftPanel component
 
-export const MenuBar: React.FC = () => {
+const MenuBar: React.FC = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
 
   const handleMenuItemClick = (label: string) => {
@@ -60,4 +60,4 @@ export const MenuBar: React.FC = () => {
   );
 };
 
-
+export  {MenuBar};

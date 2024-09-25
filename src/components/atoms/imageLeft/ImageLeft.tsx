@@ -5,7 +5,7 @@ interface ImageAtomProps {
   alt: string;
 }
 
-export const ImageLeft: React.FC<ImageAtomProps> = ({ src, alt }) => {
+const ImageLeft: React.FC<ImageAtomProps> = ({ src, alt }) => {
   return (
     <img
       src={src}
@@ -15,4 +15,4 @@ export const ImageLeft: React.FC<ImageAtomProps> = ({ src, alt }) => {
   );
 };
 
-
+export { ImageLeft };

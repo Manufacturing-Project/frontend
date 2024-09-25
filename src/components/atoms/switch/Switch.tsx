@@ -11,7 +11,7 @@ export interface SwitchProps {
   className?: string;
 }
 
-export const CustomSwitch: React.FC<SwitchProps> = ({
+const CustomSwitch: React.FC<SwitchProps> = ({
   checked = false,
   onChange,
   ariaLabel = 'Switch demo',
@@ -28,3 +28,6 @@ export const CustomSwitch: React.FC<SwitchProps> = ({
     </Box>
   );
 };
+
+
+export { CustomSwitch };
