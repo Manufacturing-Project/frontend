@@ -12,7 +12,7 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(rawMaterialApi.middleware)
-    .concat(categoriesApi.middleware)
+    .concat(categoriesApi.middleware) 
     .concat(unitsApi.middleware),  
 });
 
