@@ -1,1 +1,1 @@
-export { AddRawMaterialPage } from './addRawMaterial/AddRawMaterialPage';
+export { AddRawMaterialPage } from './addRawMaterialPage/AddRawMaterialPage';
