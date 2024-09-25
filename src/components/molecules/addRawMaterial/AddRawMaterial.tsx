@@ -1,5 +1,5 @@
 import { Box, Typography, Switch } from "@mui/material";
-import React from "react";
+import React, {useEffect}  from "react";
 import {
   CustomButton,
   InputSelectField,
@@ -17,6 +17,8 @@ import {
 } from "../../../slices/RawMaterialSlice";
 import { RootState } from "../../../slices/store/store";
 import { useDispatch, useSelector } from "react-redux";
+import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialSlice';
+import { CreateRawMaterial } from "../../../models/rawMaterialModel";
 
 
 interface Option {
@@ -42,6 +44,7 @@ const AddRawMaterial: React.FC<Props> = ({
   unitoption,
   onsubmit,
 }) => {
+
   
   const dispatch = useDispatch();
 
@@ -49,9 +52,68 @@ const AddRawMaterial: React.FC<Props> = ({
     (state: RootState) => state.rawMaterial
   );
 
-  const handleRawMaterial = () => {
-    onsubmit(m_name, m_code, category, unit, reorderlevel, description);
+
+  const [triggerGenerateCode, { data, isLoading, error }] = useLazyGenerateMaterialCodeQuery();
+  const [triggerCheckCode, { data: codeAvailabilityData }] = useLazyCheckMaterialCodeAvailabilityQuery();
+  const [createMaterial] = useCreateMaterialMutation();
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (m_name) {
+        console.log('Triggering backend call for material name:', m_name);
+        triggerGenerateCode(m_name);
+      }
+    }, 500);
+  
+    return () => clearTimeout(delayDebounceFn);
+  }, [m_name, triggerGenerateCode]);
+  
+
+  useEffect(() => {
+    if (data) {
+      console.log('API Response:', data);
+      setM_code(data.materialCode);
+    } else {
+      console.log('No data received');
+    }
+  }, [data]);
+  
+  useEffect(() => {
+    if (m_code) {
+      const delayDebounceFn = setTimeout(() => {
+        triggerCheckCode(m_code);
+      }, 500);
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [m_code, triggerCheckCode]);
+
+  useEffect(() => {
+    if (codeAvailabilityData) {
+      setIsCodeValid(codeAvailabilityData.available);
+    }
+  }, [codeAvailabilityData]);
+
+
+  const handleRawMaterial = async () => {
+    const material: CreateRawMaterial = {
+      materialName: m_name,
+      materialCode: m_code,
+      category,
+      unitOfMeasure: unit,
+      reorderLevel: reorderlevel,
+      description,
+      hasVariants: false,
+    };
+
+    try {
+      const response = await createMaterial(material).unwrap();
+      console.log('Material created successfully:', response);
+      onsubmit(m_name, m_code, category, unit, reorderlevel, description);
+    } catch (error) {
+      console.error('Failed to create material:', error);
+    } 
   };
+
 
   return (
     <Box
