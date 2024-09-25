@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography, Switch } from "@mui/material";
 import React from "react";
 import {
   CustomButton,
@@ -15,7 +15,7 @@ import {
   setDescription,
   resetForm,
 } from "../../../slices/RawMaterialSlice";
-import { RootState } from "../../../slices/store/Store";
+import { RootState } from "../../../slices/store/store";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -55,30 +55,41 @@ const AddRawMaterial: React.FC<Props> = ({
 
   return (
     <Box
-        sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "1220px",
-            marginLeft: "40px",
-            gap: "32px",
-        }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+        padding: "16px",
+        backgroundColor: "white",
+        borderRadius: "8px",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+        width: "70%", // Adjust this width according to right panel needs
+        height: "100%", // Adjust this height to align with the header and left panel
+      }}
     >
-      <Box 
+      {/* Header */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <Typography variant="h4">Add Raw Material</Typography>
+      </Box>
+
+      {/* First row */}
+      <Box
         sx={{
           display: "flex",
           justifyContent: "start",
         }}
       >
         <Box
-            sx={{
-                marginRight: "185px",
-            }}
+          sx={{
+            marginRight: "185px",
+          }}
         >
           <InputTextField
             label="Material Name"
             textPlaceholder="Enter Material Name"
             value={m_name}
             onchange={(e) => dispatch(setMName(e.target.value))}
+            width="300px"
           />
         </Box>
         <Box>
@@ -87,17 +98,23 @@ const AddRawMaterial: React.FC<Props> = ({
             textPlaceholder="Enter Material Code"
             value={m_code}
             onchange={(e) => dispatch(setMCode(e.target.value))}
+            width="300px"
           />
         </Box>
       </Box>
 
+      {/* Second row */}
       <Box
-      sx={{
-        display: "flex",
+        sx={{
+          display: "flex",
           justifyContent: "start",
-      }}
+        }}
       >
-        <Box>
+        <Box
+          sx={{
+            marginRight: "185px",
+          }}
+        >
           <InputSelectField
             label="Category"
             options={categoryoption}
@@ -115,15 +132,18 @@ const AddRawMaterial: React.FC<Props> = ({
         </Box>
       </Box>
 
+      {/* Reorder Level */}
       <Box>
         <InputTextField
-          label="Re-OrderLevel"
-          textPlaceholder="Enter Re-OrderLevel"
+          label="Re-Order Level"
+          textPlaceholder="Enter Re-Order Level"
           value={reorderlevel}
-          onchange={(e) => dispatch(setReorderLevel(Number(e.target.value)))}
+          onchange={(e) => dispatch(setReorderLevel(Number(e.target.value)) || 0)}
+          width="300px"
         />
       </Box>
 
+      {/* Description */}
       <Box>
         <TextareaField
           label="Description"
@@ -134,12 +154,30 @@ const AddRawMaterial: React.FC<Props> = ({
         />
       </Box>
 
+      {/* This material has variants */}
       <Box
         sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "end",
-          }}
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "20px",
+        }}
+      >
+        <Typography>This material has variants</Typography>
+        {/* <Switch
+          checked={hasVariants}
+          onChange={(e) => setHasVariants(e.target.checked)}
+        /> */}
+      </Box>
+
+      {/* Buttons */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "end",
+          gap: "16px",
+        }}
       >
         <Box>
           <CustomButton primary label="Save" onClick={handleRawMaterial} />
