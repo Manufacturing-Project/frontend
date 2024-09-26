@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CreateRawMaterial } from "../../models/rawMaterialModel";
+import { CreateRawMaterial } from "./rawMaterialModel";
+import { BASE_URL } from '../../constant';
 
 export const rawMaterialApi = createApi({
   reducerPath: 'rawMaterialApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/raw-materials' }), 
+  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/materials` }), 
   endpoints: (builder) => ({
     generateMaterialCode: builder.query({
       query: (materialName) => ({

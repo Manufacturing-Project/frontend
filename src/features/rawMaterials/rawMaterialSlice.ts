@@ -7,6 +7,8 @@ interface RawMaterialState {
     unit: string;
     reorderlevel: number;
     description: string;
+    hasVariants?: boolean;
+    isCodeValid?: boolean;
   }
   
   const initialState: RawMaterialState = {
@@ -16,6 +18,8 @@ interface RawMaterialState {
     unit: '',
     reorderlevel: 0,
     description: '',
+    hasVariants: false,
+    isCodeValid: true,
   };
   
   const RawMaterialSlice = createSlice({
@@ -40,6 +44,12 @@ interface RawMaterialState {
       setDescription: (state, action: PayloadAction<string>) => {
         state.description = action.payload;
       },
+      setHasVariants: (state, action: PayloadAction<boolean>) => {
+        state.hasVariants = action.payload;
+      },
+      setIsCodeValid: (state, action: PayloadAction<boolean>) => {
+        state.isCodeValid = action.payload;
+      },
       resetForm: (state) => initialState,
     },
   });
@@ -51,6 +61,8 @@ interface RawMaterialState {
     setUnit,
     setReorderLevel,
     setDescription,
+    setHasVariants,
+    setIsCodeValid,
     resetForm,
   } = RawMaterialSlice.actions;
   
