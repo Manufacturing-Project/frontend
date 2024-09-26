@@ -1,32 +1,57 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CreateRawMaterial } from "../../models/rawMaterialModel";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export const rawMaterialApi = createApi({
-  reducerPath: 'rawMaterialApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/raw-materials' }), 
-  endpoints: (builder) => ({
-    generateMaterialCode: builder.query({
-      query: (materialName) => ({
-        url: `/generate-material-code`,
-        method: 'POST',
-        body: { materialName },
-      }), 
-    }),
-    checkMaterialCodeAvailability: builder.query({
-      query: (materialCode) => ({
-        url: `/check-material-code`,
-        method: 'POST',
-        body: { materialCode },
-      }),
-    }),
-    createMaterial: builder.mutation<void, CreateRawMaterial>({
-      query: (material) => ({
-        url: `/`,
-        method: 'POST',
-        body: material,
-      }),
-    }),
-  }),
-});
-
-export const { useLazyGenerateMaterialCodeQuery, useLazyCheckMaterialCodeAvailabilityQuery, useCreateMaterialMutation } = rawMaterialApi;
+interface RawMaterialState {
+    m_name: string;
+    m_code: string;
+    category: string;
+    unit: string;
+    reorderlevel: number;
+    description: string;
+  }
+  
+  const initialState: RawMaterialState = {
+    m_name: '',
+    m_code: '',
+    category: '',
+    unit: '',
+    reorderlevel: 0,
+    description: '',
+  };
+  
+  const RawMaterialSlice = createSlice({
+    name: 'rawMaterial',
+    initialState,
+    reducers: {
+      setMName: (state, action: PayloadAction<string>) => {
+        state.m_name = action.payload;
+      },
+      setMCode: (state, action: PayloadAction<string>) => {
+        state.m_code = action.payload;
+      },
+      setCategory: (state, action: PayloadAction<string>) => {
+        state.category = action.payload;
+      },
+      setUnit: (state, action: PayloadAction<string>) => {
+        state.unit = action.payload;
+      },
+      setReorderLevel: (state, action: PayloadAction<number>) => {
+        state.reorderlevel = action.payload;
+      },
+      setDescription: (state, action: PayloadAction<string>) => {
+        state.description = action.payload;
+      },
+      resetForm: (state) => initialState,
+    },
+  });
+  
+  export const {
+    setMName,
+    setMCode,
+    setCategory,
+    setUnit,
+    setReorderLevel,
+    setDescription,
+    resetForm,
+  } = RawMaterialSlice.actions;
+  
+  export default RawMaterialSlice.reducer;

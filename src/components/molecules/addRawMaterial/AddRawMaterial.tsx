@@ -6,7 +6,19 @@ import {
   InputTextField,
   TextareaField,
 } from "../../atoms";
-import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialSlice';
+import {
+  setMName,
+  setMCode,
+  setCategory,
+  setUnit,
+  setReorderLevel,
+  setDescription,
+  resetForm,
+} from "../../../features/rawMaterials/RawMaterialSlice";
+import { RootState } from "../../../slices/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialApiSlice';
+//import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialSlice';
 import { CreateRawMaterial } from "../../../models/rawMaterialModel";
 
 interface Option {
@@ -60,7 +72,7 @@ const AddRawMaterial: React.FC<Props> = ({
   useEffect(() => {
     if (data) {
       console.log('API Response:', data);
-      setM_code(data.materialCode);
+      //setM_code(data.materialCode);
     } else {
       console.log('No data received');
     }
@@ -77,7 +89,7 @@ const AddRawMaterial: React.FC<Props> = ({
 
   useEffect(() => {
     if (codeAvailabilityData) {
-      setIsCodeValid(codeAvailabilityData.available);
+      //setIsCodeValid(codeAvailabilityData.available);
     }
   }, [codeAvailabilityData]);
 
