@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rawMaterialApi } from "./features/rawMaterials/rawMaterialApiSlice";
 import { unitsApi } from "./features/units/UnitsApiSlice";
-import { categoriesApi } from "./features/categories/categoriesSlice";
+import { categoriesApi } from "./features/categories/CategoryApiSlice";
 import UnitSlice from "./features/units/UnitSlice"
 import RawMaterialSlice from "./features/rawMaterials/rawMaterialSlice"
 

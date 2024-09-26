@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { Itembox } from '../../atoms/itembox/Itembox'; // Adjust the import path as needed
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,9 +8,28 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
+import { setCategoryName } from '../../../features/categories/CategorySlice'; // Redux action to update local store
+import { useCreateCategoryMutation, useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice'; // API hooks
 
 const Category: React.FC = () => {
-  const [categories, setCategories] = React.useState<string[]>(['rings', 'Furniture', 'Shoes', 'Stationery','watch','textiles']);
+  const dispatch = useDispatch();
+
+type Option = {
+  id: string;
+  name: string;
+};
+
+  // Fetch categories from the API
+  const { data: categories, refetch } = useGetCategoriesQuery(); // Fetch from MongoDB
+  const [createCategory] = useCreateCategoryMutation(); // Hook to create a category
+
+  const categoryOptions: Option[] = categories
+  ? categories.map((category: any) => ({
+      id: category._id,
+      name: category.name,
+    }))
+  : [];
+
   const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const [newCategory, setNewCategory] = React.useState<string>('');
 
@@ -22,10 +42,24 @@ const Category: React.FC = () => {
     setNewCategory('');
   };
 
-  const handleSave = () => {
-    if (newCategory.trim()) {
-      setCategories([...categories, newCategory.trim()]);
-      handleDialogClose();
+  const handleSave = async () => {
+    try {
+      if (newCategory.trim()) {
+        // Update Redux store locally
+        dispatch(setCategoryName(newCategory.trim()));
+
+        // Save to MongoDB
+        const response = await createCategory({ name: newCategory.trim() }).unwrap();
+        console.log("Category created successfully:", response);
+
+        // Refetch categories after adding the new category
+        refetch();
+
+        // Close the dialog
+        handleDialogClose();
+      }
+    } catch (error) {
+      console.error("Error creating category:", error);
     }
   };
 
@@ -43,9 +77,9 @@ const Category: React.FC = () => {
             </Box>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
               <Itembox
-                items={categories}
+                items={categoryOptions.map((category) => category.name)} // Displaying categories from MongoDB
                 backgroundColor="#f9f9f9"
-                color="#333"
+                color="#333" 
                 width="400px"
                 height="250px"
                 rowPadding="12px"
