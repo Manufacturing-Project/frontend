@@ -14,10 +14,10 @@ import { useCreateCategoryMutation, useGetCategoriesQuery } from '../../../featu
 const Category: React.FC = () => {
   const dispatch = useDispatch();
 
-  type Option = {
-    id: string;
-    name: string;
-  }; 
+type Option = {
+  id: string;
+  name: string;
+};
 
   // Fetch categories from the API
   const { data: categories, refetch } = useGetCategoriesQuery(); // Fetch from MongoDB
@@ -49,12 +49,12 @@ const Category: React.FC = () => {
         dispatch(setCategoryName(newCategory.trim()));
 
         // Save to MongoDB
-        const response = await createCategory({ "name": newCategory.trim() }).unwrap();
+        const response = await createCategory({ name: newCategory.trim() }).unwrap();
         console.log("Category created successfully:", response);
 
         // Refetch categories after adding the new category
         refetch();
- 
+
         // Close the dialog
         handleDialogClose();
       }
