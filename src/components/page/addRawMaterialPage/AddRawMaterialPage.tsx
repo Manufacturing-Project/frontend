@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header } from "../../organism/header/Header";
 import { AddRawMaterial } from "../../molecules/addRawMaterial/AddRawMaterial";
-import { useGetUnitsQuery } from '../../../features/units/unitsSlice';
+import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
 import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice';
+import { CreateUnit } from '../../../features/units/UnitModel';
 
 interface Props {
     
@@ -21,16 +21,16 @@ type Unit = {
 
 const AddRawMaterialPage: React.FC<Props> = (props) => {
 
-  const { data: units, error, isLoading } = useGetUnitsQuery({});
+  const { data: units, error, isLoading } = useGetUnitsQuery();
   const { data: categories } = useGetCategoriesQuery();
 
   
   const unitOptions: Option[] = units
-    ? units.map((unit: Unit) => ({
-        id: unit._id,
-        name: unit.unitName,
-      }))
-    : [];
+      ? units.map((unit: CreateUnit) => ({
+          id: unit._id,
+          name: unit.unitName, 
+        }))
+      : [];
 
     const categoryOptions: Option[] = categories
     ? categories.map((category: any) => ({

@@ -11,7 +11,7 @@ import { Box } from '@mui/material';
 import { setunitName } from '../../../features/units/UnitSlice'; // Redux action to update local store
 import { useCreateUnitMutation, useGetUnitsQuery } from '../../../features/units/UnitsApiSlice'; // API hooks
 
-const UnitOfMeasure: React.FC = () => {
+const Variants: React.FC = () => {
   const dispatch = useDispatch();
 
   // Fetch units from the API and trigger re-fetching after updates
@@ -60,11 +60,11 @@ const UnitOfMeasure: React.FC = () => {
       <Box sx={{ display: 'flex', height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-          <h1>Unit of Measure</h1>
+          <h1>Variants</h1>
           <Box sx={{ display: 'flex', height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
               <Button variant="contained" color="primary" onClick={handleAddUnitClick}>
-                Add New Unit
+                Add New Variant
               </Button>
             </Box>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
@@ -78,12 +78,12 @@ const UnitOfMeasure: React.FC = () => {
                 onItemClick={(item) => console.log(`Clicked on ${item}`)}
               />
               <Dialog open={isDialogOpen} onClose={handleDialogClose}>
-                <DialogTitle>Add New Unit</DialogTitle>
+                <DialogTitle>Add New Variant</DialogTitle>
                 <DialogContent>
                   <TextField
                     autoFocus
                     margin="dense"
-                    label="Unit"
+                    label="Variant Name"
                     type="text"
                     fullWidth
                     value={newUnit}
@@ -108,4 +108,4 @@ const UnitOfMeasure: React.FC = () => {
   );
 };
 
-export { UnitOfMeasure };
+export { Variants };

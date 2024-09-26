@@ -5,6 +5,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Header, LeftPanel } from './components/organism';
 import { Category } from './components/page/category/Category';
+import { Variants } from './components/page/variants/variants';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path='/register/material' element={<AddRawMaterialPage />} />
             <Route path='/setting/unit' element={<UnitOfMeasure/>} />
             <Route path='/setting/category' element={<Category />} />
+            <Route path='/setting/variants' element={<Variants />} />
           </Routes>
         </Box>
       </Box>

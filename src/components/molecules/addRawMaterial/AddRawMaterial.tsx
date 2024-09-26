@@ -1,13 +1,26 @@
 import { Box, Switch, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import {
   CustomButton,
   InputSelectField,
   InputTextField,
   TextareaField,
 } from "../../atoms";
-import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialSlice';
-import { CreateRawMaterial } from "../../../models/rawMaterialModel";
+import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialApiSlice';
+import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
+import {
+  setMName,
+    setMCode,
+    setCategory,
+    setUnit,
+    setReorderLevel,
+    setDescription,
+    setIsCodeValid,
+    setHasVariants,
+    resetForm,
+} from "../../../features/rawMaterials/rawMaterialSlice";
 
 interface Option {
   id: string;
@@ -32,14 +45,9 @@ const AddRawMaterial: React.FC<Props> = ({
   unitoption,
   onsubmit,
 }) => {
-  const [m_name, setM_name] = useState<string>("");
-  const [m_code, setM_code] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [unit, setUnit] = useState<string>("");
-  const [reorderlevel, setReorderlevel] = useState<number>(0);
-  const [description, setDescription] = useState<string>("");
-  const [isCodeValid, setIsCodeValid] = useState<boolean>(true);
-  const [hasVariants, setHasVariants] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+  const {m_name, m_code, category, unit, reorderlevel, description, isCodeValid, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
 
   const [triggerGenerateCode, { data, isLoading, error }] = useLazyGenerateMaterialCodeQuery();
   const [triggerCheckCode, { data: codeAvailabilityData }] = useLazyCheckMaterialCodeAvailabilityQuery();
@@ -60,7 +68,7 @@ const AddRawMaterial: React.FC<Props> = ({
   useEffect(() => {
     if (data) {
       console.log('API Response:', data);
-      setM_code(data.materialCode);
+      dispatch(setMCode(data.materialCode));
     } else {
       console.log('No data received');
     }
@@ -77,12 +85,14 @@ const AddRawMaterial: React.FC<Props> = ({
 
   useEffect(() => {
     if (codeAvailabilityData) {
-      setIsCodeValid(codeAvailabilityData.available);
+      dispatch(setIsCodeValid(codeAvailabilityData.available));
     }
   }, [codeAvailabilityData]);
 
 
   const handleRawMaterial = async () => {
+
+    
     const material: CreateRawMaterial = {
       materialName: m_name,
       materialCode: m_code,
@@ -93,6 +103,7 @@ const AddRawMaterial: React.FC<Props> = ({
       hasVariants: false,
     };
 
+   
     try {
       const response = await createMaterial(material).unwrap();
       console.log('Material created successfully:', response);
@@ -113,7 +124,7 @@ const AddRawMaterial: React.FC<Props> = ({
         backgroundColor: "white",
         borderRadius: "8px",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        width: "70%", // Adjust this width according to right panel needs
+        width: "100%", // Adjust this width according to right panel needs
         height: "100%", // Adjust this height to align with the header and left panel
       }}
     >
@@ -138,7 +149,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Material Name"
             textPlaceholder="Enter Material Name"
             value={m_name}
-            onchange={(e) => setM_name(e.target.value)}
+            onchange={(e) => dispatch(setMName(e.target.value))}
           /> 
         </Box>
         <Box>
@@ -146,7 +157,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Material Code"
             textPlaceholder="Enter Material Code"
             value={m_code}
-            onchange={(e) => setM_code(e.target.value)}
+            onchange={(e) => dispatch(setMCode(e.target.value))}
             width="300px"
           />
         </Box>
@@ -168,7 +179,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Category"
             options={categoryoption}
             value={category}
-            onChange={(e) => setCategory(e.target.value as string)}
+            onChange={(e) => dispatch(setCategory(e.target.value))}
           />
         </Box>
         <Box>
@@ -176,7 +187,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Unit"
             options={unitoption}
             value={unit}
-            onChange={(e) => setUnit(e.target.value as string)}
+            onChange={(e) => dispatch(setUnit(e.target.value))}
           />
         </Box>
       </Box>
@@ -187,7 +198,7 @@ const AddRawMaterial: React.FC<Props> = ({
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel}
-          onchange={(e) => setReorderlevel(Number(e.target.value) || 0)}
+          onchange={(e) => dispatch(setReorderLevel(Number(e.target.value)))}
           width="300px"
         />
       </Box>
@@ -199,7 +210,7 @@ const AddRawMaterial: React.FC<Props> = ({
           ariaLabel="Description" 
           placeholder="Enter Description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => dispatch(setDescription(e.target.value))}
         /> 
       </Box>
 
@@ -229,8 +240,9 @@ const AddRawMaterial: React.FC<Props> = ({
         }}
       >
         <CustomButton primary label="Save" onClick={handleRawMaterial} />
-        <CustomButton primary label="Cancel" />
+        <CustomButton primary label="Cancel" onClick={() => dispatch(resetForm())}/>
       </Box>
+      
     </Box>
   );
 };

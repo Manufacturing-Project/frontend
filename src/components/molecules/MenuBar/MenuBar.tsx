@@ -39,7 +39,7 @@ const MenuBar: React.FC = () => {
           icon={<img src={RegistrationIcon} alt="Registration" />} 
           path='/register'
           label="Registration" 
-          isActive={isActive('/registration')}
+          isActive={isActive('/register')}
         />
         <MenuItem 
           icon={<img src={PurchaseIcon} alt="Manufacture" />} 
