@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from "../../organism/header/Header";
 import { AddRawMaterial } from "../../molecules/addRawMaterial/AddRawMaterial";
 import { useGetUnitsQuery } from '../../../features/units/unitsSlice';
-import { useGetCategoriesQuery } from '../../../features/categories/categoriesSlice';
+import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice';
 
 interface Props {
     
@@ -22,7 +22,7 @@ type Unit = {
 const AddRawMaterialPage: React.FC<Props> = (props) => {
 
   const { data: units, error, isLoading } = useGetUnitsQuery({});
-  const { data: categories } = useGetCategoriesQuery({});
+  const { data: categories } = useGetCategoriesQuery();
 
   
   const unitOptions: Option[] = units

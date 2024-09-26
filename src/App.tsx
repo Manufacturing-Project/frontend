@@ -34,6 +34,8 @@ function App() {
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/register/material' element={<AddRawMaterialPage />} />
+            <Route path='/setting/unit' element={<UnitOfMeasure/>} />
+            <Route path='/setting/category' element={<Category />} />
           </Routes>
         </Box>
       </Box>
