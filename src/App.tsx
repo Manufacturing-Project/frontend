@@ -4,6 +4,7 @@ import { UnitOfMeasure } from './components/page/unitOfMeasure/UnitOfMeasure';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Header, LeftPanel } from './components/organism';
+import { Category } from './components/page/category/Category';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
 
 
   return (
-    <Box>
+    <Box> 
       <Header />
       <Box sx={{ display: 'flex' }}>
      

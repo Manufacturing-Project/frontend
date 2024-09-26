@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from "../../organism/header/Header";
 import { AddRawMaterial } from "../../molecules/addRawMaterial/AddRawMaterial";
 import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
+//import { useGetUnitsQuery } from '../../../features/units/unitsSlice';
 import { useGetCategoriesQuery } from '../../../features/categories/categoriesSlice';
 
 interface Props {
@@ -16,17 +17,23 @@ type Option = {
 
 
 
+
+type Unit = {
+  _id: string;
+  unitName: string;
+};
+
 const AddRawMaterialPage: React.FC<Props> = (props) => {
 
-  const { data: Units, error, isLoading } = useGetUnitsQuery();
+  const { data: units, error, isLoading } = useGetUnitsQuery({});
   const { data: categories } = useGetCategoriesQuery({});
 
   
-  const unitOptions: Option[] = Units
-    ? Units.map((unit: any) => ({
-      id: unit._id,
-      name: unit.unitName,
-    }))
+  const unitOptions: Option[] = units
+    ? units.map((unit: Unit) => ({
+        id: unit._id,
+        name: unit.unitName,
+      }))
     : [];
 
     const categoryOptions: Option[] = categories
@@ -55,11 +62,17 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
   };
 
   return (
-    <AddRawMaterial
+
+    <>
+       
+        
+        <AddRawMaterial
             categoryoption={categoryOptions}
             unitoption={unitOptions}
             onsubmit={handleSubmit}
         />
+
+    </>
   );
 };
 

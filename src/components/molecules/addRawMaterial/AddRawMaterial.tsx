@@ -1,5 +1,5 @@
-import { Box, Typography, Switch } from "@mui/material";
-import React, {useEffect}  from "react";
+import { Box, Switch, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import {
   CustomButton,
   InputSelectField,
@@ -18,8 +18,8 @@ import {
 import { RootState } from "../../../slices/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialApiSlice';
+//import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialSlice';
 import { CreateRawMaterial } from "../../../models/rawMaterialModel";
-
 
 interface Option {
   id: string;
@@ -44,14 +44,14 @@ const AddRawMaterial: React.FC<Props> = ({
   unitoption,
   onsubmit,
 }) => {
-
-  
-  const dispatch = useDispatch();
-
-  const { m_name, m_code, category, unit, reorderlevel, description } = useSelector(
-    (state: RootState) => state.rawMaterial
-  );
-
+  const [m_name, setM_name] = useState<string>("");
+  const [m_code, setM_code] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [unit, setUnit] = useState<string>("");
+  const [reorderlevel, setReorderlevel] = useState<number>(0);
+  const [description, setDescription] = useState<string>("");
+  const [isCodeValid, setIsCodeValid] = useState<boolean>(true);
+  const [hasVariants, setHasVariants] = useState<boolean>(false);
 
   const [triggerGenerateCode, { data, isLoading, error }] = useLazyGenerateMaterialCodeQuery();
   const [triggerCheckCode, { data: codeAvailabilityData }] = useLazyCheckMaterialCodeAvailabilityQuery();
@@ -150,16 +150,15 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Material Name"
             textPlaceholder="Enter Material Name"
             value={m_name}
-            onchange={(e) => dispatch(setMName(e.target.value))}
-            width="300px"
-          />
+            onchange={(e) => setM_name(e.target.value)}
+          /> 
         </Box>
         <Box>
           <InputTextField
             label="Material Code"
             textPlaceholder="Enter Material Code"
             value={m_code}
-            onchange={(e) => dispatch(setMCode(e.target.value))}
+            onchange={(e) => setM_code(e.target.value)}
             width="300px"
           />
         </Box>
@@ -181,7 +180,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Category"
             options={categoryoption}
             value={category}
-            onChange={(e) => dispatch(setCategory(e.target.value))}
+            onChange={(e) => setCategory(e.target.value as string)}
           />
         </Box>
         <Box>
@@ -189,7 +188,7 @@ const AddRawMaterial: React.FC<Props> = ({
             label="Unit"
             options={unitoption}
             value={unit}
-            onChange={(e) => dispatch(setUnit(e.target.value))}
+            onChange={(e) => setUnit(e.target.value as string)}
           />
         </Box>
       </Box>
@@ -200,20 +199,20 @@ const AddRawMaterial: React.FC<Props> = ({
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel}
-          onchange={(e) => dispatch(setReorderLevel(Number(e.target.value)) || 0)}
+          onchange={(e) => setReorderlevel(Number(e.target.value) || 0)}
           width="300px"
         />
       </Box>
-
+ 
       {/* Description */}
       <Box>
         <TextareaField
           label="Description"
-          ariaLabel="Description"
+          ariaLabel="Description" 
           placeholder="Enter Description"
           value={description}
-          onChange={(e) => dispatch(setDescription(e.target.value))}
-        />
+          onChange={(e) => setDescription(e.target.value)}
+        /> 
       </Box>
 
       {/* This material has variants */}
@@ -226,10 +225,10 @@ const AddRawMaterial: React.FC<Props> = ({
         }}
       >
         <Typography>This material has variants</Typography>
-        {/* <Switch
+        <Switch
           checked={hasVariants}
           onChange={(e) => setHasVariants(e.target.checked)}
-        /> */}
+        />
       </Box>
 
       {/* Buttons */}
@@ -241,13 +240,8 @@ const AddRawMaterial: React.FC<Props> = ({
           gap: "16px",
         }}
       >
-        <Box>
-          <CustomButton primary label="Save" onClick={handleRawMaterial} />
-        </Box>
-
-        <Box>
-          <CustomButton primary label="Cancel" onClick={() => dispatch(resetForm())} />
-        </Box>
+        <CustomButton primary label="Save" onClick={handleRawMaterial} />
+        <CustomButton primary label="Cancel" />
       </Box>
     </Box>
   );
