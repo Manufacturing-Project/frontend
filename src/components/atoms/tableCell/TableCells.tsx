@@ -6,7 +6,7 @@ interface TableCellAtomProps {
   value: any;
   format?: (value: any) => string;
   isImage?: boolean;
-  columnIndex: number;
+  columnIndex: number;  
 }
 
 const TableCells: React.FC<TableCellAtomProps> = ({

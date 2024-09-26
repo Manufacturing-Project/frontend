@@ -33,7 +33,11 @@ export const unitsApi = createApi({
 
     // Query for fetching all units
     getUnits: builder.query<CreateUnit[], void>({
-      query: () => `/`,
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+
     }),
   }),
 });
