@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Smalldialogbox } from '../smallDialogbox/Smalldialogbox';
 import theme from '../../theme';
+import { useUpdateUnitMutation, useDeleteUnitMutation } from '../../../features/units/UnitsApiSlice'; // Import mutation hooks
 
 export interface ItemboxProps {
   items: string[];
@@ -28,6 +29,10 @@ export const Itembox: React.FC<ItemboxProps> = ({
   const [selectedUnit, setSelectedUnit] = React.useState<string | null>(null);
   const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
+  // Use mutation hooks for delete and update
+  const [updateUnit] = useUpdateUnitMutation();
+  const [deleteUnit] = useDeleteUnitMutation();
+
   const handleItemClick = (item: string) => {
     setSelectedUnit(item);
     setDialogOpen(true);
@@ -40,14 +45,25 @@ export const Itembox: React.FC<ItemboxProps> = ({
     setDialogOpen(false);
   };
 
-  const handleDelete = () => {
-    console.log(`Deleted ${selectedUnit}`);
-    setDialogOpen(false);
+  const handleDelete = async () => {
+    if (selectedUnit) {
+      // Call delete mutation with the selected unit
+      await deleteUnit(selectedUnit);
+      console.log(`Deleted ${selectedUnit}`);
+      setDialogOpen(false);
+    }
   };
 
-  const handleUpdate = (updatedUnit: string) => {
-    console.log(`Updated ${selectedUnit} to ${updatedUnit}`);
-    setDialogOpen(false);
+  const handleUpdate = async (updatedUnit: string) => {
+    if (selectedUnit) {
+      // Call update mutation with the selected unit and the new name
+      await updateUnit({ id: selectedUnit, unit: {
+        unitName: updatedUnit,
+        _id: undefined
+      } });
+      console.log(`Updated ${selectedUnit} to ${updatedUnit}`);
+      setDialogOpen(false);
+    }
   };
 
   return (
@@ -83,7 +99,7 @@ export const Itembox: React.FC<ItemboxProps> = ({
         ))}
       </Box>
 
-      {/* The dialog box is rendered here, separate from the ScrollBox */}
+      {/* The dialog box is rendered here */}
       {selectedUnit && (
         <Smalldialogbox
           open={isDialogOpen}

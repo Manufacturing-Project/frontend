@@ -54,6 +54,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
             <MenuItem icon={<img src={SettingIcon} alt="Setting" />} label="Unit of Measure" path='/setting/unit' />
             <MenuItem icon={<img src={DashboardIcon} alt="Setting" />} label="Category" path='/setting/category'  />
             <MenuItem icon={<img src={PurchaseIcon} alt="Supplier" />} label="Supplier Information" path='/setting/supplier'  />
+            <MenuItem icon={<img src={PurchaseIcon} alt="Supplier" />} label="Variants" path='/setting/variants'  />
           </>
         );
       case 'Manufacture':

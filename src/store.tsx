@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rawMaterialApi } from "./features/rawMaterials/rawMaterialApiSlice";
-import { unitsApi } from "./features/units/unitsSlice";
+import { unitsApi } from "./features/units/UnitsApiSlice";
 import { categoriesApi } from "./features/categories/categoriesSlice";
-import RawMaterialSlice  from "./features/rawMaterials/RawMaterialSlice";
+import UnitSlice from "./features/units/UnitSlice"
+import RawMaterialSlice from "./features/rawMaterials/rawMaterialSlice"
 
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
         [rawMaterialApi.reducerPath]: rawMaterialApi.reducer,
         [unitsApi.reducerPath]: unitsApi.reducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
+        unit: UnitSlice,
         rawMaterial: RawMaterialSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()

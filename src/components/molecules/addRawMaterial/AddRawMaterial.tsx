@@ -20,7 +20,7 @@ import {
     setIsCodeValid,
     setHasVariants,
     resetForm,
-} from "../../../features/rawMaterials/RawMaterialSlice";
+} from "../../../features/rawMaterials/rawMaterialSlice";
 
 interface Option {
   id: string;
@@ -91,6 +91,8 @@ const AddRawMaterial: React.FC<Props> = ({
 
 
   const handleRawMaterial = async () => {
+
+    
     const material: CreateRawMaterial = {
       materialName: m_name,
       materialCode: m_code,
@@ -101,6 +103,7 @@ const AddRawMaterial: React.FC<Props> = ({
       hasVariants: false,
     };
 
+   
     try {
       const response = await createMaterial(material).unwrap();
       console.log('Material created successfully:', response);
@@ -239,6 +242,7 @@ const AddRawMaterial: React.FC<Props> = ({
         <CustomButton primary label="Save" onClick={handleRawMaterial} />
         <CustomButton primary label="Cancel" onClick={() => dispatch(resetForm())}/>
       </Box>
+      
     </Box>
   );
 };
