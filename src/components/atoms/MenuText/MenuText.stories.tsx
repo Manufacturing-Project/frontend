@@ -1,25 +1,22 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { MenuText } from './MenuText'; // Adjust the import path as needed
+// import { MenuText } from "./MenuText"
 
-const meta: Meta<typeof MenuText> = {
-  title: 'Components/Atoms/MenuText',
-  component: MenuText,
-  parameters: {
-    docs: {
-      description: {
-        component: 'The Menutext component displays a text label for menu items.',
-      },
-    },
-    layout: 'centered',
-  }, 
-};
+// export default {
+//   title: 'Components/Atoms/MenuText',
+//   component: MenuText,
+//   tags: ['autodocs'],
+//     argTypes: {
+//         text: {
+//         control: 'text',
+//         description: 'The label for the input field',
+//         }
+//     },
+// };
 
-export default meta;
+// const Template = {
+//     args: {
+//       text: 'Text Field',
+//     },
+//     component: MenuText,
+// };
 
-type Story = StoryObj<typeof MenuText>;
- 
-export const Default: Story = {
-  args: {
-    text: 'Example Text', // Example text, adjust as needed
-  },
-};
+// export const Default = Template;
