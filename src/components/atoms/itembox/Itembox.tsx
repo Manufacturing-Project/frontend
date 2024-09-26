@@ -57,7 +57,10 @@ export const Itembox: React.FC<ItemboxProps> = ({
   const handleUpdate = async (updatedUnit: string) => {
     if (selectedUnit) {
       // Call update mutation with the selected unit and the new name
-      await updateUnit({ id: selectedUnit, unit: { unitName: updatedUnit } });
+      await updateUnit({ id: selectedUnit, unit: {
+        unitName: updatedUnit,
+        _id: undefined
+      } });
       console.log(`Updated ${selectedUnit} to ${updatedUnit}`);
       setDialogOpen(false);
     }

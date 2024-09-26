@@ -3,7 +3,7 @@ import { rawMaterialApi } from "./features/rawMaterials/rawMaterialApiSlice";
 import { unitsApi } from "./features/units/UnitsApiSlice";
 import { categoriesApi } from "./features/categories/categoriesSlice";
 import UnitSlice from "./features/units/UnitSlice"
-import RawMaterialSlice from "./features/rawMaterials/RawMaterialSlice"
+import RawMaterialSlice from "./features/rawMaterials/rawMaterialSlice"
 
 
 export const store = configureStore({

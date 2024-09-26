@@ -2,8 +2,8 @@ import React from 'react';
 import { Header } from "../../organism/header/Header";
 import { AddRawMaterial } from "../../molecules/addRawMaterial/AddRawMaterial";
 import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
-//import { useGetUnitsQuery } from '../../../features/units/unitsSlice';
 import { useGetCategoriesQuery } from '../../../features/categories/categoriesSlice';
+import { CreateUnit } from '../../../features/units/UnitModel';
 
 interface Props {
     
@@ -15,9 +15,6 @@ type Option = {
   name: string;
 };
 
-
-
-
 type Unit = {
   _id: string;
   unitName: string;
@@ -25,16 +22,16 @@ type Unit = {
 
 const AddRawMaterialPage: React.FC<Props> = (props) => {
 
-  const { data: units, error, isLoading } = useGetUnitsQuery({});
+  const { data: units, error, isLoading } = useGetUnitsQuery();
   const { data: categories } = useGetCategoriesQuery({});
 
   
   const unitOptions: Option[] = units
-    ? units.map((unit: Unit) => ({
-        id: unit._id,
-        name: unit.unitName,
-      }))
-    : [];
+      ? units.map((unit: CreateUnit) => ({
+          id: unit._id,
+          name: unit.unitName, 
+        }))
+      : [];
 
     const categoryOptions: Option[] = categories
     ? categories.map((category: any) => ({
@@ -62,7 +59,6 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
   };
 
   return (
-
     <>
        
         
@@ -71,7 +67,6 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
             unitoption={unitOptions}
             onsubmit={handleSubmit}
         />
-
     </>
   );
 };
