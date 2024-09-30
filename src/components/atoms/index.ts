@@ -1,4 +1,4 @@
-export { MenuText } from "./MenuText/MenuText";
+export { MenuText } from "./menuText/MenuText";
 
 export { ImageLeft } from "./imageLeft/ImageLeft";
 export { Icon } from "./icon/Icon";
