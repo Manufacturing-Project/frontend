@@ -68,7 +68,7 @@ const Variants: React.FC = () => {
               </Button>
             </Box>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-              <Itembox
+              {/* <Itembox
                 items={units.map((unit) => unit.unitName)} // Displaying units from MongoDB
                 backgroundColor="#f9f9f9"
                 color="#333"
@@ -76,7 +76,7 @@ const Variants: React.FC = () => {
                 height="250px"
                 rowPadding="12px"
                 onItemClick={(item) => console.log(`Clicked on ${item}`)}
-              />
+              /> */}
               <Dialog open={isDialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>Add New Variant</DialogTitle>
                 <DialogContent>

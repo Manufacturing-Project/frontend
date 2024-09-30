@@ -20,12 +20,16 @@ const Header: React.FC = () => {
         backgroundColor: theme.colors.secondary_background_color,
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
         padding: '10px 10px',
+        // position: 'fixed',
+        width: '100%'
+        
         
       }}
     >
       {/* First Row: Logo, Heading, and Search Bar */}
       <Box
         sx={{
+          
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
