@@ -1,14 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { CreateUnit } from './UnitModel'; // Import the unit model
+import { BASE_URL } from '../../constant';
 
 export const unitsApi = createApi({
   reducerPath: 'unitsApi', 
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/units' }),  // Set base URL for the API
+  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/units` }),  // Set base URL for the API
   endpoints: (builder) => ({
     // Mutation for creating a unit
     createUnit: builder.mutation<void, CreateUnit>({
       query: (unit) => ({
-        url: `/`,
+        url: ``,
         method: 'POST',
         body: unit,
       }),

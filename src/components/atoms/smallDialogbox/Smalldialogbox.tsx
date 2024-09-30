@@ -5,44 +5,36 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+
 
 export interface SmalldialogboxProps {
   open: boolean;
-  unit: string;
+  thing: string;
   onClose: () => void;
   onDelete: () => void;
-  onUpdate: (updatedUnit: string) => void;
+  onUpdate: (update: string) => void;
 }
 
 export const Smalldialogbox: React.FC<SmalldialogboxProps> = ({
   open,
-  unit,
+  thing,
   onClose,
   onDelete,
   onUpdate,
 }) => {
-  const [updatedUnit, setUpdatedUnit] = React.useState<string>(unit);
-  const [snackbarOpen, setSnackbarOpen] = React.useState<boolean>(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState<string>('');
+  const [update, setUpdate] = React.useState<string>(thing);
+  
 
   const handleUpdate = () => {
-    onUpdate(updatedUnit);
-    setSnackbarMessage('Update successful');
-    setSnackbarOpen(true);
-    onClose();
+    onUpdate(update);
+     // Show toast first
+    onClose(); // Then close the dialog
   };
 
   const handleDelete = () => {
     onDelete();
-    setSnackbarMessage('Delete successful');
-    setSnackbarOpen(true);
-    onClose();
-  };
-
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
+     // Show toast first
+    onClose(); // Then close the dialog
   };
 
   return (
@@ -56,8 +48,8 @@ export const Smalldialogbox: React.FC<SmalldialogboxProps> = ({
             label="Unit Name"
             type="text"
             fullWidth
-            value={updatedUnit}
-            onChange={(e) => setUpdatedUnit(e.target.value)}
+            value={update}
+            onChange={(e) => setUpdate(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
@@ -72,15 +64,9 @@ export const Smalldialogbox: React.FC<SmalldialogboxProps> = ({
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert onClose={handleSnackbarClose} severity="success">
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+
+      {/* Toaster should stay mounted in the DOM */}
+      
     </>
   );
 };

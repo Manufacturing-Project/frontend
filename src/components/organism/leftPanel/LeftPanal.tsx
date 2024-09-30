@@ -81,7 +81,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         alignItems:'center',
         backgroundColor: theme.colors.background_color,
         height: 'calc(100vh - 128px)', // Adjust for header height if necessary
-        width: '220px',
+        width: '250px',
       }}
     >
       {renderPanelItems()}
