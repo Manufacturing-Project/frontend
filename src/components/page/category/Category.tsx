@@ -77,7 +77,7 @@ type Option = {
             </Box>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
               <Itembox
-                items={categoryOptions.map((category) => category.name)} // Displaying categories from MongoDB
+                items={categoryOptions} // Displaying categories from MongoDB
                 backgroundColor="#f9f9f9"
                 color="#333" 
                 width="400px"
