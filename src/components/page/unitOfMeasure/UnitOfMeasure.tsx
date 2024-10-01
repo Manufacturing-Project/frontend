@@ -12,6 +12,7 @@ import { Box } from '@mui/material';
 import { setunitName } from '../../../features/units/UnitSlice'; // Redux action to update local store
 import { useCreateUnitMutation, useGetUnitsQuery, useUpdateUnitMutation, useDeleteUnitMutation } from '../../../features/units/UnitsApiSlice'; // API hooks
 import Toaster, { ToasterRef } from '../../atoms/toaster/Toaster';
+import theme from '../../theme';
 
 const UnitOfMeasure: React.FC = () => {
   const dispatch = useDispatch();
@@ -109,7 +110,7 @@ const UnitOfMeasure: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', height: '100%', padding: '20px', boxSizing: 'border-box', marginTop: '80px' }}>
+      <Box sx={{ display: 'flex', height: '100%', boxSizing: 'border-box', marginTop: '100px' , background: theme.colors.background_color  } }>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
           <h1>Unit of Measure</h1>
@@ -118,7 +119,7 @@ const UnitOfMeasure: React.FC = () => {
               <Button 
                 variant="contained" 
                 onClick={handleAddUnitClick}
-                sx={{ backgroundColor: '#4CAF50', color: '#fff' ,marginTop:'100px'}} >
+                sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}} >
                 Add New Unit
               </Button>
             </Box>
