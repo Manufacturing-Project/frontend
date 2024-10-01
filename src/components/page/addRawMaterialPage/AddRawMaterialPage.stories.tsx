@@ -1,7 +1,7 @@
 import { AddRawMaterialPage } from "./AddRawMaterialPage";
 
 export default {
-    title: "Page/AddRawMaterialPage",
+    title: "Components/Page/AddRawMaterialPage",
     component: AddRawMaterialPage,
     tags: ["autodocs", "page"],
 
