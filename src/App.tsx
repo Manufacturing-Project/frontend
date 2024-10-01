@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import { Header, LeftPanel } from './components/organism';
 import { Category } from './components/page/category/Category';
 import { Variants } from './components/page/variants/variants'; 
+import { Rawmaterial } from './components/molecules/rawmaterial/Rawmaterial';
 
 
 function App() {
@@ -38,7 +39,8 @@ function App() {
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/register/material' element={<AddRawMaterialPage />} />
-            <Route path='/setting' element={<UnitOfMeasure/>} />
+            <Route path='/manufacture/material' element={<Rawmaterial />} />
+            
             <Route path='/setting/unit' element={<UnitOfMeasure/>} />
             <Route path='/setting/category' element={<Category />} />
             <Route path='/setting/variants' element={<Variants />} />
