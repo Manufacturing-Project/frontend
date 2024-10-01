@@ -1,32 +1,51 @@
 import { AddRawMaterial } from "./AddRawMaterial";
+import { Provider } from "react-redux";
+import { store } from "../../../store"; // Adjust the path as needed
+import { Meta, Story} from '@storybook/react'; // Import StoryFn and Meta
 
 export default {
-  title: "Components/Molecules/AddRawMaterial",
-  component: AddRawMaterial,
-  tags: ["autodocs", "molecules"],
-  argsTypes: {
-    categoryOption: {
-        control: {
-            type: "select",
-            options: ["option1", "option2"],
-        },
-        },
-        unitOption: {
-        control: {
-            type: "select",
-            options: ["option1", "option2"],
-        },
-        },
-    },
-};
-
-const Template = {
-    args: {
-        categoryOption: "option1",
-        unitOption: "option1",
-    },
+    title: "Components/Molecules/AddRawMaterial",
     component: AddRawMaterial,
-    
-}
+    tags: ["autodocs", "molecules"],
+    argTypes: {
+        categoryoption: {
+            control: {
+                type: "array",
+            },
+        },
+        unitoption: {
+            control: {
+                type: "array",
+            },
+        },
+        onsubmit: { action: "submitted" },
+    },
+}  
 
-export const Default = Template;
+const Template: Story<any> = (args: any) => (
+  <Provider store={store}>
+    <AddRawMaterial {...args} />
+  </Provider>
+);
+
+export const Default = Template.bind({});
+Default.args = {
+  categoryoption: [
+    { id: "1", name: "Category 1" },
+    { id: "2", name: "Category 2" },
+  ],
+  unitoption: [
+    { id: "1", name: "Unit 1" },
+    { id: "2", name: "Unit 2" },
+  ],
+  onsubmit: (m_name: any, m_code: any, category: any, unit: any, reorderlevel: any, description: any) => {
+    console.log("Form submitted with values:", {
+      m_name,
+      m_code,
+      category,
+      unit,
+      reorderlevel,
+      description,
+    });
+  },
+};

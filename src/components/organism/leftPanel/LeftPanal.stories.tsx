@@ -6,7 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 // Meta configuration for Storybook
 const meta: Meta<typeof LeftPanel> = {
-  title: 'Organisms/LeftPanel',
+  title: 'Components/Organisms/LeftPanel',
   component: LeftPanel,
   argTypes: {
     activeItem: {
