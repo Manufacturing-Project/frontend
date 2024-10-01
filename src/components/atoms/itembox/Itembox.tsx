@@ -2,16 +2,22 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Smalldialogbox } from '../smallDialogbox/Smalldialogbox';
 import theme from '../../theme';
-import { useUpdateUnitMutation, useDeleteUnitMutation } from '../../../features/units/UnitsApiSlice'; // Import mutation hooks
-
+import { useUpdateUnitMutation, useDeleteUnitMutation  , useGetUnitsQuery} from '../../../features/units/UnitsApiSlice'; // Import mutation hooks
+import Toaster, { ToasterRef } from '../../atoms/toaster/Toaster';
+import { useRef } from 'react';
 export interface ItemboxProps {
-  items: string[];
+  items: { id: string; name: string }[];
   backgroundColor?: string;
   color?: string;
   width?: string;
   height?: string;
   rowPadding?: string;
   onItemClick?: (item: string) => void;
+}
+
+export interface CreateUnit {
+  _id?: string;
+  unitName: string;
 }
 
 export const Itembox: React.FC<ItemboxProps> = ({
@@ -26,45 +32,59 @@ export const Itembox: React.FC<ItemboxProps> = ({
   const defaultBackgroundColor = theme.colors.Itembox_background_color || '#fff';
   const defaultFontColor = theme.colors.font_color_button || '#000';
 
-  const [selectedUnit, setSelectedUnit] = React.useState<string | null>(null);
+  const [selectedUnit, setSelectedUnit] = React.useState<{ id: string; name: string } | null>(null);
   const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
+  const toasterRef = useRef<ToasterRef>(null);
+
+  const {  refetch } = useGetUnitsQuery();
 
   // Use mutation hooks for delete and update
   const [updateUnit] = useUpdateUnitMutation();
   const [deleteUnit] = useDeleteUnitMutation();
 
-  const handleItemClick = (item: string) => {
+  const handleItemClick = (item: { id: string; name: string }) => {
     setSelectedUnit(item);
     setDialogOpen(true);
     if (onItemClick) {
-      onItemClick(item);
+      onItemClick(item.name); // Ensure the onItemClick prop works if passed
     }
   };
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+    setSelectedUnit(null); // Reset selected unit
   };
 
   const handleDelete = async () => {
     if (selectedUnit) {
       // Call delete mutation with the selected unit
-      await deleteUnit(selectedUnit);
-      console.log(`Deleted ${selectedUnit}`);
+      await deleteUnit(selectedUnit.id);
+      console.log(`Deleted ${selectedUnit.name}`);
+      toasterRef.current?.showToast('Unit Deleted successfully!', 'success');
       setDialogOpen(false);
+      refetch();
+      
+
     }
   };
 
-  const handleUpdate = async (updatedUnit: string) => {
+  const handleUpdate = async (updatedUnitName: string) => {
     if (selectedUnit) {
-      // Call update mutation with the selected unit and the new name
-      await updateUnit({ id: selectedUnit, unit: {
-        unitName: updatedUnit,
-        _id: undefined
-      } });
-      console.log(`Updated ${selectedUnit} to ${updatedUnit}`);
+      // Include the _id in the unit object for update
+      await updateUnit({
+        id: selectedUnit.id,
+        unit: {
+          _id: selectedUnit.id,  // Include the _id
+          unitName: updatedUnitName,
+        },
+      }).unwrap();
+      console.log(`Updated ${selectedUnit.name} to ${updatedUnitName}`);
+      toasterRef.current?.showToast('Unit updated successfully!', 'success');
       setDialogOpen(false);
+      refetch();
     }
   };
+  
 
   return (
     <>
@@ -94,21 +114,23 @@ export const Itembox: React.FC<ItemboxProps> = ({
             }}
             onClick={() => handleItemClick(item)}
           >
-            {item}
+            {item.name}
           </Box>
         ))}
       </Box>
 
-      {/* The dialog box is rendered here */}
+    
       {selectedUnit && (
         <Smalldialogbox
           open={isDialogOpen}
-          unit={selectedUnit}
+          thing={selectedUnit.name}
           onClose={handleDialogClose}
           onDelete={handleDelete}
-          onUpdate={handleUpdate}
+          onUpdate={handleUpdate} // Pass handleUpdate to Smalldialogbox
         />
+        
       )}
+      <Toaster ref={toasterRef} duration={3000} />
     </>
   );
 };

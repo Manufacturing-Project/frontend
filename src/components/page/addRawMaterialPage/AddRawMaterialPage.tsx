@@ -8,7 +8,6 @@ interface Props {
     
 }
 
-
 type Option = {
   id: string;
   name: string;
@@ -59,8 +58,6 @@ const AddRawMaterialPage: React.FC<Props> = (props) => {
 
   return (
     <>
-       
-        
         <AddRawMaterial
             categoryoption={categoryOptions}
             unitoption={unitOptions}
