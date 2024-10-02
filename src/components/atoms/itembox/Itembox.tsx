@@ -8,7 +8,9 @@ interface Item {
   name: string;
 }
 
-interface ItemboxProps {
+
+
+export interface ItemboxProps {
   items: Item[];
   backgroundColor: string;
   color: string;

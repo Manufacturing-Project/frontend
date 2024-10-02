@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import theme from "../../theme";
 import {
   setMName,
   setMCode,
@@ -112,14 +113,10 @@ const AddRawMaterial: React.FC<Props> = ({
         flexDirection: "column",
         gap: "32px",
         padding: "16px",
-        backgroundColor: "white",
-        borderRadius: "8px",
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        width: "80%", 
-        height: "100%", 
-        marginLeft: "50px",
+        backgroundColor: theme.colors.background_color,
+        height: "100%",
         boxSizing: 'border-box' ,
-        marginTop: '120px'
+        marginTop: '100px'
       
       }}
     >
@@ -134,7 +131,8 @@ const AddRawMaterial: React.FC<Props> = ({
             placeholder="Enter Material Name"
             value={m_name}
             onChange={(e) => dispatch(setMName(e.target.value))}
-            sx={{ width: '300px' }}
+            sx={{ width: '300px'}}
+            
           />
         </Box>
         <Box>
@@ -150,7 +148,7 @@ const AddRawMaterial: React.FC<Props> = ({
 
       <Box sx={{ display: "flex", justifyContent: "start" }}>
       
-      <Box sx={{ width: "300px"  , marginRight:'180px'}}>
+      <Box sx={{ width: "300px"  , marginRight:'185px'}}>
          <FormControl fullWidth>
         <InputLabel id="category-select-label">Category</InputLabel>
           <Select
@@ -227,13 +225,16 @@ const AddRawMaterial: React.FC<Props> = ({
           variant="contained"
           color="primary"
           onClick={handleRawMaterial}
+          sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}}
         >
           Save
         </Button>
         <Button
+
           variant="contained"
           color="primary"
           onClick={() => dispatch(resetForm())}
+          sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}}
         >
           Cancel
         </Button>

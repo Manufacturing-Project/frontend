@@ -19,10 +19,11 @@ const Header: React.FC = () => {
       sx={{
         backgroundColor: theme.colors.secondary_background_color,
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-        padding: '10px 10px',
         position: 'fixed',
         width: '100%',
-        zIndex: '2'
+        zIndex: '1',
+        margin: 0,
+        
         
       }}
     >
@@ -34,7 +35,8 @@ const Header: React.FC = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '10px',
-          height: '40px' // Space between the two rows
+          height: '50px',
+       // Space between the two rows
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>

@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { useCreateCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation, useDeleteCategoryMutation } from '../../../features/categories/CategoryApiSlice'; // API hooks
 import Toaster, { ToasterRef } from '../../atoms/toaster/Toaster';
+import theme from '../../theme';
 
 const Category: React.FC = () => {
   const dispatch = useDispatch();
@@ -122,14 +123,14 @@ const Category: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', height: '100vh', padding: '20px', boxSizing: 'border-box' ,marginTop: '80px'}}>
+      <Box sx={{ display: 'flex', height: '100%' ,  boxSizing: 'border-box', marginTop: '100px' , background: theme.colors.background_color  } }>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
           <h1>Category</h1>
           <Box sx={{ display: 'flex', padding: '20px', boxSizing: 'border-box' }}>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
               <Button variant="contained" color="primary" onClick={handleAddCategoryClick}
-              sx={{ backgroundColor: '#4CAF50', color: '#fff' ,marginTop:'100px'}} >
+              sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}} >
                 Add New Category
               </Button>
             </Box>
