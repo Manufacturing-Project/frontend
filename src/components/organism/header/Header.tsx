@@ -21,7 +21,7 @@ const Header: React.FC = () => {
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
         position: 'fixed',
         width: '100%',
-        zIndex: '1',
+        zIndex: '2',
         margin: 0,
         
         
