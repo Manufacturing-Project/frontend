@@ -1,7 +1,7 @@
 import React from 'react';
 import { AddRawMaterialPage, Dashboard } from './components/page';
 import { UnitOfMeasure } from './components/page/unitOfMeasure/UnitOfMeasure';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Header, LeftPanel } from './components/organism';
 import { Category } from './components/page/category/Category';
@@ -38,15 +38,24 @@ function App() {
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/register/material' element={<AddRawMaterialPage />} />
-            <Route path='/setting' element={<UnitOfMeasure/>} />
-            <Route path='/setting/unit' element={<UnitOfMeasure/>} />
-            <Route path='/setting/category' element={<Category />} />
-            <Route path='/setting/variants' element={<Variants />} />
+            <Route path='/setting' element={<SettingLayout />}>
+              <Route path='unit' element={<UnitOfMeasure />} />
+              <Route path='category' element={<Category />} />
+              <Route path='variants' element={<Variants />} />
+            </Route>
           </Routes>
-        </Box>
+        </Box> 
       </Box>
     </Box>
 
+  );
+}
+
+function SettingLayout() {
+  return (
+    <Box>
+      <Outlet />
+    </Box>
   );
 }
 
