@@ -48,7 +48,7 @@ const Template: StoryFn<typeof Toaster> = (args) => {
 };
 
 // Story instance with default behavior
-export const Default = Template.bind({});
-Default.args = {
+export const Toasterstory = Template.bind({});
+Toasterstory.args = {
   duration: 3000,
 };

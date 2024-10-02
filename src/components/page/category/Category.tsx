@@ -123,7 +123,7 @@ const Category: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', height: '100%' ,  boxSizing: 'border-box', marginTop: '100px' , background: theme.colors.background_color  } }>
+      <Box sx={{ display: 'flex', height: '100vh' ,  boxSizing: 'border-box', marginTop: '100px' , background: theme.colors.background_color  } }>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
           <h1>Category</h1>
