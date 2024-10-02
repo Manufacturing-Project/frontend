@@ -8,6 +8,8 @@ import { Category } from './components/page/category/Category';
 import { Variants } from './components/page/variants/variants'; 
 
 
+
+
 function App() {
   const location = useLocation();
 
