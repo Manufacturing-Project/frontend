@@ -19,7 +19,9 @@ const StyledImg = styled('img')<LogoProps>(({ width, height }) => ({
   width: width || '120px',  // Default width
   height: height || 'auto', // Auto-adjust height based on the aspect ratio
   cursor: 'pointer',   
-  padding: '20px'     // Pointer cursor if the logo is clickable
+  padding: '20px',
+  marginTop: '40px'
+       // Pointer cursor if the logo is clickable
 }));
 
 const Logo: React.FC<LogoProps> = ({
