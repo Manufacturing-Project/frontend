@@ -1,7 +1,7 @@
 import { AddRawMaterial } from "./AddRawMaterial";
 import { Provider } from "react-redux";
 import { store } from "../../../store"; // Adjust the path as needed
-import { Meta, Story} from '@storybook/react'; // Import StoryFn and Meta
+import { StoryFn} from '@storybook/react'; // Import StoryFn and Meta
 
 export default {
     title: "Components/Molecules/AddRawMaterial",
@@ -22,7 +22,7 @@ export default {
     },
 }  
 
-const Template: Story<any> = (args: any) => (
+const Template: StoryFn<any> = (args: any) => (
   <Provider store={store}>
     <AddRawMaterial {...args} />
   </Provider>
