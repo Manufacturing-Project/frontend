@@ -1,60 +1,24 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
-import { LeftPanel } from './LeftPanal'; // Ensure the path is correct
-import theme from '../../theme'; // Ensure the path is correct
-import { ThemeProvider } from '@mui/material/styles';
+import { Meta, StoryFn } from '@storybook/react';
+import { LeftPanel } from './LeftPanal'; // Adjust the import path as necessary
+import { Provider } from 'react-redux';
+import store from '../../../store'; // Adjust the import path as necessary
 
-// Meta configuration for Storybook
-const meta: Meta<typeof LeftPanel> = {
-  title: 'Components/Organisms/LeftPanel',
+export default {
+  title: 'Components/Organisms/LeftPanel', // The title under which the story will be listed
   component: LeftPanel,
-  argTypes: {
-    activeItem: {
-      control: {
-        type: 'select',
-        options: ['Dashboard', 'Registration', 'Setting', 'Manufacture'],
-      },
-    },
-  },
-};
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        {/* No need for MemoryRouter here as it's already in preview.ts */}
+        <Story />
+      </Provider>
+    ),
+  ],
+} as Meta;
 
-export default meta;
+const Template: StoryFn = () => <LeftPanel />;
 
-type Story = StoryObj<typeof LeftPanel>;
-
-// Default story for the LeftPanel component
-export const Default: Story = {
-  args: {
-    activeItem: 'Registration',
-  },
-  render: (args) => (
-    <ThemeProvider theme={theme}>
-      <LeftPanel {...args} />
-    </ThemeProvider>
-  ),
-};
-
-// Story with the "Setting" item active
-export const WithSettingActive: Story = {
-  args: {
-    activeItem: 'Setting',
-  },
-  render: (args) => (
-    <ThemeProvider theme={theme}>
-      <LeftPanel {...args} />
-    </ThemeProvider>
-  ),
-};
-
-// Story with the "Manufacture" item active
-export const WithManufactureActive: Story = {
-  args: {
-    activeItem: 'Manufacture',
-  },
-  render: (args) => (
-    <ThemeProvider theme={theme}>
-      <LeftPanel {...args} />
-    </ThemeProvider>
-  ),
-};
-
+// You can create multiple stories if needed
+export const Panel = Template.bind({});
+Panel.args = {};
