@@ -1,13 +1,25 @@
-import { Box, Switch, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Switch, Typography, TextField, Button } from "@mui/material";
+import React, { useEffect } from "react";
+import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialApiSlice';
+import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import theme from "../../theme";
 import {
-  CustomButton,
-  InputSelectField,
-  InputTextField,
-  TextareaField,
-} from "../../atoms";
-import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialSlice';
-import { CreateRawMaterial } from "../../../models/rawMaterialModel";
+  setMName,
+  setMCode,
+  setCategory,
+  setUnit,
+  setReorderLevel,
+  setDescription,
+  setIsCodeValid,
+  setHasVariants,
+  resetForm,
+} from "../../../features/rawMaterials/rawMaterialSlice";
 
 interface Option {
   id: string;
@@ -32,14 +44,8 @@ const AddRawMaterial: React.FC<Props> = ({
   unitoption,
   onsubmit,
 }) => {
-  const [m_name, setM_name] = useState<string>("");
-  const [m_code, setM_code] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [unit, setUnit] = useState<string>("");
-  const [reorderlevel, setReorderlevel] = useState<number>(0);
-  const [description, setDescription] = useState<string>("");
-  const [isCodeValid, setIsCodeValid] = useState<boolean>(true);
-  const [hasVariants, setHasVariants] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const { m_name, m_code, category, unit, reorderlevel, description, isCodeValid, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
 
   const [triggerGenerateCode, { data, isLoading, error }] = useLazyGenerateMaterialCodeQuery();
   const [triggerCheckCode, { data: codeAvailabilityData }] = useLazyCheckMaterialCodeAvailabilityQuery();
@@ -55,17 +61,16 @@ const AddRawMaterial: React.FC<Props> = ({
   
     return () => clearTimeout(delayDebounceFn);
   }, [m_name, triggerGenerateCode]);
-  
 
   useEffect(() => {
     if (data) {
       console.log('API Response:', data);
-      setM_code(data.materialCode);
+      dispatch(setMCode(data.materialCode));
     } else {
       console.log('No data received');
     }
   }, [data]);
-  
+
   useEffect(() => {
     if (m_code) {
       const delayDebounceFn = setTimeout(() => {
@@ -77,10 +82,9 @@ const AddRawMaterial: React.FC<Props> = ({
 
   useEffect(() => {
     if (codeAvailabilityData) {
-      setIsCodeValid(codeAvailabilityData.available);
+      dispatch(setIsCodeValid(codeAvailabilityData.available));
     }
   }, [codeAvailabilityData]);
-
 
   const handleRawMaterial = async () => {
     const material: CreateRawMaterial = {
@@ -102,7 +106,6 @@ const AddRawMaterial: React.FC<Props> = ({
     } 
   };
 
-
   return (
     <Box
       sx={{
@@ -110,126 +113,131 @@ const AddRawMaterial: React.FC<Props> = ({
         flexDirection: "column",
         gap: "32px",
         padding: "16px",
-        backgroundColor: "white",
-        borderRadius: "8px",
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        width: "70%", // Adjust this width according to right panel needs
-        height: "100%", // Adjust this height to align with the header and left panel
+        backgroundColor: theme.colors.background_color,
+        height: "100%",
+        boxSizing: 'border-box' ,
+        marginTop: '100px'
+      
       }}
     >
-      {/* Header */}
       <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <Typography variant="h4">Add Raw Material</Typography>
       </Box>
 
-      {/* First row */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "start",
-        }}
-      >
-        <Box
-          sx={{
-            marginRight: "185px",
-          }}
-        >
-          <InputTextField
+      <Box sx={{ display: "flex", justifyContent: "start" }}>
+        <Box sx={{ marginRight: "185px" }}>
+          <TextField
             label="Material Name"
-            textPlaceholder="Enter Material Name"
+            placeholder="Enter Material Name"
             value={m_name}
-            onchange={(e) => setM_name(e.target.value)}
-          /> 
+            onChange={(e) => dispatch(setMName(e.target.value))}
+            sx={{ width: '300px'}}
+            
+          />
         </Box>
         <Box>
-          <InputTextField
+          <TextField
             label="Material Code"
-            textPlaceholder="Enter Material Code"
+            placeholder="Enter Material Code"
             value={m_code}
-            onchange={(e) => setM_code(e.target.value)}
-            width="300px"
+            onChange={(e) => dispatch(setMCode(e.target.value))}
+            sx={{ width: '300px' }}
           />
         </Box>
       </Box>
 
-      {/* Second row */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "start",
-        }}
-      >
-        <Box
-          sx={{
-            marginRight: "185px",
-          }}
-        >
-          <InputSelectField
-            label="Category"
-            options={categoryoption}
+      <Box sx={{ display: "flex", justifyContent: "start" }}>
+      
+      <Box sx={{ width: "300px"  , marginRight:'185px'}}>
+         <FormControl fullWidth>
+        <InputLabel id="category-select-label">Category</InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
             value={category}
-            onChange={(e) => setCategory(e.target.value as string)}
-          />
-        </Box>
-        <Box>
-          <InputSelectField
-            label="Unit"
-            options={unitoption}
-            value={unit}
-            onChange={(e) => setUnit(e.target.value as string)}
-          />
-        </Box>
+            label="Category"
+            onChange={(e) => dispatch(setCategory(e.target.value))}
+              >
+          {categoryoption.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.name}
+            </MenuItem>
+          ))}
+       </Select>
+         </FormControl>
+       </Box>
+        
+       <Box sx={{ width: "300px" }}>
+       <FormControl fullWidth>
+        <InputLabel id="unit-select-label">Unit</InputLabel>
+        <Select
+          labelId="unit-select-label"
+          id="unit-select"
+          value={unit}
+          label="Unit"
+          onChange={(e) => dispatch(setUnit(e.target.value))}
+        >
+          {unitoption.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </Select>
+       </FormControl>
+      </Box>
       </Box>
 
-      {/* Reorder Level */}
       <Box>
-        <InputTextField
-          label="Re-Order Level"
-          textPlaceholder="Enter Re-Order Level"
-          value={reorderlevel}
-          onchange={(e) => setReorderlevel(Number(e.target.value) || 0)}
-          width="300px"
+      <TextField
+        label="Re-Order Level"
+        placeholder="Enter Re-Order Level"
+        value={reorderlevel}
+        onChange={(e) => dispatch(setReorderLevel(Number(e.target.value)))}
+        type="number"
+        sx={{ width: '300px' }}  // Adjust the width as needed
+/>
+
+      </Box>
+
+      <Box>
+        <TextField
+          label="Description"
+          placeholder="Enter Description"
+          multiline
+          rows={4}
+          value={description}
+          onChange={(e) => dispatch(setDescription(e.target.value))}
+          fullWidth
+          sx={{ width: '600px' }}
         />
       </Box>
- 
-      {/* Description */}
-      <Box>
-        <TextareaField
-          label="Description"
-          ariaLabel="Description" 
-          placeholder="Enter Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        /> 
-      </Box>
 
-      {/* This material has variants */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          marginBottom: "20px",
-        }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
         <Typography>This material has variants</Typography>
         <Switch
           checked={hasVariants}
-          onChange={(e) => setHasVariants(e.target.checked)}
+          onChange={(e) => dispatch(setHasVariants(e.target.checked))}
         />
       </Box>
 
-      {/* Buttons */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "end",
-          gap: "16px",
-        }}
-      >
-        <CustomButton primary label="Save" onClick={handleRawMaterial} />
-        <CustomButton primary label="Cancel" />
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "end", gap: "16px" , marginRight:"80px" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleRawMaterial}
+          sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}}
+        >
+          Save
+        </Button>
+        <Button
+
+          variant="contained"
+          color="primary"
+          onClick={() => dispatch(resetForm())}
+          sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}}
+        >
+          Cancel
+        </Button>
       </Box>
     </Box>
   );

@@ -4,8 +4,8 @@ import { MenuBar } from '../../molecules'; // Adjust the import path as needed
 import { SearchBar } from '../../atoms'; // Adjust the import path as needed
 import theme from '../../theme';
 import { Logo } from '../../atoms/logo/Logo';
-import { ProfilePhoto } from '../../atoms/profilePhoto/ProfilePhoto';
 import ProfileIcon from '../../../assets/user.png';
+import {Avatar} from '@mui/material';
 
 const Header: React.FC = () => {
   const searchOptions = ['Dashboard', 'Registration', 'Manufacture', 'Setting']; // Example options
@@ -19,18 +19,24 @@ const Header: React.FC = () => {
       sx={{
         backgroundColor: theme.colors.secondary_background_color,
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-        padding: '10px 10px',
+        position: 'fixed',
+        width: '100%',
+        zIndex: '2',
+        margin: 0,
+        
         
       }}
     >
       {/* First Row: Logo, Heading, and Search Bar */}
       <Box
         sx={{
+          
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '10px',
-          height: '40px' // Space between the two rows
+          height: '50px',
+       // Space between the two rows
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -46,7 +52,11 @@ const Header: React.FC = () => {
           </Typography>
         </Box>
         <SearchBar options={searchOptions} label="Search..." onChange={handleSearchChange} />
-           <ProfilePhoto alt={''} src={ProfileIcon} />
+        <Avatar
+        alt="Remy Sharp"
+        src={ProfileIcon}
+        sx={{ width: 56, height: 56 , marginRight: '40px' , marginTop: '20px'}}
+      />
       </Box>
 
       {/* Second Row: Menu Bar */}

@@ -1,9 +1,13 @@
 import React from 'react';
 import { AddRawMaterialPage, Dashboard } from './components/page';
 import { UnitOfMeasure } from './components/page/unitOfMeasure/UnitOfMeasure';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Header, LeftPanel } from './components/organism';
+import { Category } from './components/page/category/Category';
+import { Variants } from './components/page/variants/variants'; 
+
+
 
 
 function App() {
@@ -19,7 +23,10 @@ function App() {
       <Box sx={{ display: 'flex' }}>
      
       {showLeftPanel && (
-          <Box sx={{ width: '290px' }}>
+          <Box sx={{ 
+            width: '290px' ,
+            position: 'relative',
+          }}>
             <LeftPanel />
           </Box>
         )}
@@ -33,11 +40,24 @@ function App() {
           <Routes>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/register/material' element={<AddRawMaterialPage />} />
+            <Route path='/setting' element={<SettingLayout />}>
+              <Route path='unit' element={<UnitOfMeasure />} />
+              <Route path='category' element={<Category />} />
+              <Route path='variants' element={<Variants />} />
+            </Route>
           </Routes>
-        </Box>
+        </Box> 
       </Box>
     </Box>
 
+  );
+}
+
+function SettingLayout() {
+  return (
+    <Box>
+      <Outlet />
+    </Box>
   );
 }
 

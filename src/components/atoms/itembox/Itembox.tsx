@@ -1,98 +1,110 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { Smalldialogbox } from '../smallDialogbox/Smalldialogbox';
-import theme from '../../theme';
+import React from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export interface ItemboxProps {
-  items: string[];
-  backgroundColor?: string;
-  color?: string;
-  width?: string;
-  height?: string;
-  rowPadding?: string;
-  onItemClick?: (item: string) => void;
+interface Item {
+  id: string;
+  name: string;
 }
 
-export const Itembox: React.FC<ItemboxProps> = ({
+
+
+export interface ItemboxProps {
+  items: Item[];
+  backgroundColor: string;
+  color: string;
+  width: string;
+  height: string;
+  rowPadding: string;
+  onUpdate: (id: string, updatedName: string) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
+}
+
+const Itembox: React.FC<ItemboxProps> = ({
   items,
   backgroundColor,
   color,
-  width = '300px',
-  height = '200px',
-  rowPadding = '10px',
-  onItemClick,
+  width,
+  height,
+  rowPadding,
+  onUpdate,
+  onDelete,
 }) => {
-  const defaultBackgroundColor = theme.colors.Itembox_background_color || '#fff';
-  const defaultFontColor = theme.colors.font_color_button || '#000';
+  const [editItemId, setEditItemId] = React.useState<string | null>(null);
+  const [editItemName, setEditItemName] = React.useState<string>('');
 
-  const [selectedUnit, setSelectedUnit] = React.useState<string | null>(null);
-  const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
+  const handleEditClick = (item: Item) => {
+    setEditItemId(item.id);
+    setEditItemName(item.name);
+  };
 
-  const handleItemClick = (item: string) => {
-    setSelectedUnit(item);
-    setDialogOpen(true);
-    if (onItemClick) {
-      onItemClick(item);
+  const handleUpdate = async (item: Item) => {
+    if (editItemName.trim()) {
+      await onUpdate(item.id, editItemName.trim());
+      setEditItemId(null);
+      setEditItemName('');
     }
   };
 
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
-
-  const handleDelete = () => {
-    console.log(`Deleted ${selectedUnit}`);
-    setDialogOpen(false);
-  };
-
-  const handleUpdate = (updatedUnit: string) => {
-    console.log(`Updated ${selectedUnit} to ${updatedUnit}`);
-    setDialogOpen(false);
+  const handleDeleteClick = async (item: Item) => {
+    await onDelete(item.id);
   };
 
   return (
-    <>
-      <Box
-        sx={{
-          backgroundColor: backgroundColor || defaultBackgroundColor,
-          color: color || defaultFontColor,
-          borderRadius: '4px',
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-          width: width,
-          height: height,
-          overflowY: 'auto',
-          padding: '10px',
-          border: `1px solid ${theme.colors.button_background_Logout || '#ccc'}`,
-        }}
-      >
-        {items.map((item, index) => (
-          <Box
-            key={index}
-            sx={{
-              padding: rowPadding,
-              borderBottom: `1px solid ${theme.colors.button_background_Logout || '#eee'}`,
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: theme.colors.button_background_Logout || '#f1f1f1',
-              },
-            }}
-            onClick={() => handleItemClick(item)}
-          >
-            {item}
-          </Box>
-        ))}
-      </Box>
-
-      {/* The dialog box is rendered here, separate from the ScrollBox */}
-      {selectedUnit && (
-        <Smalldialogbox
-          open={isDialogOpen}
-          unit={selectedUnit}
-          onClose={handleDialogClose}
-          onDelete={handleDelete}
-          onUpdate={handleUpdate}
-        />
-      )}
-    </>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor,
+        color,
+        width,
+        height,
+        padding: rowPadding,
+        overflowY: 'auto',
+      }}
+    >
+      {items.map((item) => (
+        <Box
+          key={item.id}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '8px',
+            borderBottom: '1px solid #ccc',
+          }}
+        >
+          {editItemId === item.id ? (
+            <>
+              <input
+                type="text"
+                value={editItemName}
+                onChange={(e) => setEditItemName(e.target.value)}
+                placeholder="Edit item name"
+              />
+              <Button onClick={() => handleUpdate(item)}>
+                Save
+              </Button>
+              <Button onClick={() => setEditItemId(null)}>Cancel</Button>
+            </>
+          ) : (
+            <>
+              <Typography sx={{ fontSize: '20px' }}>{item.name}</Typography> {/* Change the font size here */}
+              <Box>
+                <Button onClick={() => handleEditClick(item)}>
+                  <EditIcon />
+                </Button>
+                <Button onClick={() => handleDeleteClick(item)}>
+                  <DeleteIcon />
+                </Button>
+              </Box>
+            </>
+          )}
+        </Box>
+      ))}
+    </Box>
   );
 };
+
+export { Itembox };

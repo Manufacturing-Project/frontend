@@ -36,6 +36,7 @@ const RightPanel: React.FC<RightPanelProps> = ({
         backgroundColor: "#f4f6f8",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         borderRadius: "8px",
+        
       }}
     >
       <AddRawMaterial
