@@ -97,7 +97,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         left: '0',
         display: 'flex',
         flexDirection: 'column',
-        padding: '20px',
+        padding: '40px',
         alignItems: 'center',
         backgroundColor: theme.colors.background_color,
         height: 'calc(100vh - 128px)',
