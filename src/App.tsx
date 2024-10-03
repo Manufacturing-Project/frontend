@@ -41,13 +41,14 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/register/material' element={<AddRawMaterialPage />} />
             <Route path='/setting' element={<SettingLayout />}>
+            <Route index element={<Navigate to="unit" />} />
               <Route path='unit' element={<UnitOfMeasure />} />
               <Route path='category' element={<Category />} />
               <Route path='variants' element={<Variants />} />
               <Route index element={<Navigate to="unit" />} />
             </Route>
           </Routes>
-        </Box> 
+        </Box>  
       </Box>
     </Box>
 
@@ -55,6 +56,14 @@ function App() {
 }
 
 function SettingLayout() {
+  return (
+    <Box>
+      <Outlet />
+    </Box>
+  );
+}
+
+function RegisterationLayout() {
   return (
     <Box>
       <Outlet />
