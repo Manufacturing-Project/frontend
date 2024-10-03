@@ -1,27 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { UnitOfMeasure } from './UnitOfMeasure'; // Adjust the import path as needed
-import { Provider } from 'react-redux';
-import { store } from '../../../store'; // Adjust the import path as needed
-import { Meta, StoryFn } from '@storybook/react'; // Import Meta and Story types
+import { UnitOfMeasure } from './UnitOfMeasure'; 
+import { StoryFn } from '@storybook/react'; 
 
 
 export default {
   title: 'Components/page/UnitOfMeasure', // Change the title as appropriate
   component: UnitOfMeasure,
-} as Meta;
+  tags: ['autodocs', 'unit'],
+  argTypes: {
+    units: {
+      control: {
+        type: 'object',
+      },
+    },
+  },
+  }
 
-// Define the Redux provider wrapper
-const ReduxProvider = ({ children }: { children: React.ReactNode }) => {
-  return <Provider store={store}>{children}</Provider>;
-};
-
-// Template type definition
-const Template: StoryFn<{ units: { id: string; name: string }[] }> = (arg) => (
-  <ReduxProvider>
-    <UnitOfMeasure />
-  </ReduxProvider>  
-);
+  const Template: StoryFn = (args) => <UnitOfMeasure {...args} />;
 
 // Sample data for the Itembox
 const sampleUnits = [
