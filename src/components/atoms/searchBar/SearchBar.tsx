@@ -14,7 +14,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ options, label, onChange }): JSX.Element => {
   return (
-    <Stack spacing={2} sx={{ width: 400, borderRadius: '28px', height: '45px', backgroundColor: theme.colors.searchbar_color }}>
+    <Stack spacing={2} sx={{ width: 400,justifyContent: "center",paddingLeft: '5px',paddingRight: '5px', borderRadius: '28px', height: '45px', backgroundColor: theme.colors.searchbar_color }}>
       <Autocomplete
         freeSolo
         id="free-solo-search-bar"
@@ -24,7 +24,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ options, label, onChange }): JSX.
         renderInput={(params) => (
           <TextField
             {...params}
-            label={label}
+            //label={label}
+           placeholder={label}
+
             variant="outlined"
             sx={{
               '& .MuiOutlinedInput-root': {
@@ -54,7 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ options, label, onChange }): JSX.
                 <>
                   {params.InputProps.endAdornment}
                   <InputAdornment position="end">
-                    <SearchIcon />
+                    <SearchIcon htmlColor="color: theme.colors.font_color_button" />
                   </InputAdornment>
                 </>
               ),
