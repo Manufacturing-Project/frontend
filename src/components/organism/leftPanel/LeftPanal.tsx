@@ -6,89 +6,68 @@ import DashboardIcon from '@mui/icons-material/Dashboard'; // MUI Dashboard icon
 import AssignmentIcon from '@mui/icons-material/Assignment'; // MUI Assignment icon for Registration
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // MUI ShoppingCart icon for Purchase
 import SettingsIcon from '@mui/icons-material/Settings'; // MUI Settings icon
- 
+
 interface LeftPanelProps {}
- 
+
 const LeftPanel: React.FC<LeftPanelProps> = () => {
   const location = useLocation();
- 
+
   const getPathName = () => {
     const path = location.pathname.split('/')[1];
     return path.charAt(0).toUpperCase() + path.slice(1);
   };
- 
+
   const activeItem = getPathName();
- 
+
   const renderPanelItems = () => {
+    const items = [];
+
     switch (activeItem) {
       case 'Register':
-        return (
-          <>
-            <ListItem  component="a" href="/register/product">
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Product Registration" />
-            </ListItem>
-            <ListItem  component="a" href="/register/material">
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Raw Material Registration" />
-            </ListItem>
-          </>
+        items.push(
+          { href: "/register/material", icon: <DashboardIcon />, text: "Raw Material" },
+          { href: "/register/product", icon: <AssignmentIcon />, text: "Products" }
         );
+        break;
       case 'Setting':
-        return (
-          <>
-            <ListItem  component="a" href="/setting/unit">
-              <ListItemIcon>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Unit of Measure" />
-            </ListItem>
-            <ListItem  component="a" href="/setting/category">
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Category" />
-            </ListItem>
-            <ListItem  component="a" href="/setting/supplier">
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Supplier Information" />
-            </ListItem>
-            <ListItem  component="a" href="/setting/variants">
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Variants" />
-            </ListItem>
-          </>
+        items.push(
+          { href: "/setting/unit", icon: <SettingsIcon />, text: "Unit of Measure" },
+          { href: "/setting/category", icon: <DashboardIcon />, text: "Category" },
+          { href: "/setting/supplier", icon: <ShoppingCartIcon />, text: "Supplier Information" },
+          { href: "/setting/variants", icon: <ShoppingCartIcon />, text: "Variants" }
         );
+        break;
       case 'Manufacture':
-        return (
-          <>
-            <ListItem  component="a" href="/manufacture/material">
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Raw Material" />
-            </ListItem>
-            <ListItem  component="a" href="/manufacture/purchase">
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Purchase History" />
-            </ListItem>
-          </>
+        items.push(
+          { href: "/manufacture/material", icon: <AssignmentIcon />, text: "Add Raw Material" },
+          { href: "/manufacture/purchase", icon: <AssignmentIcon />, text: "Purchase History" }
         );
+        break;
       default:
         return null; // No left panel for "Dashboard"
     }
+
+    return items.map((item) => (
+      <ListItem
+        key={item.text}
+        component="a"
+        href={item.href}
+        sx={{
+          backgroundColor: location.pathname === item.href ? theme.colors.font_placeholder : 'transparent', // Highlight if active
+          '&:hover': {
+            backgroundColor: theme.colors.button_background_Logout, // Highlight on hover
+          },
+          transition: 'background-color 0.3s', // Smooth transition
+        }}
+      >
+        <ListItemIcon>
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText primary={item.text} />
+      </ListItem>
+    ));
   };
- 
+
   return (
     <Box
       sx={{
@@ -97,7 +76,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         left: '0',
         display: 'flex',
         flexDirection: 'column',
-        padding: '20px',
+        padding: '40px',
         alignItems: 'center',
         backgroundColor: theme.colors.background_color,
         height: 'calc(100vh - 128px)',
@@ -137,5 +116,5 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
     </Box>
   );
 };
- 
+
 export { LeftPanel };
