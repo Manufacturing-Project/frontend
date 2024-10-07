@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { MenuBar } from '../../molecules'; // Adjust the import path as needed
-import { SearchBar } from '../../atoms'; // Adjust the import path as needed
+import { SearchBar } from '../../molecules'; // Adjust the import path as needed
 import theme from '../../theme';
 import { Logo } from '../../atoms/logo/Logo';
 import ProfileIcon from '../../../assets/user.png';
