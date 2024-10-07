@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 // Meta export to provide Storybook with component metadata
 export default {
-  title: 'Components/Atoms/Toaster', // Title for the Storybook sidebar
+  title: 'Components/Molecules/Toaster', // Title for the Storybook sidebar
   component: Toaster,          // The actual component being used
   argTypes: {
     duration: {
@@ -20,7 +20,7 @@ export default {
 const Template: StoryFn<typeof Toaster> = (args) => {
   const toasterRef = useRef<ToasterRef>(null);
 
-  const handleShowToast = (type: 'success' | 'error' | 'info' | 'warning') => {
+  const handleShowToast = (type: 'success' | 'error'  | 'warning') => {
     if (toasterRef.current) {
       toasterRef.current.showToast(`This is a ${type} message!`, type);
     }
@@ -33,9 +33,6 @@ const Template: StoryFn<typeof Toaster> = (args) => {
       </Button>
       <Button variant="contained" color="error" onClick={() => handleShowToast('error')} style={{ marginLeft: '10px' }}>
         Show Error Toast
-      </Button>
-      <Button variant="contained" color="info" onClick={() => handleShowToast('info')} style={{ marginLeft: '10px' }}>
-        Show Info Toast
       </Button>
       <Button variant="contained" color="warning" onClick={() => handleShowToast('warning')} style={{ marginLeft: '10px' }}>
         Show Warning Toast

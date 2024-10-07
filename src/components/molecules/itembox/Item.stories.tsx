@@ -5,7 +5,7 @@ import { store } from '../../../store'; // Adjust the import path as needed
 import { Meta, StoryFn } from '@storybook/react'; // Import Meta and StoryFn types
 
 export default {
-  title: 'Components/Atoms/Itembox', // Title for the Storybook UI
+  title: 'Components/Molecules/Itembox', // Title for the Storybook UI
   component: Itembox,
 } as Meta;
 
