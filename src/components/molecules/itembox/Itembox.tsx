@@ -19,6 +19,7 @@ export interface ItemboxProps {
   rowPadding: string;
   onUpdate: (id: string, updatedName: string) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
+  boxShadow?: string;
 }
 
 const Itembox: React.FC<ItemboxProps> = ({
@@ -30,6 +31,7 @@ const Itembox: React.FC<ItemboxProps> = ({
   rowPadding,
   onUpdate,
   onDelete,
+  boxShadow
 }) => {
   const [editItemId, setEditItemId] = React.useState<string | null>(null);
   const [editItemName, setEditItemName] = React.useState<string>('');
@@ -62,6 +64,7 @@ const Itembox: React.FC<ItemboxProps> = ({
         height,
         padding: rowPadding,
         overflowY: 'auto',
+        boxShadow: boxShadow || 'none',
       }}
     >
       {items.map((item) => (
