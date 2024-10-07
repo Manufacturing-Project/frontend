@@ -7,62 +7,64 @@ import SearchIcon from '@mui/icons-material/Search';
 import theme from '../../theme';
 
 interface SearchBarProps {
-  options: string[]; 
+  options: string[];
+  label: string;
   onChange: (event: React.SyntheticEvent, value: string | null) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ options, onChange }): JSX.Element => {
+const SearchBar: React.FC<SearchBarProps> = ({ options, label, onChange }): JSX.Element => {
   return (
-    <><Stack
-           spacing={2} sx={{ width: 400, justifyContent: "center", paddingLeft: '5px', paddingRight: '5px', borderRadius: '28px', height: '45px', backgroundColor: theme.colors.searchbar_color }}>
+    <Stack spacing={2} sx={{ width: 400,justifyContent: "center",paddingLeft: '5px',paddingRight: '5px', borderRadius: '28px', height: '45px', backgroundColor: theme.colors.searchbar_color }}>
+      <Autocomplete
+        freeSolo
+        id="free-solo-search-bar"
+        disableClearable
+        options={options}
+        onChange={onChange}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            //label={label}
+           placeholder={label}
 
-              <Autocomplete
-                  freeSolo
-                  id="free-solo-search-bar"
-                  disableClearable
-                  options={options}
-                  onChange={onChange}
-                  renderInput={(params) => (
-                      <TextField
-                          {...params}
-
-                          variant="outlined"
-                          sx={{
-                              '& .MuiOutlinedInput-root': {
-                                  '& fieldset': {
-                                      borderColor: 'transparent', // Remove the border
-                                  },
-                                  '&:hover fieldset': {
-                                      borderColor: 'transparent', // Remove the border on hover
-                                  },
-                                  '&.Mui-focused fieldset': {
-                                      borderColor: 'transparent', // Remove the border when focused
-                                  },
-                              },
-                              '& .MuiInputLabel-root': {
-                                  color: theme.colors.font_searchbar, // Placeholder color
-                              },
-                              '& .MuiInputBase-input': {
-                                  padding: '6px', // Adjust padding
-                                  '::placeholder': {
-                                      color: theme.colors.font_searchbar, // Custom placeholder color
-                                      opacity: 1, // Ensure full opacity for the placeholder
-                                  },
-                              },
-                              color: theme.colors.font_searchbar
-                          }}
-                          InputProps={{
-                              ...params.InputProps,
-                              type: 'search',
-
-                              placeholder: 'Search ...',
-                              startAdornment: ( // This adds the search icon at the beginning
-                                  <InputAdornment position="start">
-                                      <SearchIcon sx={{ color: theme.colors.font_searchbar }} />
-                                  </InputAdornment>)
-                          }} />
-                  )} />
-          </Stack></>
+            variant="outlined"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'transparent', // Remove the border
+                },
+                '&:hover fieldset': {
+                  borderColor: 'transparent', // Remove the border on hover
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'transparent', // Remove the border when focused
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: theme.colors.font_color_button, // Use your theme's placeholder color
+              },
+              '& .MuiInputBase-input': {
+                padding: '8px',
+             // Adjust padding to fit your design
+              },
+            
+            }}
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+              endAdornment: (
+                <>
+                  {params.InputProps.endAdornment}
+                  <InputAdornment position="end">
+                    <SearchIcon htmlColor="color: theme.colors.font_color_button" />
+                  </InputAdornment>
+                </>
+              ),
+            }}
+          />
+        )}
+      />
+    </Stack>
   );
 };
 

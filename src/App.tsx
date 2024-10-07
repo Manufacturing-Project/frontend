@@ -1,39 +1,32 @@
 import React from 'react';
-import { AddRawMaterialPage, Dashboard } from './components/page';
-import { UnitOfMeasure } from './components/page/unitOfMeasure/UnitOfMeasure';
+import { AddRawMaterialPage, Dashboard, Header, LeftPanel, Category, Variants, UnitOfMeasure } from './components/organism';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { Header, LeftPanel } from './components/organism';
-import { Category } from './components/page/category/Category';
-import { Variants } from './components/page/variants/variants'; 
-
-
-
-
+import { Box } from '@mui/material'; 
+ 
 function App() {
   const location = useLocation();
-
+ 
   const noLeftPanelPaths = ['/dashboard'];
   const showLeftPanel = !noLeftPanelPaths.includes(location.pathname);
-
-
+ 
+ 
   return (
-    <Box> 
+    <Box>
       <Header />
       <Box sx={{ display: 'flex' }}>
      
       {showLeftPanel && (
-          <Box sx={{ 
+          <Box sx={{
             width: '290px' ,
             position: 'relative', 
           }}>
             <LeftPanel />
           </Box>
         )}
-      
+     
         <Box
         sx={{
-          width: showLeftPanel ? 'calc(100% - 290px)' : '100%', 
+          width: showLeftPanel ? 'calc(100% - 290px)' : '100%',
           padding: '20px',
         }}
         >
@@ -53,10 +46,10 @@ function App() {
         </Box>  
       </Box>
     </Box>
-
+ 
   );
 }
-
+ 
 function SettingLayout() {
   return (
     <Box>
@@ -64,7 +57,7 @@ function SettingLayout() {
     </Box>
   );
 }
-
+ 
 function RegisterationLayout() {
   return (
     <Box>
@@ -72,5 +65,5 @@ function RegisterationLayout() {
     </Box>
   );
 }
-
+ 
 export default App;
