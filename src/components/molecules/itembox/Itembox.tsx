@@ -86,14 +86,16 @@ const Itembox: React.FC<ItemboxProps> = ({
                 onChange={(e) => setEditItemName(e.target.value)}
                 placeholder="Edit item name"
               />
-              <Button onClick={() => handleUpdate(item)}>
+              
+              <Button sx ={{marginLeft: '600px'}} onClick={() => handleUpdate(item)}>
                 Save
               </Button>
               <Button onClick={() => setEditItemId(null)}>Cancel</Button>
+              
             </>
           ) : (
             <>
-              <Typography sx={{ fontSize: '20px' }}>{item.name}</Typography> {/* Change the font size here */}
+              <Typography sx={{ fontSize: '20px' }}>{item.name}</Typography> 
               <Box>
                 <Button onClick={() => handleEditClick(item)}>
                   <EditIcon sx={{color: theme.colors.button_background_Logout}}/>

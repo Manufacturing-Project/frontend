@@ -37,7 +37,11 @@ export const colors = {
 
    Itembox_background_color: '#D9D9D9',
 
-   menuitem_active_backgroundcolor: '#08B1BA'
+   menuitem_active_backgroundcolor: '#08B1BA',
+
+   alert_success: '#2E7D32',
+   alert_error: '#D32F2F',
+   alert_warning: '#EF6C00',
 };
 
 export const font = {

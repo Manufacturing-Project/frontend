@@ -1,7 +1,7 @@
-import {SearchBar}  from './SearchBar';
+import {SearchBar}  from './Searchbar';
 
 export default {
-  title: 'Components/Atoms/SearchBar',
+  title: 'Components/Molecules/SearchBar',
   component: SearchBar,
   tags: ['autodocs'],
   argTypes: {

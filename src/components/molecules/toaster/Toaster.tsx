@@ -1,8 +1,9 @@
 // Toaster.tsx
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import { Snackbar, Alert, AlertColor } from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
+import theme from '../../theme';
 
-type ToastType = AlertColor; // 'success' | 'error' | 'info' | 'warning'
+type ToastType = 'success' | 'error' | 'warning';
 
 interface ToasterProps {
   duration?: number;
@@ -17,8 +18,8 @@ const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) 
   const [message, setMessage] = useState('');
   const [type, setType] = useState<ToastType>('success');
 
-  const handleShowToast = (msg: string, toastType: ToastType) => {
-    setMessage(msg);
+  const handleShowToast = (message: string, toastType: ToastType) => {
+    setMessage(message);
     setType(toastType);
     setOpen(true);
   };
@@ -31,6 +32,19 @@ const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) 
     showToast: handleShowToast,
   }));
 
+  const getCustomColor = (toastType: ToastType) => {
+    switch (toastType) {
+      case 'error':
+        return theme.colors.alert_error; 
+      case 'success':
+        return theme.colors.alert_success; 
+      case 'warning':
+        return theme.colors.alert_warning; 
+      default:
+        return ''; 
+    }
+  };
+
   return (
     <Snackbar
       open={open}
@@ -38,8 +52,16 @@ const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) 
       onClose={handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
-      <Alert onClose={handleClose} severity={type} sx={{ width: '400px'}}>
-        {message}
+      <Alert
+        onClose={handleClose}
+        severity={type}
+        sx={{
+          width: '400px',
+          backgroundColor: getCustomColor(type) || undefined,
+          color: theme.colors.secondary_background_color, 
+        }}
+      >
+        {message} 
       </Alert>
     </Snackbar>
   );
