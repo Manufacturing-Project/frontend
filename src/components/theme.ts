@@ -1,12 +1,16 @@
 import { createTheme } from '@mui/material/styles';
 // Define your custom colors
 export const colors = {
+
+  primary_color_green:'#08B1BA',
+  secondary_color_yellow:'#FFEC40',
+  font_color_textfeild: '#000000',
+  secondary_background_color: '#FFFFFF',
+  border_color_grey:'#757575',
+
     background_color: '#ECECFC',
-
-    secondary_background_color: '#FFFFFF',
-
-    font_color_h1: '#101540',
-    font_color_textfeild: '#000000',
+    font_color_h1: '#08B1BA',
+    font_color2_h1: '#FFEC40',
     font_color_button: '#FFFFFF',
     font_color_logout: '#273A34',
     font_color_nextpre: '#9E9E9E',
@@ -14,22 +18,16 @@ export const colors = {
     font_color_orange: '#CD6200',
     font_color_red: '#A30D11',
     font_placeholder: '#767474',
-    
-
     table_color_evenrow: '#F7F6FE',
     table_color_oddrow: '#FFFFFF',
     table_color_greenbackground: '#EBF9F1',
     table_color3_orangebackground: '#FEF2E5',
     table_color4_redbackground: '#FBE7E8',
-
     button_background_main: '#101540',
     button_background_Logout: '#979A9C',
     button_background_table: '#624DE3',
-
    textfeild_color: '#EDF0F2',
-
    searchbar_color: '#9E9E9E',
-
    Itembox_background_color: '#D9D9D9'
 };
 
@@ -59,17 +57,23 @@ export const fontweight = {
 
 };
 
+export const gap = {
+  base_gap_8: '8px',
+}
+
 // Extend the Material UI theme to include custom colors
 declare module '@mui/material/styles' {
   interface Theme {
     colors: typeof colors;
     font: typeof font;
     fontweight: typeof fontweight;
+    gap: typeof gap;
   }
   interface ThemeOptions {
     colors?: typeof colors;
     font?: typeof font;
     fontweight?: typeof fontweight;
+    gap?: typeof gap;
   }
 }
 
@@ -77,8 +81,8 @@ declare module '@mui/material/styles' {
 const theme = createTheme({
   colors,
   font,
-  fontweight
-  
+  fontweight,
+  gap,
 });
 
 export default theme;

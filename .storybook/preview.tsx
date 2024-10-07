@@ -5,11 +5,13 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
 const withProvider = (Story: any, context: any) => (
-  <Provider store={store}>
+  
     <MemoryRouter>
-      <Story {...context} />
+      <Provider store={store}>
+        <Story {...context} />
+      </Provider>
     </MemoryRouter>
-  </Provider>
+  
 );
 
 const preview: Preview = {

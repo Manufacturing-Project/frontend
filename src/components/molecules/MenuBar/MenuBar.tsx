@@ -3,8 +3,8 @@ import { Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom'; // Import useLocation to determine the active route
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SettingsIcon from '@mui/icons-material/Settings';
+import TokenSharpIcon from '@mui/icons-material/TokenSharp';
 import theme from '../../theme'; // Assuming you're importing your theme from here
 
 // The MenuBar component
@@ -15,12 +15,19 @@ export const MenuBar: React.FC = () => {
   const menuItems = [
     { icon: <DashboardIcon />, label: 'Dashboard', path: '/dashboard' },
     { icon: <AppRegistrationIcon />, label: 'Registration', path: '/register' },
-    { icon: <ShoppingBagIcon />, label: 'Purchase', path: '/manufacture' },
+    { icon: <TokenSharpIcon />, label: 'Manufacture', path: '/manufacture' },
     { icon: <SettingsIcon />, label: 'Settings', path: '/setting' }
   ];
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" gap="40px" p={2}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
       {menuItems.map((item, index) => {
          const isActive = location.pathname.startsWith(item.path) // Check if the current path matches the menu item's path
 
@@ -30,28 +37,22 @@ export const MenuBar: React.FC = () => {
             to={item.path}
             style={{
               textDecoration: 'none',
-              color: 'black',
+              color: theme.colors.font_color_textfeild,
             }}
           >
             <Box
               sx={{
-                fontWeight: theme.fontweight.base_font_weight_Medium,
-                width: '200px',
+                frontWeight: isActive ? theme.fontweight.base_font_weight_Bold : theme.fontweight.base_font_weight_Medium,
                 height: '50px',
-                marginLeft: '50px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '40px',
+                gap: theme.gap.base_gap_8,
                 cursor: 'pointer',
-                padding: '0 10px',
-                borderRadius: '20px',
-                backgroundColor: isActive ? theme.colors.font_placeholder : 'transparent', // Apply background color if active
-                color: isActive ? theme.colors.font_color_button : 'black', // Change text color if active
+                borderBottom: isActive ? `3px solid ${theme.colors.font_color_textfeild}` : 'none',  
 
                 '&:hover': {
-                  backgroundColor: theme.colors.button_background_Logout,
-                  borderRadius: '20px',
-                  borderBottom: `3px solid ${theme.colors.font_color_textfeild}`, // Show underline on hover
+                  fontWeight: theme.fontweight.base_font_weight_Bold,
+                  borderBottom: `3px solid ${theme.colors.font_color_textfeild}`, 
                 },
               }}
             >
@@ -59,7 +60,12 @@ export const MenuBar: React.FC = () => {
               {item.icon}
 
               {/* Render Text */}
-              <span style={{ fontSize: '16px' }}>{item.label}</span>
+              <span style={{ 
+                fontSize: '28px',
+                fontWeight: isActive ? theme.fontweight.base_font_weight_Bold : theme.fontweight.base_font_weight_Medium,
+                }}>
+                  {item.label}
+                </span>
             </Box>
           </Link>
         );
