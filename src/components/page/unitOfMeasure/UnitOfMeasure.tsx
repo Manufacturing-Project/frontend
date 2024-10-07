@@ -110,7 +110,7 @@ const UnitOfMeasure: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ height: '100vh', marginTop: '100px' , background: theme.colors.secondary_background_color  } }>
+      <Box sx={{ height: '100%', marginTop: '100px' , background: theme.colors.secondary_background_color  } }>
          <Box sx ={{marginLeft: '60px' , paddingTop: '40px'}}><h1>Unit of Measure</h1></Box>
             
             <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
