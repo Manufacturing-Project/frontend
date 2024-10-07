@@ -22,7 +22,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ options, onChange }): JSX.Element
         backgroundColor: theme.colors.searchbar_color,
         color: theme.colors.font_searchbar,
       }}
-    >
+    
+    <Stack spacing={2} sx={{ width: 400,justifyContent: "center",paddingLeft: '5px',paddingRight: '5px', borderRadius: '28px', height: '45px', backgroundColor: theme.colors.searchbar_color }}>
+
       <Autocomplete
         freeSolo
         id="free-solo-search-bar"
@@ -32,6 +34,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ options, onChange }): JSX.Element
         renderInput={(params) => (
           <TextField
             {...params}
+            //label={label}
+           placeholder={label}
+
+
             variant="outlined"
             sx={{
               '& .MuiOutlinedInput-root': {
@@ -60,11 +66,21 @@ const SearchBar: React.FC<SearchBarProps> = ({ options, onChange }): JSX.Element
             InputProps={{
               ...params.InputProps,
               type: 'search',
+
               placeholder: 'Search ...',
               startAdornment: ( // This adds the search icon at the beginning
                 <InputAdornment position="start">
                   <SearchIcon sx={{ color: theme.colors.font_searchbar }} />
                 </InputAdornment>
+
+              endAdornment: (
+                <>
+                  {params.InputProps.endAdornment}
+                  <InputAdornment position="end">
+                    <SearchIcon htmlColor="color: theme.colors.font_color_button" />
+                  </InputAdornment>
+                </>
+
               ),
             }}
           />

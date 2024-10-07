@@ -1,0 +1,8 @@
+{
+    "semi": true,                       // Include semicolons at the end of statements
+    "tabWidth": 2,                      // Set the number of spaces per indentation level
+    "useTabs": false,                   // Indent lines with spaces instead of tabs
+    "printWidth": 80,                   // Specify the line length that Prettier will wrap
+    "endOfLine": "lf",                  // Set the end of line character (lf, crlf, auto)
+    "arrowParens": "avoid"              // Omit parentheses when the arrow function has a single parameter
+  }
