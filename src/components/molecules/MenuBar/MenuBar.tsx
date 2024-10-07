@@ -43,7 +43,7 @@ export const MenuBar: React.FC = () => {
               padding: '0 10px',
              
               '&:hover': {
-                backgroundColor: theme.colors.button_background_Logout,
+                backgroundColor: theme.colors.primary_color_green,
                 borderRadius: '20px',
                 borderBottom: `3px solid ${theme.colors.font_color_textfeild}`, // Show underline on hover
               },

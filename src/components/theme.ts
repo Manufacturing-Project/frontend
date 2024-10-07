@@ -1,12 +1,22 @@
 import { createTheme } from '@mui/material/styles';
 // Define your custom colors
+
+
+
+
 export const colors = {
+    primary_color_green:'#08B1BA',
+    secondary_color_yellow:'#FFEC40',
+    font_color_textfeild: '#000000',
+    secondary_background_color: '#FFFFFF',
+    border_color_grey:'#757575',
+
     background_color: '#ECECFC',
 
-    secondary_background_color: '#FFFFFF',
+    
 
     font_color_h1: '#101540',
-    font_color_textfeild: '#000000',
+    
     font_color_button: '#FFFFFF',
     font_color_logout: '#273A34',
     font_color_nextpre: '#9E9E9E',
@@ -23,7 +33,7 @@ export const colors = {
     table_color4_redbackground: '#FBE7E8',
 
     button_background_main: '#101540',
-    button_background_Logout: '#979A9C',
+   
     button_background_table: '#624DE3',
 
    textfeild_color: '#EDF0F2',

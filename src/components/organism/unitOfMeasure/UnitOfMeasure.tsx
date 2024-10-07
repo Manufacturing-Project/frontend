@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Itembox } from '../../atoms/itembox/Itembox'; // Adjust the import path as needed
+import { Itembox } from '../../molecules'; // Adjust the import path as needed
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';

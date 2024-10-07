@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Itembox } from '../../atoms/itembox/Itembox'; // Adjust the import path as needed
+import { Itembox } from '../../molecules'; // Adjust the import path as needed
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -127,7 +127,7 @@ const Category: React.FC = () => {
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
         <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
           <h1>Category</h1>
-          <Box sx={{ display: 'flex', padding: '20px', boxSizing: 'border-box' }}>
+          <Box sx={{ display: 'flex', height: '100vh',padding: '20px', boxSizing: 'border-box' }}>
             <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
               <Button variant="contained" color="primary" onClick={handleAddCategoryClick}
               sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}} >
@@ -145,28 +145,29 @@ const Category: React.FC = () => {
                 onUpdate={handleUpdate} // Pass the handleUpdate function
                 onDelete={handleDelete}   // Pass the handleDelete function
               />
-              <Dialog open={isDialogOpen} onClose={handleDialogClose}>
-                <DialogTitle>{selectedCategory ? 'Update Category' : 'Add New Category'}</DialogTitle>
-                <DialogContent>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    label="Category"
-                    type="text"
-                    fullWidth
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleDialogClose} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={handleSave} color="primary">
-                    Save
-                  </Button>
-                </DialogActions>
-              </Dialog>
+                 <Dialog open={isDialogOpen} onClose={handleDialogClose} PaperProps={{ style: { width: '600px', height: '400px' } }}>
+                            <DialogTitle>{selectedCategory ? 'Update Category' : 'Add New Category'}</DialogTitle>
+                            <DialogContent>
+                              <TextField
+                                autoFocus
+                                margin="dense"
+                                label="Category"
+                                type="text"
+                                fullWidth
+                                value={newCategory}
+                                onChange={(e) => setNewCategory(e.target.value)}
+                              />
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleDialogClose} color="primary">
+                                Cancel
+                              </Button>
+                              <Button onClick={handleSave} color="primary">
+                                Save
+                              </Button>
+                            </DialogActions>
+                </Dialog>
+
             </Box>
           </Box>
         </Box>
