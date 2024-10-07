@@ -2,7 +2,7 @@
 import { Logo } from "./Logo";
 
 const meta = {
-  title: 'Components/Atoms/Logo',
+  title: 'Components/Molecules/Logo',
   component: Logo,
   tags: ['autodocs'],
   argTypes: {
@@ -41,8 +41,8 @@ export default meta;
 
 const Template = {
     args: {
-        width: '65px',
-        height: '50px',
+        width: '90px',
+        height: '90px',
     },
 };
 

@@ -1,3 +1,7 @@
 export { Header } from './header/Header';
 export { LeftPanel } from './leftPanel/LeftPanal';
-export { RightPanel } from './rightPanel/RightPanel';
+export { AddRawMaterialPage } from './addRawMaterialPage/AddRawMaterialPage';
+export { UnitOfMeasure } from './unitOfMeasure/UnitOfMeasure';
+export { Category } from './category/Category';
+export { Variants } from './variants/variants';
+export { Dashboard } from './dashboard/Dashboard';
