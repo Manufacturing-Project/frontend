@@ -132,7 +132,7 @@ const AddRawMaterial: React.FC<Props> = ({
             placeholder="Enter Material Name"
             value={m_name}
             onChange={(e) => dispatch(setMName(e.target.value))}
-            sx={{ width: '300px'}}
+            sx={{ width: '400px'}}
             
           />
         </Box>
@@ -142,7 +142,7 @@ const AddRawMaterial: React.FC<Props> = ({
             placeholder="Enter Material Code"
             value={m_code}
             onChange={(e) => dispatch(setMCode(e.target.value))}
-            sx={{ width: '300px' }}
+            sx={{ width: '400px' }}
           />
         </Box>
       </Box>

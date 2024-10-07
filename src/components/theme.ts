@@ -25,12 +25,15 @@ export const colors = {
     button_background_main: '#101540',
     button_background_Logout: '#979A9C',
     button_background_table: '#624DE3',
+    button_background_setting: '#08B1BA',
 
    textfeild_color: '#EDF0F2',
 
    searchbar_color: '#9E9E9E',
 
-   Itembox_background_color: '#D9D9D9'
+   Itembox_background_color: '#D9D9D9',
+
+   menuitem_active_backgroundcolor: '#08B1BA'
 };
 
 export const font = {
