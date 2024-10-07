@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import theme from '../../theme';
 interface Item {
   id: string;
   name: string;
@@ -96,10 +96,10 @@ const Itembox: React.FC<ItemboxProps> = ({
               <Typography sx={{ fontSize: '20px' }}>{item.name}</Typography> {/* Change the font size here */}
               <Box>
                 <Button onClick={() => handleEditClick(item)}>
-                  <EditIcon />
+                  <EditIcon sx={{color: theme.colors.button_background_Logout}}/>
                 </Button>
                 <Button onClick={() => handleDeleteClick(item)}>
-                  <DeleteIcon />
+                  <DeleteIcon sx={{color: theme.colors.button_background_Logout}}/>
                 </Button>
               </Box>
             </>

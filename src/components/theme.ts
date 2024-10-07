@@ -14,6 +14,7 @@ export const colors = {
     font_color_orange: '#CD6200',
     font_color_red: '#A30D11',
     font_placeholder: '#767474',
+    font_searchbar: '#8BA3CB',
     
 
     table_color_evenrow: '#F7F6FE',
@@ -29,7 +30,7 @@ export const colors = {
 
    textfeild_color: '#EDF0F2',
 
-   searchbar_color: '#9E9E9E',
+   searchbar_color: '#DED8E1',
 
    Itembox_background_color: '#D9D9D9',
 
