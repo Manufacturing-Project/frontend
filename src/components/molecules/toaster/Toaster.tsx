@@ -36,7 +36,7 @@ const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) 
       open={open}
       autoHideDuration={duration}
       onClose={handleClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <Alert onClose={handleClose} severity={type} sx={{ width: '400px'}}>
         {message}

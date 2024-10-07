@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { useCreateCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation, useDeleteCategoryMutation } from '../../../features/categories/CategoryApiSlice'; // API hooks
-import Toaster, { ToasterRef } from '../../atoms/toaster/Toaster';
+import Toaster, { ToasterRef } from '../../molecules/toaster/Toaster';
 import theme from '../../theme';
 
 const Category: React.FC = () => {
@@ -123,28 +123,21 @@ const Category: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', height: '100vh' ,  boxSizing: 'border-box', marginTop: '100px' , background: theme.colors.background_color  } }>
-        <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
-        <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-          <h1>Category</h1>
-          <Box sx={{ display: 'flex', padding: '20px', boxSizing: 'border-box' }}>
-            <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-              <Button variant="contained" color="primary" onClick={handleAddCategoryClick}
-              sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}} >
-                Add New Category
-              </Button>
-            </Box>
-            <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-              <Itembox
-                items={categoryOptions} // Displaying categories from MongoDB
-                backgroundColor="#f9f9f9"
-                color="#333"
-                width="400px"
-                height="250px"
-                rowPadding="12px"
-                onUpdate={handleUpdate} // Pass the handleUpdate function
-                onDelete={handleDelete}   // Pass the handleDelete function
-              />
+      <Box sx={{ height: '100%', marginTop: '100px' , background: theme.colors.secondary_background_color  }}>
+         <Box sx ={{marginLeft: '60px' , paddingTop: '40px'}}><h1>Category</h1></Box>
+            
+            <Box sx={{ paddingLeft: '80px' , marginTop:'40px'}}>
+            <Itembox
+              items={categoryOptions} // Displaying categories from MongoDB
+              backgroundColor="#f9f9f9"
+              color="#333"
+              width="1000px"
+              height="250px"
+              rowPadding="12px"
+              onUpdate={handleUpdate} // Pass the handleUpdate function
+              onDelete={handleDelete} // Pass the handleDelete function
+              boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+            />
               <Dialog open={isDialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>{selectedCategory ? 'Update Category' : 'Add New Category'}</DialogTitle>
                 <DialogContent>
@@ -167,11 +160,16 @@ const Category: React.FC = () => {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </Box>
           </Box>
+          <Box sx = {{marginTop: '40px' , marginLeft: '1000px'}}>
+              <Button 
+                variant="contained" 
+                onClick={handleAddCategoryClick}
+                sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+                Add New Category
+              </Button>
+            </Box>
         </Box>
-        <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
-      </Box>
       
       {/* Toaster should be placed outside of the dialog */}
       <Toaster ref={toasterRef} duration={3000} />

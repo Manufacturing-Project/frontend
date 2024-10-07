@@ -18,7 +18,7 @@ function App() {
       {showLeftPanel && (
           <Box sx={{
             width: '290px' ,
-            position: 'relative',
+            position: 'relative', 
           }}>
             <LeftPanel />
           </Box>
@@ -37,7 +37,7 @@ function App() {
               <Route path='material' element={<AddRawMaterialPage />} />
             </Route>
             <Route path='/setting' element={<SettingLayout />}>
-            <Route index element={<Navigate to="unit" />} />
+            <Route index element={<Navigate to="unit" />} /> 
               <Route path='unit' element={<UnitOfMeasure />} />
               <Route path='category' element={<Category />} />
               <Route path='variants' element={<Variants />} />  
