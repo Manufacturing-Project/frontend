@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { setunitName } from '../../../features/units/UnitSlice'; // Redux action to update local store
 import { useCreateUnitMutation, useGetUnitsQuery, useUpdateUnitMutation, useDeleteUnitMutation } from '../../../features/units/UnitsApiSlice'; // API hooks
-import Toaster, { ToasterRef } from '../../atoms/toaster/Toaster';
+import Toaster , {ToasterRef} from '../../molecules/toaster/Toaster';
 import theme from '../../theme';
 
 const UnitOfMeasure: React.FC = () => {
@@ -110,30 +110,22 @@ const UnitOfMeasure: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', height: '100%', boxSizing: 'border-box', marginTop: '100px' , background: theme.colors.background_color  } }>
-        <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
-        <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-          <h1>Unit of Measure</h1>
-          <Box sx={{ display: 'flex', height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
-            <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-              <Button 
-                variant="contained" 
-                onClick={handleAddUnitClick}
-                sx={{ backgroundColor: theme.colors.button_background_main, color: theme.colors.font_color_button ,marginTop:'100px'}} >
-                Add New Unit
-              </Button>
-            </Box>
-            <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}>
-              <Itembox
-                items={unitItems}
-                backgroundColor="#f9f9f9"
-                color="#333"
-                width="400px"
-                height="250px"
-                rowPadding="12px"
-                onUpdate={handleUpdate}
-                onDelete={handleDelete}
-              />
+      <Box sx={{ height: '100%', marginTop: '100px' , background: theme.colors.secondary_background_color  } }>
+         <Box sx ={{marginLeft: '60px' , paddingTop: '40px'}}><h1>Unit of Measure</h1></Box>
+            
+            <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
+            <Itembox
+              items={unitItems}
+              backgroundColor="#f9f9f9"
+              color="#333"
+              width="1000px"
+              height="250px"
+              rowPadding="12px"
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+            />
+
               <Dialog open={isDialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>Add New Unit</DialogTitle>
                 <DialogContent>
@@ -156,11 +148,17 @@ const UnitOfMeasure: React.FC = () => {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </Box>
           </Box>
+          <Box sx = {{marginTop: '40px' , marginLeft: '1000px'}}>
+              <Button 
+                variant="contained" 
+                onClick={handleAddUnitClick}
+                sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+                Add New Unit
+              </Button>
+            </Box>
         </Box>
-        <Box sx={{ flexGrow: 1, paddingLeft: '20px' }}></Box>
-      </Box>
+      
       
       {/* Toaster should be placed outside of the dialog */}
       <Toaster ref={toasterRef} duration={3000} />

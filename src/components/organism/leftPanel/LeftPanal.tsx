@@ -20,8 +20,10 @@ import man from "../../../assets/PurchaseImage.png";
 
 interface LeftPanelProps {}
 
+
 const LeftPanel: React.FC<LeftPanelProps> = () => {
   const location = useLocation();
+
 
   const getPathName = () => {
     const path = location.pathname.split('/')[1];
@@ -42,6 +44,8 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
   };
 
   const renderPanelItems = () => {
+    
+
     const items = [];
 
     switch (activeItem) {

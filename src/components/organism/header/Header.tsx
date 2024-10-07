@@ -49,7 +49,7 @@ const Header: React.FC = () => {
             Manufacturing Project
           </Typography>
         </Box>
-        <SearchBar options={searchOptions} label="Search..." onChange={handleSearchChange} />
+        <SearchBar options={searchOptions}  onChange={handleSearchChange} />
         <Avatar
         alt="Remy Sharp"
         src={ProfileIcon}

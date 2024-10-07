@@ -112,7 +112,8 @@ const AddRawMaterial: React.FC<Props> = ({
         display: "flex",
         flexDirection: "column",
         gap: "32px",
-        padding: "16px",
+        padding: "20px",
+        paddingLeft: '100px',
         backgroundColor: theme.colors.background_color,
         height: "100%",
         boxSizing: 'border-box' ,
@@ -121,7 +122,7 @@ const AddRawMaterial: React.FC<Props> = ({
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <Typography variant="h4">Add Raw Material</Typography>
+        <h1>Register Raw Material</h1>
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "start" }}>
@@ -131,7 +132,7 @@ const AddRawMaterial: React.FC<Props> = ({
             placeholder="Enter Material Name"
             value={m_name}
             onChange={(e) => dispatch(setMName(e.target.value))}
-            sx={{ width: '300px'}}
+            sx={{ width: '400px'}}
             
           />
         </Box>
@@ -141,7 +142,7 @@ const AddRawMaterial: React.FC<Props> = ({
             placeholder="Enter Material Code"
             value={m_code}
             onChange={(e) => dispatch(setMCode(e.target.value))}
-            sx={{ width: '300px' }}
+            sx={{ width: '400px' }}
           />
         </Box>
       </Box>
