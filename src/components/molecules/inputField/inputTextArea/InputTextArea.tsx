@@ -43,6 +43,19 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
   return (
     <Box>
       <InputFieldLabel label={label} />
+      <TextareaAutosize
+        aria-label={ariaLabel}
+        minRows={minRows}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        style={{
+          width: "99%", 
+          borderRadius: "4px",
+          borderColor: "#ccc",
+        }}
+      />
+
       <Box sx={{
         '& textarea::placeholder': {
           color: theme.colors.border_color_grey,
