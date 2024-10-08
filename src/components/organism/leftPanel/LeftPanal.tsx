@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
 import { Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom'; // Import Link
 import theme from '../../theme';
 
 // MUI Icons
@@ -20,10 +19,8 @@ import man from "../../../assets/PurchaseImage.png";
 
 interface LeftPanelProps {}
 
-
 const LeftPanel: React.FC<LeftPanelProps> = () => {
   const location = useLocation();
-
 
   const getPathName = () => {
     const path = location.pathname.split('/')[1];
@@ -35,38 +32,36 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
   const imageMap: { [key: string]: string } = {
     '/register/material': reg,
     '/register/product': reg,
-     '/setting/unit': set,
-     '/setting/category': set,
-     '/setting/supplier': set,
-     '/setting/variants': set,
+    '/setting/unit': set,
+    '/setting/category': set,
+    '/setting/supplier': set,
+    '/setting/variants': set,
     '/manufacture/material': man,
-    '/manufacture/purchase':man,
+    '/manufacture/purchase': man,
   };
 
   const renderPanelItems = () => {
-    
-
     const items = [];
 
     switch (activeItem) {
       case 'Register':
         items.push(
-          { href: "/register/material", icon: <StoreIcon />, text: "Raw Material" },
-          { href: "/register/product", icon: <AssignmentIcon />, text: "Products" }
+          { to: "/register/material", icon: <StoreIcon />, text: "Raw Material" },
+          { to: "/register/product", icon: <AssignmentIcon />, text: "Products" }
         );
         break;
       case 'Setting':
         items.push(
-          { href: "/setting/unit", icon: <ScaleIcon />, text: "Unit of Measure" },
-          { href: "/setting/category", icon: <CategoryIcon />, text: "Category" },
-          { href: "/setting/supplier", icon: <LocalShippingIcon />, text: "Supplier Information" },
-          { href: "/setting/variants", icon: <LayersIcon />, text: "Variants" }
+          { to: "/setting/unit", icon: <ScaleIcon />, text: "Unit" },
+          { to: "/setting/category", icon: <CategoryIcon />, text: "Category" },
+          { to: "/setting/supplier", icon: <LocalShippingIcon />, text: "Suppliers" },
+          { to: "/setting/variants", icon: <LayersIcon />, text: "Variants" }
         );
         break;
       case 'Manufacture':
         items.push(
-          { href: "/manufacture/material", icon: <AddShoppingCartIcon />, text: "Add Raw Material" },
-          { href: "/manufacture/purchase", icon: <HistoryIcon />, text: "Purchase History" }
+          { to: "/manufacture/material", icon: <AddShoppingCartIcon />, text: "Add Raw Material" },
+          { to: "/manufacture/purchase", icon: <HistoryIcon />, text: "Purchase History" }
         );
         break;
       default:
@@ -76,17 +71,17 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
     return items.map((item) => (
       <ListItem
         key={item.text}
-        component="a"
-        href={item.href}
+        component={Link} 
+        to={item.to} 
         sx={{
-          backgroundColor: location.pathname === item.href ? theme.colors.primary_color_green : 'transparent', // Background when active
-          borderRadius: location.pathname === item.href ? '47px' : '0', 
-          transition: 'background-color 0.3s', // Smooth transition
+          backgroundColor: location.pathname === item.to ? theme.colors.primary_color_green : 'transparent', // Background when active
+          borderRadius: location.pathname === item.to ? '47px' : '0',
+          transition: 'background-color 0.1s', // Smooth transition
         }}
       >
         <ListItemIcon
           sx={{
-            color: location.pathname === item.href ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild, // Icon color when active or inactive
+            color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild, // Icon color when active or inactive
           }}
         >
           {item.icon}
@@ -94,7 +89,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         <ListItemText
           primary={item.text}
           sx={{
-            color: location.pathname === item.href ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild, // Text color when active or inactive
+            color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild, // Text color when active or inactive
           }}
         />
       </ListItem>
@@ -102,7 +97,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
   };
 
   const renderActiveImage = () => {
-    if (activeItem === 'Register' || activeItem === 'Setting'|| activeItem === 'Manufacture') {
+    if (activeItem === 'Register' || activeItem === 'Setting' || activeItem === 'Manufacture') {
       return <img src={imageMap[location.pathname]} alt="Active item image" style={{ width: '260px', marginTop: '30px', height: '230px' }} />;
     }
     return null; // Return null for other routes without images
@@ -119,27 +114,23 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         padding: '40px',
         alignItems: 'center',
         backgroundColor: theme.colors.secondary_background_color,
-        height: 'calc(100vh - 128px)',
-        width: '220px',
+        height: 'calc(100vh - 200px)',
+        justifyContent: 'space-between',
+        
       }}
     >
-      <List>
-        {renderPanelItems()}
-      </List>
-
-      {renderActiveImage()} {/* This will render the image under the list items */}
-
-      <Box
+      <List
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          marginTop: 'auto', // Ensures that the logout button is pushed to the bottom
-          paddingBottom: '50px',
+          gap: '40px',
         }}
       >
-        
-      </Box>
+        {renderPanelItems()}
+      </List>
+
+      {renderActiveImage()}
+
     </Box>
   );
 };
