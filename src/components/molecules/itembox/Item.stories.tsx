@@ -34,7 +34,6 @@ Default.args = {
   items: sampleItems,
   backgroundColor: '#f9f9f9',
   color: '#333',
-  width: '400px',
   height: 'auto',
   rowPadding: '12px',
   onUpdate: async (id: string, updatedName: string) => {

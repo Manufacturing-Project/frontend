@@ -74,7 +74,7 @@ const Header: React.FC = () => {
           sx={{ 
             display: 'inline-block',
             cursor: 'pointer',
-            marginRight: '20px',
+            marginRight: '40px',
             width: '45px',
             height: '45px',
           }}

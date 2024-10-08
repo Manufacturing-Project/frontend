@@ -6,7 +6,7 @@ import theme from '../../theme';
 // MUI Icons
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CategoryIcon from '@mui/icons-material/Category';  // For Category
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';  // For Supplier
+import LocalShippingIcon from '@mui/icons-material/PersonPinSharp';  // For Supplier
 import LayersIcon from '@mui/icons-material/Layers';  // For Variants
 import ScaleIcon from '@mui/icons-material/Scale';  // For Unit of Measure
 import HistoryIcon from '@mui/icons-material/History';  // For Purchase History

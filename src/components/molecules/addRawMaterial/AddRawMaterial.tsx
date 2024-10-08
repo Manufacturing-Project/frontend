@@ -101,156 +101,154 @@ const AddRawMaterial: React.FC<Props> = ({
 
   return (
     <Box
+  sx={{
+    display: "flex",
+    flexDirection: "column",
+    gap: "32px",
+    paddingLeft: '100px',
+    backgroundColor: theme.colors.secondary_background_color,
+    height: "100%", // Ensure height is not exceeding the container
+    boxSizing: 'border-box',
+    overflow: 'hidden', // Prevent vertical scroll
+  }}
+>
+  <Typography variant="h4" gutterBottom>
+    Register Raw Material
+  </Typography>
+
+  {/* Material Name and Code Fields */}
+  <Box sx={{ display: "flex", gap: "40px" }}>
+    <Box sx={{ width: "100%" }}>
+      <InputTextField
+        label="Material Name"
+        textPlaceholder="Enter Material Name"
+        value={m_name}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch(setMName(e.target.value))
+        }
+        width="100%"
+      />
+    </Box>
+    <Box sx={{ width: "100%" }}>
+      <InputTextField
+        label="Material Code"
+        textPlaceholder="Enter Material Code"
+        value={m_code}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch(setMCode(e.target.value))
+        }
+        width="100%"
+      />
+    </Box>
+  </Box>
+
+  {/* Category and Unit Fields */}
+  <Box sx={{ display: "flex", gap: "40px" }}>
+    <Box sx={{ width: "100%" }}>
+      <InputSelectField
+        label="Category"
+        options={categoryoption}
+        value={category}
+        onChange={(e) => dispatch(setCategory(e.target.value))}
+        width="100%"
+      />
+    </Box>
+    <Box sx={{ width: "100%" }}>
+      <InputSelectField
+        label="Unit"
+        options={unitoption}
+        value={unit}
+        onChange={(e) => dispatch(setUnit(e.target.value))}
+        width="100%"
+      />
+    </Box>
+  </Box>
+
+  {/* Reorder Level and Has Variants Fields */}
+  <Box sx={{ display: "flex", gap: "40px", alignItems: 'end' }}>
+    <Box sx={{ width: "100%" }}>
+      <InputTextField
+        label="Re-Order Level"
+        textPlaceholder="Enter Re-Order Level"
+        value={reorderlevel.toString()}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch(setReorderLevel(Number(e.target.value)))
+        }
+        width="100%"
+      />
+    </Box>
+
+    {/* Has Variants Switch */}
+    <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+      <Typography>This material has variants</Typography>
+      <Switch
+        checked={hasVariants}
+        onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+        sx={{
+          '& .MuiSwitch-switchBase.Mui-checked': {
+            color: '#08B1BA', // Thumb color when checked
+            '& + .MuiSwitch-track': {
+              backgroundColor: '#08B1BA', // Track color when checked
+            },
+          },
+        }}
+      />
+    </Box>
+  </Box>
+
+  {/* Description Field */}
+  <Box sx={{ width: "100%" }}>
+    <InputTextArea
+      label="Description"
+      ariaLabel="description-textarea"
+      placeholder="Enter Description"
+      value={description}
+      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+        dispatch(setDescription(e.target.value))
+      }
+    />
+  </Box>
+
+  {/* Action Buttons */}
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "end",
+      gap: "16px",
+      marginRight: "80px",
+      marginBottom: '32px', // Add margin at the bottom to avoid scrollbars due to content overflow
+    }}
+  >
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={handleRawMaterial}
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "32px",
-        paddingLeft: '100px',
-        backgroundColor: theme.colors.secondary_background_color,
-        height: "100vh",
-        boxSizing: 'border-box' ,
-        
+        backgroundColor: theme.colors.primary_color_green,
+        color: theme.colors.font_color_button,
+       
+        width: "99px",
+        height: "36px",
       }}
     >
-      <Typography variant="h4" gutterBottom>
-        Register Raw Material
-      </Typography>
-
-      {/* Material Name and Code Fields */}
-      <Box sx={{ display: "flex", gap: "40px" }}>
-        <Box sx={{
-          width: "100%",
-        }}>
-        <InputTextField
-          label="Material Name"
-          textPlaceholder="Enter Material Name"
-          value={m_name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
-          width="100%"
-        />
-        </Box>
-        <Box sx={{
-          width: "100%",	
-        }}>
-        <InputTextField
-          label="Material Code"
-          textPlaceholder="Enter Material Code"
-          value={m_code}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
-          width="100%"
-        />
-        </Box>
-      </Box>
-
-      {/* Category and Unit Fields */}
-      <Box sx={{ display: "flex", gap: "40px" }}>
-        <Box sx={{
-          width: "100%",
-        }}>
-        <InputSelectField
-          label="Category"
-          options={categoryoption}
-          value={category}
-          onChange={(e) => dispatch(setCategory(e.target.value))}
-          width="100%"
-        />
-        </Box>
-        <Box sx={{
-          width: "100%",
-        }}>
-        <InputSelectField
-          label="Unit"
-          options={unitoption}
-          value={unit}
-          onChange={(e) => dispatch(setUnit(e.target.value))}
-          width="100%"
-        />
-        </Box>
-      </Box>
-
-      {/* Reorder Level Field */}
-      <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
-        <Box sx={{
-          width: "100%",
-        }}>
-        <InputTextField
-          label="Re-Order Level"
-          textPlaceholder="Enter Re-Order Level"
-          value={reorderlevel.toString()}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
-          width="100%"
-        />
-        </Box>
-
-          {/* Has Variants Switch */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
-  <Typography>This material has variants</Typography>
-  <Switch
-  checked={hasVariants}
-  onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-  sx={{
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: '#08B1BA', // Thumb color when checked
-      '& + .MuiSwitch-track': {
-        backgroundColor: '#08B1BA', // Track color when checked
-      },
-    },
-  }}
-/>
-
+      Save
+    </Button>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => dispatch(resetForm())}
+      sx={{
+        backgroundColor: theme.colors.primary_color_green,
+        color: theme.colors.font_color_button,
+        width: "99px",
+        height: "36px",
+      }}
+    >
+      Cancel
+    </Button>
+  </Box>
 </Box>
 
-
-
-      </Box>
-
-      {/* Description Field */}
-      <Box sx={{
-        width: "100%",
-      }}>
-        <InputTextArea
-          label="Description"
-          ariaLabel="description-textarea"
-          placeholder="Enter Description"
-          value={description}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => dispatch(setDescription(e.target.value))}
-        />
-      </Box>
-
-      
-
-      {/* Action Buttons */}
-      <Box sx={{ display: "flex", justifyContent: "end", gap: "16px", marginRight: "80px" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleRawMaterial}
-          sx={{
-            backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
-            marginTop: '60px',
-            width:"99px",
-            height:"36px"
-          }}
-        >
-          Save
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => dispatch(resetForm())}
-          sx={{
-            backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
-            marginTop: '60px',
-            width:"99px",
-            height:"36px"
-          }}
-        >
-          Cancel
-        </Button>
-      </Box>
-    </Box>
   );
 };
 

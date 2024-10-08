@@ -140,7 +140,6 @@ let suppliers: any[] = [];
                 items={SuppliersOptions} // Displaying suppliers from MongoDB
                 backgroundColor="#f9f9f9"
                 color="#333"
-                width="1000px"
                 height="250px"
                 rowPadding="12px"
                 onUpdate={handleUpdate} // Pass the handleUpdate function

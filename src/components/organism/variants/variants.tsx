@@ -109,7 +109,6 @@ const Variants: React.FC = () => {
               items={variantsItems}
               backgroundColor="#f9f9f9"
               color="#333"
-              width="1000px"
               height="250px"
               rowPadding="12px"
               onUpdate={handleUpdate} 
@@ -151,7 +150,7 @@ const Variants: React.FC = () => {
         <Box sx = {{marginTop: '40px' , marginLeft: '60px'}}>
 
         </Box> 
-        <Box sx = {{ marginLeft: '10px'}}>
+        <Box sx = {{ marginLeft: '60px'}}>
 
            { variantsItems.length > 0  ?  <Button 
               variant="contained" 
