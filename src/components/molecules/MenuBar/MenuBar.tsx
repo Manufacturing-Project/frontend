@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom'; // Import useLocation to determine the active route
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -13,10 +13,10 @@ export const MenuBar: React.FC = () => {
 
   // Array of menu items with icon, label, path
   const menuItems = [
-    { icon: <DashboardIcon />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <AppRegistrationIcon />, label: 'Registration', path: '/register' },
-    { icon: <TokenSharpIcon />, label: 'Manufacture', path: '/manufacture' },
-    { icon: <SettingsIcon />, label: 'Settings', path: '/setting' }
+    { icon: <DashboardIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }}  />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <AppRegistrationIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }} />, label: 'Registration', path: '/register' },
+    { icon: <TokenSharpIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }}/>, label: 'Manufacture', path: '/manufacture' },
+    { icon: <SettingsIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }} />, label: 'Settings', path: '/setting' }
   ];
 
   return (
@@ -29,30 +29,34 @@ export const MenuBar: React.FC = () => {
       }}
     >
       {menuItems.map((item, index) => {
-         const isActive = location.pathname.startsWith(item.path) // Check if the current path matches the menu item's path
+        const isActive = location.pathname.startsWith(item.path); // Check if the current path matches the menu item's path
 
         return (
-          <Link
+          <Link 
             key={index}
             to={item.path}
             style={{
               textDecoration: 'none',
-              color: theme.colors.font_color_textfeild,
+              color: 'rgba(0, 0, 0, 0.9)', 
             }}
           >
             <Box
               sx={{
-                frontWeight: isActive ? theme.fontweight.base_font_weight_Bold : theme.fontweight.base_font_weight_Medium,
+                fontWeight: isActive
+                  ? theme.fontweight.base_font_weight_Bold
+                  : theme.fontweight.base_font_weight_Medium,
                 height: '50px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: theme.gap.base_gap_8,
                 cursor: 'pointer',
-                borderBottom: isActive ? `3px solid ${theme.colors.font_color_textfeild}` : 'none',  
+                borderBottom: isActive
+                  ? `3px solid rgba(0, 0, 0, 0.9)`
+                  : 'none',
 
                 '&:hover': {
                   fontWeight: theme.fontweight.base_font_weight_Bold,
-                  borderBottom: `3px solid ${theme.colors.font_color_textfeild}`, 
+                  borderBottom: `3px solid rgba(0, 0, 0, 0.9)`,
                 },
               }}
             >
@@ -60,12 +64,19 @@ export const MenuBar: React.FC = () => {
               {item.icon}
 
               {/* Render Text */}
-              <span style={{ 
-                fontSize: '28px',
-                fontWeight: isActive ? theme.fontweight.base_font_weight_Bold : theme.fontweight.base_font_weight_Medium,
-                }}>
-                  {item.label}
-                </span>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontSize: '26px',
+                  color: 'rgba(0, 0, 0, 0.9)',
+                  fontWeight: isActive
+                    ? theme.fontweight.base_font_weight_SemiBold
+                    : theme.fontweight.base_font_weight_Medium,
+                  fontFamily: 'Poppins, sans-serif',
+                }}
+              >
+                {item.label}
+              </Typography>
             </Box>
           </Link>
         );
