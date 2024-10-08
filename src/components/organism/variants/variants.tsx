@@ -90,10 +90,14 @@ const Variants: React.FC = () => {
 
   return (
     <div> 
-    <Box sx={{ height: '100%', marginTop: '100px' , background: theme.colors.secondary_background_color  } }>
-       <Box sx ={{marginLeft: '60px' , paddingTop: '25px'}}><h1>Variant Details</h1></Box>
+    <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
+       <Box sx ={{marginLeft: '60px' ,}}>
+       <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
+            Variants Details
+          </Typography>
+       </Box>
           
-          <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
+          <Box sx={{  paddingLeft: '80px', paddingTop: '20px'}}>
           
           {variantsItems.length > 0 ? (
             <Itembox
@@ -137,8 +141,8 @@ const Variants: React.FC = () => {
                 </Button>
               </DialogActions>
             </Dialog>
-        </Box>
-        <Box sx = {{marginTop: '40px' , marginLeft: '10px'}}>
+        </Box> 
+        <Box sx = {{ marginLeft: '10px'}}>
            { variantsItems.length > 0  ?  <Button 
               variant="contained" 
               onClick={handleAddVariantClick}

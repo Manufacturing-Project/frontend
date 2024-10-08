@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useCreateCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation, useDeleteCategoryMutation } from '../../../features/categories/CategoryApiSlice'; // API hooks
 import Toaster, { ToasterRef } from '../../molecules/toaster/Toaster';
 import theme from '../../theme';
@@ -125,9 +125,13 @@ const Category: React.FC = () => {
   return (
     <div>
       <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  }}>
-         <Box sx ={{marginLeft: '60px' , paddingTop: '40px'}}><h1>Category</h1></Box>
+         <Box sx ={{marginLeft: '60px'}}>
+         <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
+            Category Details
+          </Typography>
+         </Box>
             
-            <Box sx={{ paddingLeft: '80px' , marginTop:'40px'}}>
+            <Box sx={{ paddingLeft: '80px', paddingTop: '20px'}}>
             { categoryOptions.length > 0 ? (
                 <Itembox
                 items={categoryOptions} // Displaying categories from MongoDB
@@ -163,11 +167,11 @@ const Category: React.FC = () => {
                   </Button>
                   <Button onClick={handleSave} color="primary">
                     Save
-                  </Button>
+                  </Button> 
                 </DialogActions>
               </Dialog>
           </Box>
-          <Box sx = {{marginTop: '40px' , marginLeft: '10px'}}>
+          <Box sx = {{marginLeft: '10px'}}>
              { categoryOptions.length > 0 ? (
                <Button 
                variant="contained" 
