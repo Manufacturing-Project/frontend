@@ -110,8 +110,9 @@ const AddRawMaterial: React.FC<Props> = ({
         gap: "32px",
         paddingLeft: '100px',
         backgroundColor: theme.colors.secondary_background_color,
-        height: "100%",
+        height: "100vh",
         boxSizing: 'border-box' ,
+        
       }}
     >
       <Typography variant="h4" gutterBottom>
