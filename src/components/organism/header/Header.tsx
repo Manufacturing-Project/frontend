@@ -21,7 +21,6 @@ const Header: React.FC = () => {
         position: 'fixed',
         width: '100%',
         zIndex: '2',
-        margin: 0,
         
         
       }}

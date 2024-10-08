@@ -110,6 +110,7 @@ const AddRawMaterial: React.FC<Props> = ({
     height: "100%", // Ensure height is not exceeding the container
     boxSizing: 'border-box',
     overflow: 'hidden', // Prevent vertical scroll
+    //flexGrow: 1, // Allows the form to grow and fill available space
   }}
 >
   <Typography variant="h4" gutterBottom>

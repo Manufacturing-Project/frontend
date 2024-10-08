@@ -130,6 +130,18 @@ const Category: React.FC = () => {
          <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
             Category Details
           </Typography>
+
+          <Box >
+
+{ categoryOptions.length > 0 ? (
+  <Button 
+  variant="contained" 
+  onClick={handleAddCategoryClick}
+  sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+  Add New Category
+</Button> ) : null }
+</Box>
+
          </Box>
 
             
@@ -175,16 +187,7 @@ const Category: React.FC = () => {
 
           <Box sx = {{marginTop: '40px' , marginLeft: '60px'}}>
 
-          <Box sx = {{marginLeft: '10px'}}>
-
-             { categoryOptions.length > 0 ? (
-               <Button 
-               variant="contained" 
-               onClick={handleAddCategoryClick}
-               sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
-               Add New Category
-             </Button> ) : null }
-            </Box>
+          
         </Box>
       
       {/* Toaster should be placed outside of the dialog */}

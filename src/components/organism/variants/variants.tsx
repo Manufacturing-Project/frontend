@@ -99,6 +99,17 @@ const Variants: React.FC = () => {
        <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
             Variants Details
           </Typography>
+
+          <Box>
+
+{ variantsItems.length > 0  ?  <Button 
+   variant="contained" 
+   onClick={handleAddVariantClick}
+   sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'20px'}} >
+   Add New Varaints 
+ </Button> : null }  
+</Box>
+
        </Box>
 
           
@@ -150,15 +161,7 @@ const Variants: React.FC = () => {
         <Box sx = {{marginTop: '40px' , marginLeft: '60px'}}>
 
         </Box> 
-        <Box sx = {{ marginLeft: '60px'}}>
-
-           { variantsItems.length > 0  ?  <Button 
-              variant="contained" 
-              onClick={handleAddVariantClick}
-              sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
-              Add New Varaints 
-            </Button> : null }  
-          </Box>
+        
       </Box>
     
     

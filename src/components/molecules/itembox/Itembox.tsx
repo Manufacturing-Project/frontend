@@ -63,7 +63,7 @@ const Itembox: React.FC<ItemboxProps> = ({
         width: '100%' ,    
         height,
         padding: rowPadding,
-        overflowY: 'auto',
+        overflowY: 'hidden',
         boxShadow:'none',
       }}
     >
