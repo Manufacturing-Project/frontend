@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Lottie from 'react-lottie';
-import productAnimation from '../../../assets/Animation.json'; // Adjust this path based on your project structure
+import productAnimation from '../../../assets/UnderDevelopment.json'; // Adjust this path based on your project structure
 
 interface Props {
   // Define your props here
@@ -20,7 +20,7 @@ const Product: React.FC<Props> = (props) => {
 
   return (
     <Box>     
-      <Lottie options={defaultOptions} height={400} width={400} />
+      <Lottie options={defaultOptions} height={800} width={800} />
     </Box>
   );
 };
