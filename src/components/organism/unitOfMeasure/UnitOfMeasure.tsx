@@ -8,11 +8,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { setunitName } from '../../../features/units/UnitSlice'; // Redux action to update local store
 import { useCreateUnitMutation, useGetUnitsQuery, useUpdateUnitMutation, useDeleteUnitMutation } from '../../../features/units/UnitsApiSlice'; // API hooks
 import Toaster , {ToasterRef} from '../../molecules/toaster/Toaster';
 import theme from '../../theme';
+import EmptyInfoBox from '../../molecules/emptyInfoBox/EmptyInfoBox';
 
 const UnitOfMeasure: React.FC = () => {
   const dispatch = useDispatch();
@@ -111,20 +112,31 @@ const UnitOfMeasure: React.FC = () => {
   return (
     <div>
       <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
-         <Box sx ={{marginLeft: '60px'}}><h1>Unit of Measure</h1></Box>
+         <Box sx ={{marginLeft: '60px'}}>
+         <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
+            Unit of Measure Details
+          </Typography>
+         </Box>
             
-            <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
-            <Itembox
-              items={unitItems}
-              backgroundColor="#f9f9f9"
-              color="#333"
-              width="1000px"
-              height="250px"
-              rowPadding="12px"
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
-            />
+            <Box sx={{  paddingLeft: '80px' , paddingTop:'20px'}}>
+            {unitItems.length > 0 ? 
+                <Itembox
+                items={unitItems}
+                backgroundColor="#f9f9f9"
+                color="#333"
+                width="1000px"
+                height="250px"
+                rowPadding="12px"
+                onUpdate={handleUpdate}
+                onDelete={handleDelete}
+                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+              /> : (
+                EmptyInfoBox({
+                  text: 'No unit of measures have been added yet.',
+                  buttonText: 'Add New Unit',
+                  onButtonClick: handleAddUnitClick,
+                })
+              )}
 
               <Dialog open={isDialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>Add New Unit</DialogTitle>
@@ -149,14 +161,15 @@ const UnitOfMeasure: React.FC = () => {
                 </DialogActions>
               </Dialog>
           </Box>
-          <Box sx = {{marginTop: '40px' , marginLeft: '1000px'}}>
-              <Button 
+          <Box sx = {{marginTop: '40px' , marginLeft: '10px'}}>
+              {unitItems.length > 0 ? 
+                <Button 
                 variant="contained" 
                 onClick={handleAddUnitClick}
                 sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
                 Add New Unit
-              </Button>
-            </Box>
+              </Button> : null}
+            </Box> 
         </Box>
       
       

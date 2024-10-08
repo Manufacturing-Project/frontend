@@ -1,7 +1,7 @@
 import { TableCells } from './TableCells';
 
 export default {
-  title: 'Components/Atoms/TableCell',
+  title: 'Components/Molecules/TableCell',
   component: TableCells,
   tags: ['autodocs'],
   argstype: {

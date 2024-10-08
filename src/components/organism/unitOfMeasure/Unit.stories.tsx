@@ -5,7 +5,7 @@ import { StoryFn } from '@storybook/react';
 
 
 export default {
-  title: 'Components/page/UnitOfMeasure', // Change the title as appropriate
+  title: 'Components/Organisms/UnitOfMeasure', // Change the title as appropriate
   component: UnitOfMeasure,
   tags: ['autodocs', 'unit'],
   argTypes: {
