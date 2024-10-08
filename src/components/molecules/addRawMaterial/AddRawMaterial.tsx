@@ -109,6 +109,7 @@ const AddRawMaterial: React.FC<Props> = ({
         backgroundColor: theme.colors.secondary_background_color,
         height: "100vh",
         boxSizing: 'border-box' ,
+        overflow:'hidden'
         
       }}
     >
@@ -211,7 +212,7 @@ const AddRawMaterial: React.FC<Props> = ({
         <InputTextArea
           label="Description"
           ariaLabel="description-textarea"
-          placeholder="Enter Description"
+          placeholder="Enter Descriptionsd"
           value={description}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => dispatch(setDescription(e.target.value))}
         />

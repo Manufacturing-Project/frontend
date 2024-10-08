@@ -47,15 +47,16 @@ export const InputSelectField: React.FC<SelectFieldProps> = ({
     <Box>
       <InputFieldLabel label={label} />
       <Select
-        value={value}
-        onChange={onChange}
-        sx={{
-          width: width,
-          height: "50px", // Added height for consistency
-          backgroundColor: "white",
-          
-        }}
-      >
+  value={value}
+  onChange={onChange}
+  variant="outlined" // Add this line
+  sx={{
+    width: width,
+    height: "50px",
+    backgroundColor: "white",
+        
+  }}
+>
         {options.map((option) => (
           <MenuItem key={option.id} value={option.id}>
             {option.name}
