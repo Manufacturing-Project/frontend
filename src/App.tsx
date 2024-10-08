@@ -45,6 +45,10 @@ function App() {
           <Route path='category' element={<Category />} />
           <Route path='variants' element={<Variants />} />
         </Route>
+        <Route path='/manufacture' element={<ManufactureLayout />}>
+        <Route index element={<Navigate to="material" />} />
+        <Route index element={<Navigate to="purchaseHistory" />} />
+        </Route> 
       </Routes>
     </Box>
   </Box>
@@ -55,6 +59,14 @@ function App() {
 }
  
 function SettingLayout() {
+  return (
+    <Box>
+      <Outlet />
+    </Box>
+  );
+}
+
+function ManufactureLayout() {
   return (
     <Box>
       <Outlet />

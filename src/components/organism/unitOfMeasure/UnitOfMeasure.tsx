@@ -112,9 +112,13 @@ const UnitOfMeasure: React.FC = () => {
   return (
     <div>
       <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
-         <Box sx ={{marginLeft: '60px'}}><h1>Unit of Measure</h1></Box>
+         <Box sx ={{marginLeft: '60px'}}>
+         <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
+            Unit of Measure Details
+          </Typography>
+         </Box>
             
-            <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
+            <Box sx={{  paddingLeft: '80px' , paddingTop:'20px'}}>
             {unitItems.length > 0 ? 
                 <Itembox
                 items={unitItems}
