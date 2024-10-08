@@ -126,7 +126,6 @@ const Category: React.FC = () => {
     <div>
       <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  }}>
 
-         <Box sx ={{marginLeft: '60px' }}><h1>Category</h1></Box>
          <Box sx ={{marginLeft: '60px'}}>
          <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
             Category Details
@@ -191,7 +190,9 @@ const Category: React.FC = () => {
       
       {/* Toaster should be placed outside of the dialog */}
       <Toaster ref={toasterRef} duration={3000} />
+      </Box>
     </div>
+    
   );
 };
 

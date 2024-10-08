@@ -92,7 +92,7 @@ const Variants: React.FC = () => {
     <div> 
 
     <Box sx={{ height: '100%' , background: theme.colors.secondary_background_color  } }>
-       <Box sx ={{marginLeft: '60px' }}><h1>Variant Details</h1></Box>
+    
 
     <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
        <Box sx ={{marginLeft: '60px' ,}}>
@@ -165,6 +165,7 @@ const Variants: React.FC = () => {
     
     {/* Toaster should be placed outside of the dialog */}
     {/* <Toaster ref={toasterRef} duration={3000} /> */}
+    </Box>
   </div>
   );
 };
