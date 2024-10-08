@@ -61,7 +61,7 @@ const UnitOfMeasure: React.FC = () => {
         return;
       }
   
-      // Create the new unit
+      // Create the new unit 
       const response = await createUnit({
         unitName: trimmedUnit,
         _id: undefined,
