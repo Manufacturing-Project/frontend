@@ -89,8 +89,8 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
       alignItems: 'center',
       gap: '16px', // Set exact gap of 4px between the icon and text
       flexGrow: 1,
-      paddingLeft: '25px',  // Set paddingLeft to 12px
-      paddingRight: '25px',
+      paddingLeft: '40px',  // Set paddingLeft to 12px
+      paddingRight: '40px',
        
     }}
   >
