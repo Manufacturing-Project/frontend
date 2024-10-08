@@ -212,7 +212,7 @@ const AddRawMaterial: React.FC<Props> = ({
         <InputTextArea
           label="Description"
           ariaLabel="description-textarea"
-          placeholder="Enter Descriptionsd"
+          placeholder="Enter Description"
           value={description}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => dispatch(setDescription(e.target.value))}
         />
