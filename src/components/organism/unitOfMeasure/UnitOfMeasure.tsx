@@ -125,7 +125,7 @@ const UnitOfMeasure: React.FC = () => {
                 rowPadding="12px"
                 onUpdate={handleUpdate}
                 onDelete={handleDelete}
-                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" 
               /> : (
                 EmptyInfoBox({
                   text: 'No unit of measures have been added yet.',
@@ -157,7 +157,7 @@ const UnitOfMeasure: React.FC = () => {
                 </DialogActions>
               </Dialog>
           </Box>
-          <Box sx = {{marginTop: '40px' , marginLeft: '10px'}}>
+          <Box sx = {{marginTop: '40px' , marginLeft: '60px'}}>
               {unitItems.length > 0 ? 
                 <Button 
                 variant="contained" 
@@ -169,7 +169,7 @@ const UnitOfMeasure: React.FC = () => {
         </Box>
       
       
-      {/* Toaster should be placed outside of the dialog */}
+                
       <Toaster ref={toasterRef} duration={3000} />
     </div>
   );
