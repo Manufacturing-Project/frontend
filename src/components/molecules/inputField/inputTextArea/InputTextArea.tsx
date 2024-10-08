@@ -50,9 +50,8 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
         value={value}
         onChange={onChange}
         style={{
-          width: "1078px",
-          
-          padding: "10px",
+          width: "100%",
+          marginRight: "10px",
           borderRadius: "4px",
           borderColor: "#ccc",
         }}

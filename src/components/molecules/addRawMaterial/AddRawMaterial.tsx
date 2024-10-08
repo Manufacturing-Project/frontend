@@ -16,11 +16,8 @@ import {
   setHasVariants,
   resetForm,
 } from "../../../features/rawMaterials/rawMaterialSlice";
+import { InputTextField, InputTextArea, InputSelectField } from "../index";
 
-// Importing custom input components
-import { InputTextField } from "../inputField/inputTextField/InputTextField";
-import { InputTextArea } from "../inputField/inputTextArea/InputTextArea";
-import { InputSelectField } from "../inputField/inputSelectField/InputSelectField";
 
 interface Option {
   id: string;
@@ -121,52 +118,72 @@ const AddRawMaterial: React.FC<Props> = ({
 
       {/* Material Name and Code Fields */}
       <Box sx={{ display: "flex", gap: "40px" }}>
+        <Box sx={{
+          width: "100%",
+        }}>
         <InputTextField
           label="Material Name"
           textPlaceholder="Enter Material Name"
           value={m_name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
-          width="530px"
+          width="100%"
         />
+        </Box>
+        <Box sx={{
+          width: "100%",	
+        }}>
         <InputTextField
           label="Material Code"
           textPlaceholder="Enter Material Code"
           value={m_code}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
-          width="530px"
+          width="100%"
         />
+        </Box>
       </Box>
 
       {/* Category and Unit Fields */}
       <Box sx={{ display: "flex", gap: "40px" }}>
+        <Box sx={{
+          width: "100%",
+        }}>
         <InputSelectField
           label="Category"
           options={categoryoption}
           value={category}
           onChange={(e) => dispatch(setCategory(e.target.value))}
-          width="530px"
+          width="100%"
         />
+        </Box>
+        <Box sx={{
+          width: "100%",
+        }}>
         <InputSelectField
           label="Unit"
           options={unitoption}
           value={unit}
           onChange={(e) => dispatch(setUnit(e.target.value))}
-          width="530px"
+          width="100%"
         />
+        </Box>
       </Box>
 
       {/* Reorder Level Field */}
       <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
+        <Box sx={{
+          width: "100%",
+        }}>
         <InputTextField
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel.toString()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
-          width="530px"
+          width="100%"
         />
+        </Box>
 
           {/* Has Variants Switch */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
   <Typography>This material has variants</Typography>
   <Switch
   checked={hasVariants}
@@ -188,7 +205,9 @@ const AddRawMaterial: React.FC<Props> = ({
       </Box>
 
       {/* Description Field */}
-      <Box>
+      <Box sx={{
+        width: "100%",
+      }}>
         <InputTextArea
           label="Description"
           ariaLabel="description-textarea"
