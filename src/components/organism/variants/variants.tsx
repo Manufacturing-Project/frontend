@@ -13,6 +13,7 @@ import { useCreateVariantMutation, } from '../../../features/variants/variantApi
 import theme from '../../theme';
 import Toaster from '../../molecules/toaster/Toaster';
 import { useDeleteVariantMutation, useGetVariantsQuery, useUpdateVariantMutation } from '../../../features/variants/variantApiSlice';
+import EmptyInfoBox from '../../molecules/emptyInfoBox/EmptyInfoBox';
 
 const Variants: React.FC = () => { 
   const dispatch = useDispatch();
@@ -107,22 +108,11 @@ const Variants: React.FC = () => {
               boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
             />
           ) : (
-            <Box sx={{ textAlign: 'center', marginTop: '40px' }}>
-              <Typography variant="h6" sx={{ color: '#333' }}>
-                No variants have been added yet.
-              </Typography>
-              <Button 
-                variant="contained"
-                onClick={handleAddVariantClick}
-                sx={{
-                  backgroundColor: theme.colors.button_background_setting,
-                  color: theme.colors.font_color_button,
-                  marginTop: '20px',
-                }}
-              >
-                Add New Variant
-              </Button>
-            </Box>
+            EmptyInfoBox({
+              text: 'No variants have been added yet.',
+              buttonText: 'Add New Variant',
+              onButtonClick: handleAddVariantClick,
+            })
           )} 
 
             <Dialog open={isDialogOpen} onClose={handleDialogClose}>
