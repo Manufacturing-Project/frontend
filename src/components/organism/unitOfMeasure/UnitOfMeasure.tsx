@@ -61,7 +61,7 @@ const UnitOfMeasure: React.FC = () => {
         return;
       }
   
-      // Create the new unit
+      // Create the new unit 
       const response = await createUnit({
         unitName: trimmedUnit,
         _id: undefined,
@@ -110,8 +110,8 @@ const UnitOfMeasure: React.FC = () => {
 
   return (
     <div>
-      <Box sx={{ height: '100%', marginTop: '100px' , background: theme.colors.secondary_background_color  } }>
-         <Box sx ={{marginLeft: '60px' , paddingTop: '40px'}}><h1>Unit of Measure</h1></Box>
+      <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
+         <Box sx ={{marginLeft: '60px'}}><h1>Unit of Measure</h1></Box>
             
             <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
             <Itembox

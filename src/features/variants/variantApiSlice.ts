@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { CreateVariant } from './variantModel';
+import { BASE_URL } from '../../constant';
 
 export const variantsApi = createApi({
   reducerPath: 'variantsApi', 
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/variants' }),  
+  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/variants` }),  
   endpoints: (builder) => ({
-    // Mutation for creating a unit
     createVariant: builder.mutation<void, CreateVariant>({
       query: (variant) => ({
         url: `/`,
@@ -14,7 +14,6 @@ export const variantsApi = createApi({
       }),
     }),
 
-    // Query for fetching all units
     getVariants: builder.query<CreateVariant[], void>({
       query: () => ({ 
         url: `/`,
@@ -22,13 +21,30 @@ export const variantsApi = createApi({
       }),
  
     }),
+
+    updateVariant: builder.mutation<void, { id: string; variant: CreateVariant }>({
+      query: ({ id, variant }) => ({
+        url: `/${id}`,
+        method: 'PUT', 
+        body: variant, 
+      }),
+    }),
+
+    // Mutation for deleting a unit
+    deleteVariant: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+
+
   }),
 });
 
-// Export the hooks for the endpoints
 export const {
   useCreateVariantMutation,
-//   useUpdateUnitMutation,
-//   useDeleteUnitMutation,
+  useUpdateVariantMutation,
+  useDeleteVariantMutation,
   useGetVariantsQuery,
 } = variantsApi;

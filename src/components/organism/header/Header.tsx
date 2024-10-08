@@ -67,7 +67,7 @@ const Header: React.FC = () => {
             </Typography>
           </Box>
         </Box>
-        <SearchBar options={searchOptions}  onChange={handleSearchChange} label='Search...'/>
+        <SearchBar options={searchOptions}  onChange={handleSearchChange} />
         <Avatar
           alt="Remy Sharp"
           src={ProfileIcon}
