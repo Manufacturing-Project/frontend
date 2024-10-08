@@ -13,6 +13,7 @@ import { useCreateVariantMutation, } from '../../../features/variants/variantApi
 import theme from '../../theme';
 import Toaster from '../../molecules/toaster/Toaster';
 import { useDeleteVariantMutation, useGetVariantsQuery, useUpdateVariantMutation } from '../../../features/variants/variantApiSlice';
+import EmptyInfoBox from '../../molecules/emptyInfoBox/EmptyInfoBox';
 
 const Variants: React.FC = () => { 
   const dispatch = useDispatch();
@@ -89,10 +90,19 @@ const Variants: React.FC = () => {
 
   return (
     <div> 
-    <Box sx={{ height: '100%', marginTop: '100px' , background: theme.colors.secondary_background_color  } }>
-       <Box sx ={{marginLeft: '60px' , paddingTop: '25px'}}><h1>Variant Details</h1></Box>
+
+    <Box sx={{ height: '100%' , background: theme.colors.secondary_background_color  } }>
+    
+
+    <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
+       <Box sx ={{marginLeft: '60px' ,}}>
+       <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
+            Variants Details
+          </Typography>
+       </Box>
+
           
-          <Box sx={{  paddingLeft: '80px' , marginTop:'40px'}}>
+          <Box sx={{  paddingLeft: '80px', paddingTop: '20px'}}>
           
           {variantsItems.length > 0 ? (
             <Itembox
@@ -107,22 +117,11 @@ const Variants: React.FC = () => {
               boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
             />
           ) : (
-            <Box sx={{ textAlign: 'center', marginTop: '40px' }}>
-              <Typography variant="h6" sx={{ color: '#333' }}>
-                No variants have been added yet.
-              </Typography>
-              <Button 
-                variant="contained"
-                onClick={handleAddVariantClick}
-                sx={{
-                  backgroundColor: theme.colors.button_background_setting,
-                  color: theme.colors.font_color_button,
-                  marginTop: '20px',
-                }}
-              >
-                Add New Variant
-              </Button>
-            </Box>
+            EmptyInfoBox({
+              text: 'No variants have been added yet.',
+              buttonText: 'Add New Variant',
+              onButtonClick: handleAddVariantClick,
+            })
           )} 
 
             <Dialog open={isDialogOpen} onClose={handleDialogClose}>
@@ -147,8 +146,13 @@ const Variants: React.FC = () => {
                 </Button>
               </DialogActions>
             </Dialog>
+
         </Box>
-        <Box sx = {{marginTop: '40px' , marginLeft: '10px'}}>
+        <Box sx = {{marginTop: '40px' , marginLeft: '60px'}}>
+
+        </Box> 
+        <Box sx = {{ marginLeft: '10px'}}>
+
            { variantsItems.length > 0  ?  <Button 
               variant="contained" 
               onClick={handleAddVariantClick}
@@ -161,6 +165,7 @@ const Variants: React.FC = () => {
     
     {/* Toaster should be placed outside of the dialog */}
     {/* <Toaster ref={toasterRef} duration={3000} /> */}
+    </Box>
   </div>
   );
 };

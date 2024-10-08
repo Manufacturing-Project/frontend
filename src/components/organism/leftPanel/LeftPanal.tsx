@@ -52,7 +52,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         break;
       case 'Setting':
         items.push(
-          { to: "/setting/unit", icon: <ScaleIcon />, text: "Unit" },
+          { to: "/setting/unit", icon: <ScaleIcon />, text: "Units" },
           { to: "/setting/category", icon: <CategoryIcon />, text: "Category" },
           { to: "/setting/supplier", icon: <LocalShippingIcon />, text: "Suppliers" },
           { to: "/setting/variants", icon: <LayersIcon />, text: "Variants" }
@@ -70,29 +70,47 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
 
     return items.map((item) => (
       <ListItem
-        key={item.text}
-        component={Link} 
-        to={item.to} 
-        sx={{
-          backgroundColor: location.pathname === item.to ? theme.colors.primary_color_green : 'transparent', // Background when active
-          borderRadius: location.pathname === item.to ? '47px' : '0',
-          transition: 'background-color 0.1s', // Smooth transition
-        }}
-      >
-        <ListItemIcon
-          sx={{
-            color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild, // Icon color when active or inactive
-          }}
-        >
-          {item.icon}
-        </ListItemIcon>
-        <ListItemText
-          primary={item.text}
-          sx={{
-            color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild, // Text color when active or inactive
-          }}
-        />
-      </ListItem>
+  key={item.text}
+  component={Link}
+  to={item.to}
+  sx={{
+    //width:'200px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',  // Center the combined icon and text
+    backgroundColor: location.pathname === item.to ? theme.colors.primary_color_green : 'transparent', // Background when active
+    borderRadius: location.pathname === item.to ? '47px' : '0',
+    transition: 'background-color 0.1s', // Smooth transition
+  }}
+>
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '16px', // Set exact gap of 4px between the icon and text
+      flexGrow: 1,
+      paddingLeft: '40px',  // Set paddingLeft to 12px
+      paddingRight: '40px',
+       
+    }}
+  >
+    <ListItemIcon
+      sx={{
+        color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild,
+        minWidth: 'auto',  // Remove default minWidth for better alignment
+      }}
+    >
+      {item.icon}
+    </ListItemIcon>
+    <ListItemText
+      primary={item.text}
+      sx={{
+        color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild,  // Text color when active or inactive
+        textAlign: 'left',
+      }}
+    />
+  </Box>
+</ListItem>
     ));
   };
 
@@ -116,6 +134,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         backgroundColor: theme.colors.secondary_background_color,
         height: 'calc(100vh - 200px)',
         justifyContent: 'space-between',
+        borderRight: `2px solid ${theme.colors.textfeild_color}`,
         
       }}
     >
@@ -123,7 +142,8 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '40px',
+          gap: '10px',
+        
         }}
       >
         {renderPanelItems()}
