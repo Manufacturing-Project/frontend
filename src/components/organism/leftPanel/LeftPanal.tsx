@@ -36,8 +36,8 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
     '/setting/category': set,
     '/setting/supplier': set,
     '/setting/variants': set,
-    '/manufacture/material': man,
     '/manufacture/purchase': man,
+    '/manufacture/history': man,
   };
 
   const renderPanelItems = () => {
@@ -60,8 +60,8 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         break;
       case 'Manufacture':
         items.push(
-          { to: "/manufacture/material", icon: <AddShoppingCartIcon />, text: "Add Raw Material" },
-          { to: "/manufacture/purchase", icon: <HistoryIcon />, text: "Purchase History" }
+          { to: "/manufacture/purchase", icon: <AddShoppingCartIcon />, text: "Purchase Raw Material" },
+          { to: "/manufacture/history", icon: <HistoryIcon />, text: "Purchase History" }
         );
         break;
       default:
