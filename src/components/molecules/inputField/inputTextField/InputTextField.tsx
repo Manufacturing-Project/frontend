@@ -50,6 +50,22 @@ export const InputTextField: React.FC<InputFieldProps> = ({
           height: "50px",
           backgroundColor: "white",
           borderRadius: 8,
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: theme.colors.border_color_grey, // Default border color
+            },
+            '&:hover fieldset': {
+              borderColor: theme.colors.border_color_grey, // Border color on hover
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: theme.colors.primary_color_green, // Border color when focused
+            },
+          },
+          // Adding placeholder color
+          '& .MuiInputBase-input::placeholder': {
+            color: theme.colors.border_color_grey, // Set your desired placeholder color
+            opacity: 1, // Show full opacity
+          },
         }}
         variant="outlined" // You can adjust the variant as needed
       />

@@ -109,6 +109,7 @@ const AddRawMaterial: React.FC<Props> = ({
         backgroundColor: theme.colors.secondary_background_color,
         height: "100vh",
         boxSizing: 'border-box' ,
+        overflow:'hidden'
         
       }}
     >
