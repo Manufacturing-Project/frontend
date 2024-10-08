@@ -1,4 +1,4 @@
-import {SearchBar}  from './SearchBar';
+import {SearchBar}  from './Searchbar';
 
 export default {
   title: 'Components/Molecules/SearchBar',

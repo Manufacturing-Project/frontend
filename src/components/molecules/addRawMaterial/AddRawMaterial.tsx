@@ -101,7 +101,95 @@ const AddRawMaterial: React.FC<Props> = ({
 
   return (
     <Box
-  sx={{
+
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+        paddingLeft: '100px',
+        backgroundColor: theme.colors.secondary_background_color,
+        height: "100vh",
+        boxSizing: 'border-box' ,
+        overflow:'hidden'
+        
+      }}
+    >
+      <Typography variant="h4" gutterBottom>
+        Register Raw Material
+      </Typography>
+
+      {/* Material Name and Code Fields */}
+      <Box sx={{ display: "flex", gap: "40px" }}>
+        <Box sx={{
+          width: "100%",
+        }}>
+        <InputTextField
+          label="Material Name"
+          textPlaceholder="Enter Material Name"
+          value={m_name}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
+          width="100%"
+        />
+        </Box>
+        <Box sx={{
+          width: "100%",	
+        }}>
+        <InputTextField
+          label="Material Code"
+          textPlaceholder="Enter Material Code"
+          value={m_code}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
+          width="100%"
+        />
+        </Box>
+      </Box>
+
+      {/* Category and Unit Fields */}
+      <Box sx={{ display: "flex", gap: "40px" }}>
+        <Box sx={{
+          width: "100%",
+        }}>
+        <InputSelectField
+          label="Category"
+          options={categoryoption}
+          value={category}
+          onChange={(e) => dispatch(setCategory(e.target.value))}
+          width="100%"
+        />
+        </Box>
+        <Box sx={{
+          width: "100%",
+        }}>
+        <InputSelectField
+          label="Unit"
+          options={unitoption}
+          value={unit}
+          onChange={(e) => dispatch(setUnit(e.target.value))}
+          width="100%"
+        />
+        </Box>
+      </Box>
+
+      {/* Reorder Level Field */}
+      <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
+        <Box sx={{
+          width: "100%",
+        }}>
+        <InputTextField
+          label="Re-Order Level"
+          textPlaceholder="Enter Re-Order Level"
+          value={reorderlevel.toString()}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
+          width="100%"
+        />
+        </Box>
+
+          {/* Has Variants Switch */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+  <Typography>This material has variants</Typography>
+  <Switch
+  checked={hasVariants}
+  onChange={(e) => dispatch(setHasVariants(e.target.checked))}  sx={{
     display: "flex",
     flexDirection: "column",
     gap: "32px",
