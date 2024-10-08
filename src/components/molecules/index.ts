@@ -1,3 +1,4 @@
+export { SearchBar } from './searchbar/Searchbar';
 export {InputTextField} from './inputField/inputTextField/InputTextField';
 export {InputTextArea} from './inputField/inputTextArea/InputTextArea';
 export {InputSelectField} from './inputField/inputSelectField/InputSelectField';
