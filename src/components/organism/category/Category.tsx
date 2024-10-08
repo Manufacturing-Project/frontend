@@ -12,6 +12,7 @@ import { Box } from '@mui/material';
 import { useCreateCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation, useDeleteCategoryMutation } from '../../../features/categories/CategoryApiSlice'; // API hooks
 import Toaster, { ToasterRef } from '../../molecules/toaster/Toaster';
 import theme from '../../theme';
+import EmptyInfoBox from '../../molecules/emptyInfoBox/EmptyInfoBox';
 
 const Category: React.FC = () => {
   const dispatch = useDispatch();
@@ -127,17 +128,22 @@ const Category: React.FC = () => {
          <Box sx ={{marginLeft: '60px' , paddingTop: '40px'}}><h1>Category</h1></Box>
             
             <Box sx={{ paddingLeft: '80px' , marginTop:'40px'}}>
-            <Itembox
-              items={categoryOptions} // Displaying categories from MongoDB
-              backgroundColor="#f9f9f9"
-              color="#333"
-              width="1000px"
-              height="250px"
-              rowPadding="12px"
-              onUpdate={handleUpdate} // Pass the handleUpdate function
-              onDelete={handleDelete} // Pass the handleDelete function
-              boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
-            />
+            { categoryOptions.length > 0 ? (
+                <Itembox
+                items={categoryOptions} // Displaying categories from MongoDB
+                backgroundColor="#f9f9f9"
+                color="#333"
+                width="1000px"
+                height="250px"
+                rowPadding="12px"
+                onUpdate={handleUpdate} // Pass the handleUpdate function
+                onDelete={handleDelete} // Pass the handleDelete function
+                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+              /> ) : EmptyInfoBox({ // Display EmptyInfoBox if there are no categories
+                text: 'No unit of measures have been added yet',
+                buttonText: 'Add New Category',
+                onButtonClick: handleAddCategoryClick,
+              })} 
               <Dialog open={isDialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>{selectedCategory ? 'Update Category' : 'Add New Category'}</DialogTitle>
                 <DialogContent>
@@ -161,13 +167,14 @@ const Category: React.FC = () => {
                 </DialogActions>
               </Dialog>
           </Box>
-          <Box sx = {{marginTop: '40px' , marginLeft: '1000px'}}>
-              <Button 
-                variant="contained" 
-                onClick={handleAddCategoryClick}
-                sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
-                Add New Category
-              </Button>
+          <Box sx = {{marginTop: '40px' , marginLeft: '10px'}}>
+             { categoryOptions.length > 0 ? (
+               <Button 
+               variant="contained" 
+               onClick={handleAddCategoryClick}
+               sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+               Add New Category
+             </Button> ) : null }
             </Box>
         </Box>
       
