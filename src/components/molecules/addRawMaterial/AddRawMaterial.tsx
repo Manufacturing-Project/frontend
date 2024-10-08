@@ -20,8 +20,8 @@ import { InputTextField, InputTextArea, InputSelectField } from "../index";
 
 
 interface Option {
-  id: string;
-  name: string;
+   id: string;
+   name: string;
 }
 
 interface Props {
