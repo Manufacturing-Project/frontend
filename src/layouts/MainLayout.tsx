@@ -24,7 +24,7 @@ const MainLayout: React.FC = () => {
             padding: '20px',
             // paddingBottom: '100px',
             height: '140%',
-            overflowY: 'auto',
+            overflowY: 'hidden',
             alignItems: 'start',}}
         > 
           <Outlet />
