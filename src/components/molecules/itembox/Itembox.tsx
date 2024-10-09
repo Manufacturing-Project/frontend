@@ -58,8 +58,7 @@ const Itembox: React.FC<ItemboxProps> = ({
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor : 'fffff',
-        color,
+        backgroundColor : theme.colors.secondary_background_color,
         width: '100%' ,    
         height,
         padding: rowPadding,
@@ -75,7 +74,7 @@ const Itembox: React.FC<ItemboxProps> = ({
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '8px',
-            borderBottom: '1px solid #ccc',
+            borderBottom: `1px solid ${theme.colors.border_color_grey}`,
             overflow: 'hidden',
           }}
         >
@@ -99,10 +98,10 @@ const Itembox: React.FC<ItemboxProps> = ({
               <Typography sx={{ fontSize: '20px' }}>{item.name}</Typography> 
               <Box>
                 <Button onClick={() => handleEditClick(item)}>
-                  <EditIcon sx={{color: theme.colors.button_background_Logout}}/>
+                  <EditIcon sx={{color: theme.colors.border_color_grey}}/>
                 </Button>
                 <Button onClick={() => handleDeleteClick(item)}>
-                  <DeleteIcon sx={{color: theme.colors.button_background_Logout}}/>
+                  <DeleteIcon sx={{color: theme.colors.border_color_grey}}/>
                 </Button>
               </Box>
             </>

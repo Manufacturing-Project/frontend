@@ -13,10 +13,10 @@ export const MenuBar: React.FC = () => {
 
   // Array of menu items with icon, label, path
   const menuItems = [
-    { icon: <DashboardIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }}  />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <AppRegistrationIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }} />, label: 'Registration', path: '/register' },
-    { icon: <TokenSharpIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }}/>, label: 'Manufacture', path: '/manufacture' },
-    { icon: <SettingsIcon sx={{ color: 'rgba(0, 0, 0, 0.8)' }} />, label: 'Settings', path: '/setting' }
+    { icon: <DashboardIcon sx={{ color: theme.colors.black_Transparent_8 }}  />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <AppRegistrationIcon sx={{ color: theme.colors.black_Transparent_8 }} />, label: 'Registration', path: '/register' },
+    { icon: <TokenSharpIcon sx={{ color: theme.colors.black_Transparent_8 }}/>, label: 'Manufacture', path: '/manufacture' },
+    { icon: <SettingsIcon sx={{ color: theme.colors.black_Transparent_8 }} />, label: 'Settings', path: '/setting' }
   ];
 
   return (
@@ -37,7 +37,7 @@ export const MenuBar: React.FC = () => {
             to={item.path}
             style={{
               textDecoration: 'none',
-              color: 'rgba(0, 0, 0, 0.9)', 
+              color: theme.colors.black_Transparent_9, 
             }}
           >
             <Box
@@ -51,12 +51,12 @@ export const MenuBar: React.FC = () => {
                 gap: theme.gap.base_gap_8,
                 cursor: 'pointer',
                 borderBottom: isActive
-                  ? `3px solid rgba(0, 0, 0, 0.9)`
+                  ? `3px solid ${theme.colors.black_Transparent_9}`
                   : 'none',
 
                 '&:hover': {
                   fontWeight: theme.fontweight.base_font_weight_Bold,
-                  borderBottom: `3px solid rgba(0, 0, 0, 0.9)`,
+                  borderBottom: `3px solid ${theme.colors.black_Transparent_9}`,
                 },
               }}
             >
@@ -67,12 +67,12 @@ export const MenuBar: React.FC = () => {
               <Typography
                 variant="h6"
                 sx={{
-                  fontSize: '26px',
-                  color: 'rgba(0, 0, 0, 0.9)',
+                  fontSize: theme.font.base_font_size_menubar,
+                  color: theme.colors.black_Transparent_9,
                   fontWeight: isActive
                     ? theme.fontweight.base_font_weight_SemiBold
                     : theme.fontweight.base_font_weight_Medium,
-                  fontFamily: 'Poppins, sans-serif',
+                  fontFamily:theme.typography.fontFamily,
                 }}
               >
                 {item.label}
