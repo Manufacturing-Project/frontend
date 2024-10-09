@@ -183,25 +183,21 @@ const AddRawMaterial: React.FC<Props> = ({
         </Box>
 
           {/* Has Variants Switch */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
-  <Typography>This material has variants</Typography>
-  <Switch
-  checked={hasVariants}
-  onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-  sx={{
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: '#08B1BA', // Thumb color when checked
-      '& + .MuiSwitch-track': {
-        backgroundColor: '#08B1BA', // Track color when checked
-      },
-    },
-  }}
-/>
-
-</Box>
-
-
-
+        <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+          <Typography>This material has variants</Typography>
+          <Switch
+          checked={hasVariants}
+          onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+          sx={{
+            '& .MuiSwitch-switchBase.Mui-checked': {
+              color: '#08B1BA', // Thumb color when checked
+              '& + .MuiSwitch-track': {
+                backgroundColor: '#08B1BA', // Track color when checked
+              },
+            },
+          }}
+        />
+        </Box>
       </Box>
 
       {/* Description Field */}

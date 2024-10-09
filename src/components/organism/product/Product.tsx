@@ -20,7 +20,7 @@ const Product: React.FC<Props> = (props) => {
 
   return (
     <Box>     
-      <Lottie options={defaultOptions} height={800} width={800} />
+      <Lottie options={defaultOptions} height={600} width={600} />
     </Box>
   );
 };
