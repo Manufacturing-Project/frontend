@@ -16,8 +16,11 @@ import {
   setHasVariants,
   resetForm,
 } from "../../../features/rawMaterials/rawMaterialSlice";
-import { InputTextField, InputTextArea, InputSelectField } from "../index";
 
+// Importing custom input components
+import { InputTextField } from "../inputField/inputTextField/InputTextField";
+import { InputTextArea } from "../inputField/inputTextArea/InputTextArea";
+import { InputSelectField } from "../inputField/inputSelectField/InputSelectField";
 
 interface Option {
   id: string;
@@ -104,13 +107,11 @@ const AddRawMaterial: React.FC<Props> = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "35px",
-        paddingLeft: '60px',
+        gap: "32px",
+        paddingLeft: '100px',
         backgroundColor: theme.colors.secondary_background_color,
         height: "100%",
         boxSizing: 'border-box' ,
-        // overflow:'hidden'
-        
       }}
     >
       <Typography variant="h4" gutterBottom>
@@ -118,97 +119,64 @@ const AddRawMaterial: React.FC<Props> = ({
       </Typography>
 
       {/* Material Name and Code Fields */}
-      <Box sx={{ display: "flex", gap: theme.gap.base_gap_40 }}>
-        <Box sx={{
-          width: "100%",
-        }}>
+      <Box sx={{ display: "flex", gap: "40px" }}>
         <InputTextField
           label="Material Name"
           textPlaceholder="Enter Material Name"
           value={m_name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
-        <Box sx={{
-          width: "100%",	
-        }}>
         <InputTextField
           label="Material Code"
           textPlaceholder="Enter Material Code"
           value={m_code}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
       </Box>
 
       {/* Category and Unit Fields */}
-      <Box sx={{ display: "flex", gap: theme.gap.base_gap_40 }}>
-        <Box sx={{
-          width: "100%",
-        }}>
+      <Box sx={{ display: "flex", gap: "40px" }}>
         <InputSelectField
           label="Category"
           options={categoryoption}
           value={category}
           onChange={(e) => dispatch(setCategory(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputSelectField
           label="Unit"
           options={unitoption}
           value={unit}
           onChange={(e) => dispatch(setUnit(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
       </Box>
 
       {/* Reorder Level Field */}
-      <Box sx={{ display: "flex", gap:theme.gap.base_gap_40 ,alignItems:'end'}}>
-        <Box sx={{
-          width: "100%",
-        }}>
+      <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
         <InputTextField
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel.toString()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
-          width="100%"
+          width="530px"
         />
-        </Box>
 
           {/* Has Variants Switch */}
-          <Box sx={{ display: "flex", alignItems: "center", gap:theme.gap.base_gap_10, width: "100%" }}>
-  <Typography>This material has variants</Typography>
-  <Switch
-  checked={hasVariants}
-  onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-  sx={{
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: theme.colors.primary_color_green, // Thumb color when checked
-      '& + .MuiSwitch-track': {
-        backgroundColor: theme.colors.primary_color_green, // Track color when checked
-      },
-    },
-  }}
-/>
-
-</Box>
-
-
+      <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <Typography>This material has variants</Typography>
+        <Switch
+          checked={hasVariants}
+          onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+        />
+      </Box>
 
       </Box>
 
       {/* Description Field */}
-      <Box sx={{
-        width: "100%",
-      }}>
+      <Box>
         <InputTextArea
           label="Description"
           ariaLabel="description-textarea"
@@ -229,7 +197,7 @@ const AddRawMaterial: React.FC<Props> = ({
           sx={{
             backgroundColor: theme.colors.primary_color_green,
             color: theme.colors.secondary_background_color,
-            // marginTop: '60px',
+            marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
@@ -243,7 +211,7 @@ const AddRawMaterial: React.FC<Props> = ({
           sx={{
             backgroundColor: theme.colors.primary_color_green,
             color: theme.colors.secondary_background_color,
-            // marginTop: '60px',
+            marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
