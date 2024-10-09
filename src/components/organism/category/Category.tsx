@@ -130,6 +130,18 @@ const Category: React.FC = () => {
          <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
             Category Details
           </Typography>
+
+          <Box >
+
+{ categoryOptions.length > 0 ? (
+  <Button 
+  variant="contained" 
+  onClick={handleAddCategoryClick}
+  sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+  Add New Category
+</Button> ) : null }
+</Box>
+
          </Box>
 
             
@@ -139,14 +151,13 @@ const Category: React.FC = () => {
                 items={categoryOptions} // Displaying categories from MongoDB
                 backgroundColor="#f9f9f9"
                 color="#333"
-                width="1000px"
                 height="250px"
                 rowPadding="12px"
                 onUpdate={handleUpdate} // Pass the handleUpdate function
                 onDelete={handleDelete} // Pass the handleDelete function
                 boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
               /> ) : EmptyInfoBox({ // Display EmptyInfoBox if there are no categories
-                text: 'No unit of measures have been added yet',
+                text: 'No categories have been added yet.',
                 buttonText: 'Add New Category',
                 onButtonClick: handleAddCategoryClick,
               })} 
@@ -176,16 +187,7 @@ const Category: React.FC = () => {
 
           <Box sx = {{marginTop: '40px' , marginLeft: '60px'}}>
 
-          <Box sx = {{marginLeft: '10px'}}>
-
-             { categoryOptions.length > 0 ? (
-               <Button 
-               variant="contained" 
-               onClick={handleAddCategoryClick}
-               sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
-               Add New Category
-             </Button> ) : null }
-            </Box>
+          
         </Box>
       
       {/* Toaster should be placed outside of the dialog */}

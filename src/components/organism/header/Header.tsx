@@ -21,7 +21,6 @@ const Header: React.FC = () => {
         position: 'fixed',
         width: '100%',
         zIndex: '2',
-        margin: 0,
         
         
       }}
@@ -74,7 +73,7 @@ const Header: React.FC = () => {
           sx={{ 
             display: 'inline-block',
             cursor: 'pointer',
-            marginRight: '20px',
+            marginRight: '40px',
             width: '45px',
             height: '45px',
           }}

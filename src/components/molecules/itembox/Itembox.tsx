@@ -16,7 +16,6 @@ export interface ItemboxProps {
   items: Item[];
   backgroundColor: string;
   color: string;
-  width: string;
   height: string;
   rowPadding: string;
   onUpdate: (id: string, updatedName: string) => Promise<void>;
@@ -28,7 +27,6 @@ const Itembox: React.FC<ItemboxProps> = ({
   items,
   backgroundColor,
   color,
-  width,
   height,
   rowPadding,
   onUpdate,
@@ -60,13 +58,13 @@ const Itembox: React.FC<ItemboxProps> = ({
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor,
+        backgroundColor : 'fffff',
         color,
-        width,
+        width: '100%' ,    
         height,
         padding: rowPadding,
-        overflowY: 'auto',
-        boxShadow: boxShadow || 'none',
+        overflowY: 'hidden',
+        boxShadow:'none',
       }}
     >
       {items.map((item) => (
@@ -78,6 +76,7 @@ const Itembox: React.FC<ItemboxProps> = ({
             alignItems: 'center',
             padding: '8px',
             borderBottom: '1px solid #ccc',
+            overflow: 'hidden',
           }}
         >
           {editItemId === item.id ? (

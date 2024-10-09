@@ -43,21 +43,37 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
   return (
     <Box>
       <InputFieldLabel label={label} />
-      <TextareaAutosize
-        aria-label={ariaLabel}
-        minRows={minRows}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        style={{
-          width: "100%",
-          marginRight: "10px",
-          borderRadius: "4px",
-          borderColor: "#ccc",
-        }}
-      />
+     
+
+      <Box sx={{
+        '& textarea::placeholder': {
+          color: theme.colors.border_color_grey,
+          fontSize: 15,
+          fontFamily: 'sans-serif'
+        },
+      }}>
+        <TextareaAutosize
+          aria-label={ariaLabel}
+          minRows={minRows}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          style={{
+            width: "99%",
+            marginRight: "10px",
+            borderRadius: "4px",
+            border: `1px solid ${theme.colors.border_color_grey}`, // Default border color
+            transition: 'border-color 0.3s', // Smooth transition
+            outline: 'none', // Remove default outline
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor = theme.colors.primary_color_green; // Change border color on focus
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor = theme.colors.border_color_grey; // Revert border color on blur
+          }}
+        />
+      </Box>
     </Box>
   );
 };
-
-;

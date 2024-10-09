@@ -107,8 +107,9 @@ const AddRawMaterial: React.FC<Props> = ({
         gap: "32px",
         paddingLeft: '100px',
         backgroundColor: theme.colors.secondary_background_color,
-        height: "100vh",
+        height: "100%",
         boxSizing: 'border-box' ,
+        // overflow:'hidden'
         
       }}
     >
@@ -224,7 +225,7 @@ const AddRawMaterial: React.FC<Props> = ({
           sx={{
             backgroundColor: theme.colors.primary_color_green,
             color: theme.colors.font_color_button,
-            marginTop: '60px',
+            // marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
@@ -238,7 +239,7 @@ const AddRawMaterial: React.FC<Props> = ({
           sx={{
             backgroundColor: theme.colors.primary_color_green,
             color: theme.colors.font_color_button,
-            marginTop: '60px',
+            // marginTop: '60px',
             width:"99px",
             height:"36px"
           }}

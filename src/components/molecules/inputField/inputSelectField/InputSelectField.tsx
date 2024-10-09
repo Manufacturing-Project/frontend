@@ -36,6 +36,8 @@ interface SelectFieldProps {
   width?: string;
 }
 
+
+      
 export const InputSelectField: React.FC<SelectFieldProps> = ({
   label,
   options,
@@ -43,18 +45,31 @@ export const InputSelectField: React.FC<SelectFieldProps> = ({
   onChange,
   width = "340px",
 }) => {
+
+  const selectFieldStyles = {
+    width: width,
+    height: "50px", // Added height for consistency
+    backgroundColor: "white",
+    ".MuiOutlinedInput-notchedOutline": {
+      borderColor:  theme.colors.border_color_grey,
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.colors.border_color_grey,
+        borderWidth: "thin",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.colors.primary_color_green,
+        borderWidth: "thin",
+    },
+};
+
   return (
     <Box>
       <InputFieldLabel label={label} />
       <Select
         value={value}
         onChange={onChange}
-        sx={{
-          width: width,
-          height: "50px", // Added height for consistency
-          backgroundColor: "white",
-          
-        }}
+       sx={selectFieldStyles}
       >
         {options.map((option) => (
           <MenuItem key={option.id} value={option.id}>
