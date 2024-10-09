@@ -132,7 +132,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         padding: '40px',
         alignItems: 'center',
         backgroundColor: theme.colors.secondary_background_color,
-        height: 'calc(100vh - 200px)',
+        height: 'calc(100vh - 100px)',
         justifyContent: 'space-between',
         borderRight: `2px solid ${theme.colors.textfeild_color}`,
         
