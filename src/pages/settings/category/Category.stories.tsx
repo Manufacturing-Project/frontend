@@ -6,7 +6,7 @@ import { Category } from './Category'; // Adjust the import path as needed
 import {store} from '../../../store'; // Adjust the import path as needed
 
 export default {
-  title: 'Components/Organisms/Category',
+  title: 'Components/Templates/Settings/Category',
   component: Category,
   
 } as Meta;
