@@ -48,7 +48,8 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
       <Box sx={{
         '& textarea::placeholder': {
           color: theme.colors.border_color_grey,
-          opacity: 1, // Show full opacity
+          fontSize: 15,
+          fontFamily: 'sans-serif'
         },
       }}>
         <TextareaAutosize

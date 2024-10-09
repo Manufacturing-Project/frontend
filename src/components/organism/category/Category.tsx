@@ -157,7 +157,7 @@ const Category: React.FC = () => {
                 onDelete={handleDelete} // Pass the handleDelete function
                 boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
               /> ) : EmptyInfoBox({ // Display EmptyInfoBox if there are no categories
-                text: 'No unit of measures have been added yet',
+                text: 'No categories have been added yet.',
                 buttonText: 'Add New Category',
                 onButtonClick: handleAddCategoryClick,
               })} 

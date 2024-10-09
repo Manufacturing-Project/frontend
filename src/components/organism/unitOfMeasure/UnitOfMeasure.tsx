@@ -117,7 +117,8 @@ const UnitOfMeasure: React.FC = () => {
             Unit of Measure Details
           </Typography>
 
-          <Button
+          { unitItems.length > 0 ?
+            <Button
             variant="contained"
             onClick={handleAddUnitClick}
             sx={{
@@ -127,7 +128,7 @@ const UnitOfMeasure: React.FC = () => {
             }}
           >
             Add New Unit
-          </Button>
+          </Button> : null}
          </Box>
             
             <Box sx={{  paddingLeft: '80px' , paddingTop:'20px'}}>
