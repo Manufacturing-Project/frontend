@@ -11,15 +11,15 @@ export interface EmptyInfoBoxProps {
 const EmptyInfoBox: React.FC<EmptyInfoBoxProps> = ({ text, buttonText, onButtonClick }) => {
   return (
     <Box sx={{ textAlign: 'center', marginTop: '40px' }}>
-      <Typography variant="h6" sx={{ color: '#333' }}>
+      <Typography variant="h6" sx={{ color: theme.colors.emtybox_color }}>
         {text}
       </Typography>
       <Button
         variant="contained"
         onClick={onButtonClick}
         sx={{
-          backgroundColor: theme.colors.button_background_setting,
-          color: theme.colors.font_color_button,
+          backgroundColor: theme.colors.primary_color_green,
+          color: theme.colors.secondary_background_color,
           marginTop: '20px',
         }}
       >

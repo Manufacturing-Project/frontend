@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     <Box
       sx={{
         backgroundColor: theme.colors.secondary_background_color,
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+        boxShadow: `0px 2px 4px ${theme.colors.black_Transparent_1}`,
         position: 'fixed',
         width: '100%',
         zIndex: '2',
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
           <Logo />
           <Box sx= {{
                 display: 'flex',
-                gap: '8px',
+                gap: theme.gap.base_gap_8,
           }}>
             <Typography
               variant='h4'

@@ -122,8 +122,8 @@ const UnitOfMeasure: React.FC = () => {
             variant="contained"
             onClick={handleAddUnitClick}
             sx={{
-              backgroundColor: theme.colors.button_background_setting,
-              color: theme.colors.font_color_button,
+              backgroundColor: theme.colors.primary_color_green,
+              color: theme.colors.secondary_background_color,
               marginTop: '20px',
             }}
           >
@@ -135,8 +135,8 @@ const UnitOfMeasure: React.FC = () => {
             {unitItems.length > 0 ? 
                 <Itembox
                 items={unitItems}
-                backgroundColor="#f9f9f9"
-                color="#333"
+                backgroundColor={theme.colors.item_background_color}
+                color={theme.colors.emtybox_color}
                 height="250px"
                 rowPadding="12px"
                 onUpdate={handleUpdate}

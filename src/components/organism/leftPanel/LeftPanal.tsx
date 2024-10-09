@@ -142,7 +142,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px',
+          gap: theme.gap.base_gap_10,
         
         }}
       >
