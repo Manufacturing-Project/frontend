@@ -1,4 +1,4 @@
-export { MenuBar } from './menuBar/MenuBar';
+export { MenuBar } from './MenuBar/MenuBar';
 export { SearchBar } from './searchbar/SearchBar';
 export {InputTextField} from './inputField/inputTextField/InputTextField';
 export {InputTextArea} from './inputField/inputTextArea/InputTextArea';
