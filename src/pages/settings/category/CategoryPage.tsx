@@ -1,7 +1,7 @@
 // src/components/organism/Category.tsx
 import React from 'react';
-import { useCreateCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation, useDeleteCategoryMutation } from '../../../src/features/categories/CategoryApiSlice';
-import Setting from '../../components/organism/setting/Setting'; // Adjust the import path
+import { useCreateCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation, useDeleteCategoryMutation } from '../../../features/categories/CategoryApiSlice';
+import {Setting} from '../../../components/organism/setting/Setting'; // Adjust the import path
 
 const CategoryPage: React.FC = () => {
   const { data: categories = [], refetch } = useGetCategoriesQuery();

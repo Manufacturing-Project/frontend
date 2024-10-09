@@ -1,7 +1,7 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
-import {UnitPage , CategoryPage , VariantsPage , Dashboard , HistoryPage , PurchasePage} from '../pages';
+import {UnitPage , CategoryPage , VariantsPage , Dashboard , MaterialPage , Product} from '../pages';
 
 
 

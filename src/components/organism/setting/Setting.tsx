@@ -152,4 +152,4 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
   );
 };
 
-export default Setting;
+export { Setting };

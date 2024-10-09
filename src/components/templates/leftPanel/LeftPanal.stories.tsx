@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from '../../../store'; // Adjust the import path as necessary
 
 export default {
-  title: 'Components/Organisms/LeftPanel', // The title under which the story will be listed
+  title: 'Components/Template/LeftPanel', // The title under which the story will be listed
   component: LeftPanel,
   decorators: [
     (Story) => (
