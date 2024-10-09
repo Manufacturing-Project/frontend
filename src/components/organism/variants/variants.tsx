@@ -118,13 +118,13 @@ const Variants: React.FC = () => {
           {variantsItems.length > 0 ? (
             <Itembox
               items={variantsItems}
-              backgroundColor="#f9f9f9"
-              color="#333"
+              backgroundColor={theme.colors.item_background_color}
+              color={theme.colors.emtybox_color}
               height="250px"
               rowPadding="12px"
               onUpdate={handleUpdate} 
               onDelete={handleDelete}
-              boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+              boxShadow="0px 4px 8px " // Added box shadow here
             />
           ) : (
             EmptyInfoBox({

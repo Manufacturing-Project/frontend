@@ -104,8 +104,8 @@ const AddRawMaterial: React.FC<Props> = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: theme.gap.base_gap_32,
-        paddingLeft: '100px',
+        gap: "35px",
+        paddingLeft: '60px',
         backgroundColor: theme.colors.secondary_background_color,
         height: "100%",
         boxSizing: 'border-box' ,

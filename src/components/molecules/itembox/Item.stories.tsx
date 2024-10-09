@@ -24,8 +24,6 @@ const Template: StoryFn<ItemboxProps> = (args) => (
 // Sample data for the Itembox
 const sampleItems = [
   { id: '1', name: 'Kilogram' },
-  { id: '2', name: 'Liter' },
-  { id: '3', name: 'Meter' },
 ];
 
 // Default story with sample data
