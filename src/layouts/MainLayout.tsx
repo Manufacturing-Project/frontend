@@ -20,9 +20,9 @@ const MainLayout: React.FC = () => {
           <LeftPanel />
         </Box>
         )}
-        <Box sx={{ width: showLeftPanel ? 'calc(100% - 300px)' : '100%',
+        <Box sx={{ width: showLeftPanel ? 'calc(100% - 305px)' : '100%',
             padding: '20px',
-            height: '100%',
+            height: '150%',
             alignItems: 'start',}}
         >
           <Outlet />
