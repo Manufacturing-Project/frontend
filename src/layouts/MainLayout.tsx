@@ -23,7 +23,7 @@ const MainLayout: React.FC = () => {
         <Box sx={{ width: showLeftPanel ? 'calc(100% - 300px)' : '100%',
             padding: '20px',
             // paddingBottom: '100px',
-            height: '140%',
+            height: '150%',
             overflowY: 'hidden',
             alignItems: 'start',}}
         > 
