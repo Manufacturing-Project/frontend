@@ -182,7 +182,7 @@ let suppliers: any[] = [];
                <Button 
                variant="contained" 
                onClick={handleAddSuppliersClick}
-               sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+               sx={{ backgroundColor: theme.colors.primary_color_green, color: theme.colors.secondary_background_color ,marginTop:'40px'}} >
                Add New Suppliers
              </Button> ) : null }
             </Box>

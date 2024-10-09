@@ -105,7 +105,7 @@ const Variants: React.FC = () => {
 { variantsItems.length > 0  ?  <Button 
    variant="contained" 
    onClick={handleAddVariantClick}
-   sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'20px'}} >
+   sx={{ backgroundColor: theme.colors.primary_color_green, color: theme.colors.secondary_background_color ,marginTop:'20px'}} >
    Add New Varaints 
  </Button> : null }  
 </Box>

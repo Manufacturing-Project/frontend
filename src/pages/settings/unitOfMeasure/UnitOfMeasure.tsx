@@ -122,8 +122,8 @@ const UnitOfMeasure: React.FC = () => {
             variant="contained"
             onClick={handleAddUnitClick}
             sx={{
-              backgroundColor: theme.colors.button_background_setting,
-              color: theme.colors.font_color_button,
+              backgroundColor: theme.colors.primary_color_green,
+              color: theme.colors.secondary_background_color,
               marginTop: '20px',
             }}
           >
