@@ -1,15 +1,16 @@
+// src/features/units/UnitsApiSlice.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CreateUnit } from './UnitModel'; // Import the unit model
+import { CreateUnit } from './UnitModel'; // Ensure this model is defined correctly
 import { BASE_URL } from '../../constant';
 
 export const unitsApi = createApi({
-  reducerPath: 'unitsApi', 
+  reducerPath: 'unitsApi',
   baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/units` }),  // Set base URL for the API
   endpoints: (builder) => ({
     // Mutation for creating a unit
     createUnit: builder.mutation<void, CreateUnit>({
       query: (unit) => ({
-        url: ``,
+        url: '',  // This should be empty since the base URL already includes '/units'
         method: 'POST',
         body: unit,
       }),
@@ -18,8 +19,8 @@ export const unitsApi = createApi({
     // Mutation for updating a unit
     updateUnit: builder.mutation<void, { id: string; unit: CreateUnit }>({
       query: ({ id, unit }) => ({
-        url: `/${id}`,
-        method: 'PUT',  // or 'PUT' depending on your API
+        url: `/${id}`,  // Correctly adds the unit ID to the URL
+        method: 'PUT',  // Use PUT for updates
         body: unit,
       }),
     }),
@@ -27,7 +28,7 @@ export const unitsApi = createApi({
     // Mutation for deleting a unit
     deleteUnit: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/${id}`,  // Correctly adds the unit ID to the URL
         method: 'DELETE',
       }),
     }),
@@ -35,10 +36,9 @@ export const unitsApi = createApi({
     // Query for fetching all units
     getUnits: builder.query<CreateUnit[], void>({
       query: () => ({
-        url: `/`,
+        url: '/',  // Fetch all units
         method: 'GET',
       }),
-
     }),
   }),
 });

@@ -1,8 +1,8 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
-import { MaterialPage, Dashboard, Category, Variants, UnitOfMeasure, Product } from '../pages';
-import { Suppliers } from '../pages/settings/suppliers/Suppliers';
+import {UnitPage , CategoryPage , VariantsPage , Dashboard , HistoryPage , PurchasePage} from '../pages';
+
 
 
 const routes: RouteObject[] = [
@@ -31,10 +31,10 @@ const routes: RouteObject[] = [
     path: '/setting',
     element: <SettingLayout />,
     children: [
-      { path: '/setting/variants', element: <Variants /> },
-      { path: '/setting/supplier', element: <Suppliers /> },
-      { path: '/setting/category', element: <Category /> },
-      { path: '/setting/unit', element: <UnitOfMeasure /> },
+      { path: '/setting/variants', element: <VariantsPage /> },
+      // { path: '/setting/supplier', element: <Suppliers /> },
+      { path: '/setting/category', element: <CategoryPage /> },
+      { path: '/setting/unit', element: <UnitPage /> },
     ],
   },
 ];

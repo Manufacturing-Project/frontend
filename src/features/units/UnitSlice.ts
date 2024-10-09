@@ -1,29 +1,26 @@
+// src/features/units/UnitSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UnitState {
-    unitName: string;
-  }
+  unitName: string;
+}
 
-  const initialState: UnitState = {
-    unitName: '',
-  };
+const initialState: UnitState = {
+  unitName: '',
+};
 
-  const UnitSlice = createSlice({
-      name: 'unit',
-      initialState,
-      reducers: {
+const unitSlice = createSlice({
+  name: 'unit',
+  initialState,
+  reducers: {
+    setunitName: (state, action: PayloadAction<string>) => {
+      state.unitName = action.payload;
+    },
+  },
+});
 
-        setunitName: (state , action: PayloadAction<string>) =>{
-            state.unitName = action.payload;
-        }
-      }
-  });
+// Export actions
+export const { setunitName } = unitSlice.actions;
 
-  export const {
-    setunitName
-  } = UnitSlice.actions;
-
-  export default UnitSlice.reducer
-
-  
-
+// Export reducer
+export default unitSlice.reducer;

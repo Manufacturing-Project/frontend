@@ -1,6 +1,7 @@
-export { MaterialPage } from "./registration/materialPage/MaterialPage";
-export { UnitOfMeasure } from "./settings/unitOfMeasure/UnitOfMeasure";
-export { Category } from "./settings/category/Category";
-export { Variants } from "./settings/variants/variants";
+export { UnitPage } from "./settings/UnitPage";
+export {CategoryPage} from "./settings/CategoryPage";
+export { VariantsPage } from "./settings/VariantsPage";
 export { Dashboard } from "./dashboard/Dashboard";
-export { Product } from "./registration/ProductPage/Product";
+export { HistoryPage } from "./manufacture/HistoryPage";
+export {PurchasePage} from "./manufacture/PurchasePage";
+
