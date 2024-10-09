@@ -1,5 +1,3 @@
-export { Header } from './header/Header';
-export { LeftPanel } from './leftPanel/LeftPanal';
 export { AddRawMaterialPage } from './addRawMaterialPage/AddRawMaterialPage';
 export { UnitOfMeasure } from './unitOfMeasure/UnitOfMeasure';
 export { Category } from './category/Category';
