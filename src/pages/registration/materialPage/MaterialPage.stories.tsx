@@ -1,11 +1,11 @@
-import { AddRawMaterial } from "./AddRawMaterial";
+import { MaterialPage } from "./MaterialPage";
 import { Provider } from "react-redux";
-import { store } from "../../../store"; // Adjust the path as needed
-import { StoryFn} from '@storybook/react'; // Import StoryFn and Meta
+import { store } from "../../../store"; 
+import { StoryFn} from '@storybook/react'; 
 
 export default {
-    title: "Components/Molecules/AddRawMaterial",
-    component: AddRawMaterial,
+    title: "Pages/Registration/MaterialPage",
+    component: MaterialPage,
     tags: ["autodocs", "molecules"],
     argTypes: {
         categoryoption: {
@@ -18,13 +18,12 @@ export default {
                 type: "array",
             },
         },
-        onsubmit: { action: "submitted" },
     },
 }  
 
 const Template: StoryFn<any> = (args: any) => (
   <Provider store={store}>
-    <AddRawMaterial {...args} />
+    <MaterialPage {...args} />
   </Provider>
 );
 
@@ -38,14 +37,5 @@ Default.args = {
     { id: "1", name: "Unit 1" },
     { id: "2", name: "Unit 2" },
   ],
-  onsubmit: (m_name: any, m_code: any, category: any, unit: any, reorderlevel: any, description: any) => {
-    console.log("Form submitted with values:", {
-      m_name,
-      m_code,
-      category,
-      unit,
-      reorderlevel,
-      description,
-    });
-  },
+  
 };

@@ -17,7 +17,7 @@ import reg from "../../../assets/LeftRegistrionimage.png";
 import set from "../../../assets/LeftSettingImage.png";
 import man from "../../../assets/PurchaseImage.png";
 
-interface LeftPanelProps {}
+export interface LeftPanelProps {}
 
 const LeftPanel: React.FC<LeftPanelProps> = () => {
   const location = useLocation();

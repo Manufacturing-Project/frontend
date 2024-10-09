@@ -1,7 +1,7 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
-import { AddRawMaterialPage, Dashboard, Category, Variants, UnitOfMeasure, Product } from '../components/organism';
+import { MaterialPage, Dashboard, Category, Variants, UnitOfMeasure, Product } from '../pages';
 import { Suppliers } from '../pages/settings/suppliers/Suppliers';
 
 
@@ -15,7 +15,7 @@ const routes: RouteObject[] = [
     path: '/register',
     element: <RegisterLayout />,
     children: [
-      { path: '/register/material', element: <AddRawMaterialPage /> },
+      { path: '/register/material', element: <MaterialPage /> },
       {path: '/register/product', element: <Product />},
     ],
   },

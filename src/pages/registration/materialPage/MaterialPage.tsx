@@ -4,7 +4,7 @@ import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, u
 import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
-import theme from "../../theme";
+import theme from "../../../components/theme";
 import {
   setMName,
   setMCode,
@@ -16,11 +16,11 @@ import {
   setHasVariants,
   resetForm,
 } from "../../../features/rawMaterials/rawMaterialSlice";
+import { InputTextField, InputTextArea, InputSelectField } from "../../../components/molecules";
 
-// Importing custom input components
-import { InputTextField } from "../inputField/inputTextField/InputTextField";
-import { InputTextArea } from "../inputField/inputTextArea/InputTextArea";
-import { InputSelectField } from "../inputField/inputSelectField/InputSelectField";
+import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
+import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice';
+import { CreateUnit } from '../../../features/units/UnitModel';
 
 interface Option {
   id: string;
@@ -28,23 +28,25 @@ interface Option {
 }
 
 interface Props {
-  categoryoption: Option[];
-  unitoption: Option[];
-  onsubmit: (
-    m_name: string,
-    m_code: string,
-    category: string,
-    unit: string,
-    reorderlevel: number,
-    description: string
-  ) => void;
 }
 
-const AddRawMaterial: React.FC<Props> = ({
-  categoryoption,
-  unitoption,
-  onsubmit,
+const MaterialPage: React.FC<Props> = ({
+  
 }) => {
+
+    const { data: units, error: unitsError, isLoading: unitsLoading } = useGetUnitsQuery();
+    const { data: categories, error: categoriesError, isLoading: categoriesLoading } = useGetCategoriesQuery();
+
+    const categoryoption = categories?.map((category: any) => ({
+        id: category._id,
+        name: category.name,
+    })) || [];
+
+    const unitoption = units?.map((unit: CreateUnit) => ({
+        id: unit._id,
+        name: unit.unitName,
+    })) || [];
+
   const dispatch = useDispatch();
   const { m_name, m_code, category, unit, reorderlevel, description, isCodeValid, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
 
@@ -90,13 +92,12 @@ const AddRawMaterial: React.FC<Props> = ({
       unitOfMeasure: unit,
       reorderLevel: reorderlevel,
       description,
-      hasVariants: hasVariants ?? false, // Ensure it defaults to false if undefined
+      hasVariants: hasVariants ?? false, 
     };
 
     try {
       const response = await createMaterial(material).unwrap();
       console.log('Material created successfully:', response);
-      onsubmit(m_name, m_code, category, unit, reorderlevel, description);
     } catch (error) {
       console.error('Failed to create material:', error);
     }
@@ -165,14 +166,21 @@ const AddRawMaterial: React.FC<Props> = ({
         />
 
           {/* Has Variants Switch */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Typography>This material has variants</Typography>
-        <Switch
+        <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+          <Typography>This material has variants</Typography>
+          <Switch
           checked={hasVariants}
           onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+          sx={{
+            '& .MuiSwitch-switchBase.Mui-checked': {
+              color: '#08B1BA', 
+              '& + .MuiSwitch-track': {
+                backgroundColor: '#08B1BA', 
+              },
+            },
+          }}
         />
-      </Box>
-
+        </Box>
       </Box>
 
       {/* Description Field */}
@@ -223,4 +231,4 @@ const AddRawMaterial: React.FC<Props> = ({
   );
 };
 
-export { AddRawMaterial };
+export { MaterialPage };
