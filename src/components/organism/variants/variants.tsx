@@ -96,7 +96,7 @@ const Variants: React.FC = () => {
 
     <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
        <Box sx ={{marginLeft: '60px' ,}}>
-       <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
+       <Typography variant="h6" sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '32px' }}>
             Variants Details
           </Typography>
 
