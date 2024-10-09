@@ -2,7 +2,7 @@ import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
 import { AddRawMaterialPage, Dashboard, Category, Variants, UnitOfMeasure, Product } from '../components/organism';
-import { Suppliers } from '../components/organism/suppliers/Suppliers';
+import { Suppliers } from '../pages/settings/suppliers/Suppliers';
 
 
 const routes: RouteObject[] = [
