@@ -128,7 +128,7 @@ let suppliers: any[] = [];
       <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  }}>
 
          <Box sx ={{marginLeft: '60px'}}>
-         <Typography variant="h6" sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '32px' }}>
+         <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
             Suppliers Details
           </Typography>
          </Box>
@@ -138,8 +138,8 @@ let suppliers: any[] = [];
             { SuppliersOptions.length > 0 ? (
                 <Itembox
                 items={SuppliersOptions} // Displaying suppliers from MongoDB
-                backgroundColor={theme.colors.item_background_color}
-                color={theme.colors.emtybox_color}
+                backgroundColor="#f9f9f9"
+                color="#333"
                 height="250px"
                 rowPadding="12px"
                 onUpdate={handleUpdate} // Pass the handleUpdate function

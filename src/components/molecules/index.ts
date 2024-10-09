@@ -7,3 +7,4 @@ export {SearchBar} from './searchBar/SearchBar';
 export { Logo } from './logo/Logo';
 export { TableCells } from './tableCell/TableCells';
 
+ 

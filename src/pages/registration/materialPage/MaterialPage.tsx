@@ -22,7 +22,6 @@ import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
 import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice';
 import { CreateUnit } from '../../../features/units/UnitModel';
 
-
 interface Option {
   id: string;
   name: string;
@@ -114,8 +113,6 @@ const MaterialPage: React.FC<Props> = ({
         backgroundColor: theme.colors.secondary_background_color,
         height: "100%",
         boxSizing: 'border-box' ,
-        // overflow:'hidden'
-        
       }}
     >
       <Typography variant="h4" gutterBottom>
@@ -124,69 +121,49 @@ const MaterialPage: React.FC<Props> = ({
 
       {/* Material Name and Code Fields */}
       <Box sx={{ display: "flex", gap: "40px" }}>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputTextField
           label="Material Name"
           textPlaceholder="Enter Material Name"
           value={m_name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
-        <Box sx={{
-          width: "100%",	
-        }}>
         <InputTextField
           label="Material Code"
           textPlaceholder="Enter Material Code"
           value={m_code}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
       </Box>
 
       {/* Category and Unit Fields */}
       <Box sx={{ display: "flex", gap: "40px" }}>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputSelectField
           label="Category"
           options={categoryoption}
           value={category}
           onChange={(e) => dispatch(setCategory(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputSelectField
           label="Unit"
           options={unitoption}
           value={unit}
           onChange={(e) => dispatch(setUnit(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
       </Box>
 
       {/* Reorder Level Field */}
       <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputTextField
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel.toString()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
-          width="100%"
+          width="530px"
         />
-        </Box>
 
           {/* Has Variants Switch */}
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
@@ -207,9 +184,7 @@ const MaterialPage: React.FC<Props> = ({
       </Box>
 
       {/* Description Field */}
-      <Box sx={{
-        width: "100%",
-      }}>
+      <Box>
         <InputTextArea
           label="Description"
           ariaLabel="description-textarea"
@@ -229,7 +204,8 @@ const MaterialPage: React.FC<Props> = ({
           onClick={handleRawMaterial}
           sx={{
             backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
+            color: theme.colors.secondary_background_color,
+            marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
@@ -242,7 +218,8 @@ const MaterialPage: React.FC<Props> = ({
           onClick={() => dispatch(resetForm())}
           sx={{
             backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
+            color: theme.colors.secondary_background_color,
+            marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
