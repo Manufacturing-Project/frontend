@@ -138,8 +138,8 @@ let suppliers: any[] = [];
             { SuppliersOptions.length > 0 ? (
                 <Itembox
                 items={SuppliersOptions} // Displaying suppliers from MongoDB
-                backgroundColor="#f9f9f9"
-                color="#333"
+                backgroundColor={theme.colors.item_background_color}
+                color={theme.colors.emtybox_color}
                 height="250px"
                 rowPadding="12px"
                 onUpdate={handleUpdate} // Pass the handleUpdate function
@@ -182,7 +182,7 @@ let suppliers: any[] = [];
                <Button 
                variant="contained" 
                onClick={handleAddSuppliersClick}
-               sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'40px'}} >
+               sx={{ backgroundColor: theme.colors.primary_color_green, color: theme.colors.secondary_background_color ,marginTop:'40px'}} >
                Add New Suppliers
              </Button> ) : null }
             </Box>

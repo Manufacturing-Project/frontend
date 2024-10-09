@@ -118,7 +118,7 @@ const AddRawMaterial: React.FC<Props> = ({
       </Typography>
 
       {/* Material Name and Code Fields */}
-      <Box sx={{ display: "flex", gap: "40px" }}>
+      <Box sx={{ display: "flex", gap: theme.gap.base_gap_40 }}>
         <Box sx={{
           width: "100%",
         }}>
@@ -144,7 +144,7 @@ const AddRawMaterial: React.FC<Props> = ({
       </Box>
 
       {/* Category and Unit Fields */}
-      <Box sx={{ display: "flex", gap: "40px" }}>
+      <Box sx={{ display: "flex", gap: theme.gap.base_gap_40 }}>
         <Box sx={{
           width: "100%",
         }}>
@@ -170,7 +170,7 @@ const AddRawMaterial: React.FC<Props> = ({
       </Box>
 
       {/* Reorder Level Field */}
-      <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
+      <Box sx={{ display: "flex", gap:theme.gap.base_gap_40 ,alignItems:'end'}}>
         <Box sx={{
           width: "100%",
         }}>
@@ -184,16 +184,16 @@ const AddRawMaterial: React.FC<Props> = ({
         </Box>
 
           {/* Has Variants Switch */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap:theme.gap.base_gap_10, width: "100%" }}>
   <Typography>This material has variants</Typography>
   <Switch
   checked={hasVariants}
   onChange={(e) => dispatch(setHasVariants(e.target.checked))}
   sx={{
     '& .MuiSwitch-switchBase.Mui-checked': {
-      color: '#08B1BA', // Thumb color when checked
+      color: theme.colors.primary_color_green, // Thumb color when checked
       '& + .MuiSwitch-track': {
-        backgroundColor: '#08B1BA', // Track color when checked
+        backgroundColor: theme.colors.primary_color_green, // Track color when checked
       },
     },
   }}
@@ -228,7 +228,7 @@ const AddRawMaterial: React.FC<Props> = ({
           onClick={handleRawMaterial}
           sx={{
             backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
+            color: theme.colors.secondary_background_color,
             // marginTop: '60px',
             width:"99px",
             height:"36px"
@@ -242,7 +242,7 @@ const AddRawMaterial: React.FC<Props> = ({
           onClick={() => dispatch(resetForm())}
           sx={{
             backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
+            color: theme.colors.secondary_background_color,
             // marginTop: '60px',
             width:"99px",
             height:"36px"

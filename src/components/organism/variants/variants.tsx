@@ -96,7 +96,7 @@ const Variants: React.FC = () => {
 
     <Box sx={{ height: '100%', background: theme.colors.secondary_background_color  } }>
        <Box sx ={{marginLeft: '60px' ,}}>
-       <Typography variant="h6" sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '32px' }}>
+       <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px' }}>
             Variants Details
           </Typography>
 
@@ -105,7 +105,7 @@ const Variants: React.FC = () => {
 { variantsItems.length > 0  ?  <Button 
    variant="contained" 
    onClick={handleAddVariantClick}
-   sx={{ backgroundColor: theme.colors.button_background_setting, color: theme.colors.font_color_button ,marginTop:'20px'}} >
+   sx={{ backgroundColor: theme.colors.primary_color_green, color: theme.colors.secondary_background_color ,marginTop:'20px'}} >
    Add New Varaints 
  </Button> : null }  
 </Box>
@@ -118,13 +118,13 @@ const Variants: React.FC = () => {
           {variantsItems.length > 0 ? (
             <Itembox
               items={variantsItems}
-              backgroundColor="#f9f9f9"
-              color="#333"
+              backgroundColor={theme.colors.item_background_color}
+              color={theme.colors.emtybox_color}
               height="250px"
               rowPadding="12px"
               onUpdate={handleUpdate} 
               onDelete={handleDelete}
-              boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" // Added box shadow here
+              boxShadow="0px 4px 8px " // Added box shadow here
             />
           ) : (
             EmptyInfoBox({
