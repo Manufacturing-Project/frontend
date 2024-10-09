@@ -1,10 +1,7 @@
-export { Product } from "./registration/ProductPage/Product";
-export { MaterialPage } from "./registration/materialPage/MaterialPage";
-export { UnitPage } from "./settings/UnitPage";
-export {CategoryPage} from "./settings/CategoryPage";
-export { VariantsPage } from "./settings/VariantsPage";
+export { UnitPage } from "./settings/unit/UnitPage";
+export {CategoryPage} from "./settings/category/CategoryPage";
+export { VariantsPage } from "./settings/variant/VariantsPage";
 export { Dashboard } from "./dashboard/Dashboard";
-//export { HistoryPage } from "./manufacture/HistoryPage";
-//export {PurchasePage} from "./manufacture/PurchasePage";
-
+export {MaterialPage} from "./registration/materialPage/MaterialPage";
+export {Product} from "./registration/ProductPage/Product";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import Setting from '../../components/organism/setting/Setting'; // Adjust the import path
-import { useCreateVariantMutation, useDeleteVariantMutation, useGetVariantsQuery, useUpdateVariantMutation } from '../../../src/features/variants/variantApiSlice'; // API hooks
+import {Setting} from '../../../components/organism/setting/Setting'; // Adjust the import path
+import { useCreateVariantMutation, useDeleteVariantMutation, useGetVariantsQuery, useUpdateVariantMutation } from '../../../features/variants/variantApiSlice'; // API hooks
 
 const VariantsPage: React.FC = () => {
   const dispatch = useDispatch();

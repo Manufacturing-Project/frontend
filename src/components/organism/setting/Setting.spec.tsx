@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Setting from './Setting'; // Adjust the import path
+import {Setting} from './Setting'; // Adjust the import path
 
 // Mocking functions passed as props
 const mockCreateItem = jest.fn(() => Promise.resolve());

@@ -1,6 +1,6 @@
 // src/components/organism/CommonItemPage.stories.tsx
 import React from 'react';
-import Setting from './Setting';
+import {Setting} from './Setting';
 import { Meta, StoryFn } from '@storybook/react'; 
 
 // Mocked functions to simulate API calls
@@ -24,7 +24,7 @@ const mockItems = [
 ];
 
 export default {
-  title: 'Components/CommonItemPage',
+  title: 'Components/Organism/Setting',
   component: Setting,
 } as Meta;
 
