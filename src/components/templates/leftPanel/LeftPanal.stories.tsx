@@ -21,4 +21,6 @@ const Template: StoryFn = () => <LeftPanel />;
 
 // You can create multiple stories if needed
 export const Panel = Template.bind({});
-Panel.args = {};
+Panel.args = {
+  path: '/register',
+};

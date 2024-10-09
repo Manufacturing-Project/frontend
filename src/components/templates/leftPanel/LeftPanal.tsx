@@ -17,7 +17,7 @@ import reg from "../../../assets/LeftRegistrionimage.png";
 import set from "../../../assets/LeftSettingImage.png";
 import man from "../../../assets/PurchaseImage.png";
 
-interface LeftPanelProps {}
+export interface LeftPanelProps {}
 
 const LeftPanel: React.FC<LeftPanelProps> = () => {
   const location = useLocation();
@@ -106,6 +106,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
       primary={item.text}
       sx={{
         color: location.pathname === item.to ? theme.colors.secondary_background_color : theme.colors.font_color_textfeild,  // Text color when active or inactive
+        fontWeight: location.pathname === item.to ? theme.fontweight.base_font_weight_Bold: theme.fontweight.base_font_weight_SemiBold,
         textAlign: 'left',
       }}
     />
@@ -142,7 +143,7 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px',
+          gap: theme.gap.base_gap_10,
         
         }}
       >

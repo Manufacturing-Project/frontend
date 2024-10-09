@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Lottie from 'react-lottie';
-import productAnimation from '../../../assets/Animation - dashboard.json'; // Adjust this path based on your project structure
+import productAnimation from '../../assets/Animation - dashboard.json'; // Adjust this path based on your project structure
 
 interface Props {
   // Define your props here

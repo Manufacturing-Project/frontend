@@ -4,7 +4,7 @@ import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, u
 import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
-import theme from "../../theme";
+import theme from "../../../components/theme";
 import {
   setMName,
   setMCode,
@@ -16,8 +16,11 @@ import {
   setHasVariants,
   resetForm,
 } from "../../../features/rawMaterials/rawMaterialSlice";
-import { InputTextField, InputTextArea, InputSelectField } from "../index";
+import { InputTextField, InputTextArea, InputSelectField } from "../../../components/molecules";
 
+import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
+import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice';
+import { CreateUnit } from '../../../features/units/UnitModel';
 
 interface Option {
   id: string;
@@ -25,23 +28,25 @@ interface Option {
 }
 
 interface Props {
-  categoryoption: Option[];
-  unitoption: Option[];
-  onsubmit: (
-    m_name: string,
-    m_code: string,
-    category: string,
-    unit: string,
-    reorderlevel: number,
-    description: string
-  ) => void;
 }
 
-const AddRawMaterial: React.FC<Props> = ({
-  categoryoption,
-  unitoption,
-  onsubmit,
+const MaterialPage: React.FC<Props> = ({
+  
 }) => {
+
+    const { data: units, error: unitsError, isLoading: unitsLoading } = useGetUnitsQuery();
+    const { data: categories, error: categoriesError, isLoading: categoriesLoading } = useGetCategoriesQuery();
+
+    const categoryoption = categories?.map((category: any) => ({
+        id: category._id,
+        name: category.name,
+    })) || [];
+
+    const unitoption = units?.map((unit: CreateUnit) => ({
+        id: unit._id,
+        name: unit.unitName,
+    })) || [];
+
   const dispatch = useDispatch();
   const { m_name, m_code, category, unit, reorderlevel, description, isCodeValid, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
 
@@ -87,13 +92,12 @@ const AddRawMaterial: React.FC<Props> = ({
       unitOfMeasure: unit,
       reorderLevel: reorderlevel,
       description,
-      hasVariants: hasVariants ?? false, // Ensure it defaults to false if undefined
+      hasVariants: hasVariants ?? false, 
     };
 
     try {
       const response = await createMaterial(material).unwrap();
       console.log('Material created successfully:', response);
-      onsubmit(m_name, m_code, category, unit, reorderlevel, description);
     } catch (error) {
       console.error('Failed to create material:', error);
     }
@@ -104,13 +108,11 @@ const AddRawMaterial: React.FC<Props> = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "35px",
+        gap: "32px",
         paddingLeft: '60px',
         backgroundColor: theme.colors.secondary_background_color,
         height: "100%",
         boxSizing: 'border-box' ,
-        // overflow:'hidden'
-        
       }}
     >
       <Typography variant="h4" gutterBottom>
@@ -119,96 +121,70 @@ const AddRawMaterial: React.FC<Props> = ({
 
       {/* Material Name and Code Fields */}
       <Box sx={{ display: "flex", gap: "40px" }}>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputTextField
           label="Material Name"
           textPlaceholder="Enter Material Name"
           value={m_name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
-        <Box sx={{
-          width: "100%",	
-        }}>
         <InputTextField
           label="Material Code"
           textPlaceholder="Enter Material Code"
           value={m_code}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
       </Box>
 
       {/* Category and Unit Fields */}
       <Box sx={{ display: "flex", gap: "40px" }}>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputSelectField
           label="Category"
           options={categoryoption}
           value={category}
           onChange={(e) => dispatch(setCategory(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputSelectField
           label="Unit"
           options={unitoption}
           value={unit}
           onChange={(e) => dispatch(setUnit(e.target.value))}
-          width="100%"
+          width="530px"
         />
-        </Box>
       </Box>
 
       {/* Reorder Level Field */}
       <Box sx={{ display: "flex", gap: "40px" ,alignItems:'end'}}>
-        <Box sx={{
-          width: "100%",
-        }}>
         <InputTextField
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel.toString()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
-          width="100%"
+          width="530px"
         />
-        </Box>
 
           {/* Has Variants Switch */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
-  <Typography>This material has variants</Typography>
-  <Switch
-  checked={hasVariants}
-  onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-  sx={{
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: '#08B1BA', // Thumb color when checked
-      '& + .MuiSwitch-track': {
-        backgroundColor: '#08B1BA', // Track color when checked
-      },
-    },
-  }}
-/>
-
-</Box>
-
-
-
+        <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+          <Typography>This material has variants</Typography>
+          <Switch
+          checked={hasVariants}
+          onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+          sx={{
+            '& .MuiSwitch-switchBase.Mui-checked': {
+              color: '#08B1BA', 
+              '& + .MuiSwitch-track': {
+                backgroundColor: '#08B1BA', 
+              },
+            },
+          }}
+        />
+        </Box>
       </Box>
 
       {/* Description Field */}
-      <Box sx={{
-        width: "100%",
-      }}>
+      <Box>
         <InputTextArea
           label="Description"
           ariaLabel="description-textarea"
@@ -228,8 +204,8 @@ const AddRawMaterial: React.FC<Props> = ({
           onClick={handleRawMaterial}
           sx={{
             backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
-            // marginTop: '60px',
+            color: theme.colors.secondary_background_color,
+            marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
@@ -242,8 +218,8 @@ const AddRawMaterial: React.FC<Props> = ({
           onClick={() => dispatch(resetForm())}
           sx={{
             backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.font_color_button,
-            // marginTop: '60px',
+            color: theme.colors.secondary_background_color,
+            marginTop: '60px',
             width:"99px",
             height:"36px"
           }}
@@ -255,4 +231,4 @@ const AddRawMaterial: React.FC<Props> = ({
   );
 };
 
-export { AddRawMaterial };
+export { MaterialPage };

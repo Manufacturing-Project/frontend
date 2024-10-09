@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { Header, LeftPanel } from '../components/organism';
+import { Header, LeftPanel } from '../components/templates';
 
 const MainLayout: React.FC = () => {
     const location = useLocation();
@@ -20,13 +20,11 @@ const MainLayout: React.FC = () => {
           <LeftPanel />
         </Box>
         )}
-        <Box sx={{ width: showLeftPanel ? 'calc(100% - 300px)' : '100%',
+        <Box sx={{ width: showLeftPanel ? 'calc(100% - 305px)' : '100%',
             padding: '20px',
-            // paddingBottom: '100px',
             height: '150%',
-            overflowY: 'hidden',
             alignItems: 'start',}}
-        > 
+        >
           <Outlet />
         </Box>
       </Box>
