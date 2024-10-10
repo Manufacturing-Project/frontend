@@ -4,7 +4,7 @@ import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 export default {
-  title: "Components/Organisms/Header",
+  title: "Components/Templates/Header",
   component: Header,
   tags: ["autodocs", "header"],
   argTypes: {

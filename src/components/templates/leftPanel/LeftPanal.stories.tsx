@@ -1,26 +1,26 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import { LeftPanel } from './LeftPanal'; // Adjust the import path as necessary
-import { Provider } from 'react-redux';
-import store from '../../../store'; // Adjust the import path as necessary
+import { Meta, StoryFn } from '@storybook/react'; // Ensure you have this import
+import { LeftPanel } from './LeftPanal';
 
-export default {
-  title: 'Components/Organisms/LeftPanel', // The title under which the story will be listed
+const meta: Meta = {
+  title: 'Components/Templates/LeftPanel',
   component: LeftPanel,
-  decorators: [
-    (Story) => (
-      <Provider store={store}>
-        {/* No need for MemoryRouter here as it's already in preview.ts */}
-        <Story />
-      </Provider>
-    ),
-  ],
-} as Meta;
+};
 
-const Template: StoryFn = () => <LeftPanel />;
+export default meta;
 
-// You can create multiple stories if needed
-export const Panel = Template.bind({});
-Panel.args = {
-  path: '/register',
+const Template: StoryFn<{ location: string }> = (args) => (
+  
+    <LeftPanel />
+
+);
+
+export const DefaultRegister = Template.bind({});
+DefaultRegister.args = {
+  location: '/register/material', // Pass the default location here
+};
+
+export const DefaultSetting = Template.bind({});
+DefaultSetting.args = {
+  location: '/setting/unit', // Pass the setting location here
 };

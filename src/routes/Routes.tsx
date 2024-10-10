@@ -1,8 +1,7 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
-import { MaterialPage, Dashboard, Category, Variants, UnitOfMeasure, Product } from '../pages';
-import { Suppliers } from '../pages/settings/suppliers/Suppliers';
+import { MaterialPage, Dashboard, Category, Variants, UnitOfMeasure, Product, Suppliers } from '../pages';
 
 
 const routes: RouteObject[] = [

@@ -4,3 +4,4 @@ export { Category } from "./settings/category/Category";
 export { Variants } from "./settings/variants/variants";
 export { Dashboard } from "./dashboard/Dashboard";
 export { Product } from "./registration/ProductPage/Product";
+export { Suppliers } from "./settings/suppliers/Suppliers";
