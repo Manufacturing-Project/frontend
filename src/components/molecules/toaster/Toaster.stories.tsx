@@ -20,7 +20,7 @@ export default {
 const Template: StoryFn<typeof Toaster> = (args) => {
   const toasterRef = useRef<ToasterRef>(null);
 
-  const handleShowToast = (type: 'success' | 'error'  | 'warning') => {
+  const handleShowToast = (type: 'success' ) => {
     if (toasterRef.current) {
       toasterRef.current.showToast(`This is a ${type} message!`, type);
     }
@@ -31,12 +31,7 @@ const Template: StoryFn<typeof Toaster> = (args) => {
       <Button variant="contained" onClick={() => handleShowToast('success')}>
         Show Success Toast
       </Button>
-      <Button variant="contained" color="error" onClick={() => handleShowToast('error')} style={{ marginLeft: '10px' }}>
-        Show Error Toast
-      </Button>
-      <Button variant="contained" color="warning" onClick={() => handleShowToast('warning')} style={{ marginLeft: '10px' }}>
-        Show Warning Toast
-      </Button>
+      
 
       {/* The Toaster component */}
       <Toaster ref={toasterRef} {...args} />
