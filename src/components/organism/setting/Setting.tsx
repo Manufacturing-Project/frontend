@@ -108,8 +108,7 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
           {items.length > 0 ? (
             <Itembox
               items={items}
-              backgroundColor="#f9f9f9"
-              color="#333"
+              color= {theme.colors.emtybox_color}
               height="250px"
               rowPadding="12px"
               onUpdate={handleUpdate}
