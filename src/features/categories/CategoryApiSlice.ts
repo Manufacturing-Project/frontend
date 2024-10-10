@@ -4,7 +4,7 @@ import { BASE_URL } from '../../constant';
  
 export const categoriesApi = createApi({
   reducerPath: 'categoriesApi',
-  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}category` }), // Set base URL for the API
+  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/category` }), // Set base URL for the API
   endpoints: (builder) => ({
     // Mutation for creating a category
     createCategory: builder.mutation<void, CreateCategory>({
