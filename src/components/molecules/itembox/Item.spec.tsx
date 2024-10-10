@@ -19,7 +19,6 @@ describe('Itembox Component', () => {
   const setup = (overrideProps?: Partial<ItemboxProps>) => {
     const defaultProps: ItemboxProps = {
       items,
-      backgroundColor: '#fff',
       color: '#000',
       height: '200px',
       rowPadding: '10px',
