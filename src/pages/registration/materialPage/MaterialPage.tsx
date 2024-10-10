@@ -46,7 +46,7 @@ const MaterialPage: React.FC<Props> = () => {
   const dispatch = useDispatch();
   const { m_name, m_code, category, unit, reorderlevel, description, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
 
-  const [triggerGenerateCode] = useLazyGenerateMaterialCodeQuery();
+  const [triggerGenerateCode,  { data, isLoading, error }] = useLazyGenerateMaterialCodeQuery();
   const [triggerCheckCode] = useLazyCheckMaterialCodeAvailabilityQuery();
   const [createMaterial] = useCreateMaterialMutation();
 
@@ -61,6 +61,13 @@ const MaterialPage: React.FC<Props> = () => {
     }, 500);
     return () => clearTimeout(delayDebounceFn);
   }, [m_name, triggerGenerateCode]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setMCode(data.materialCode));
+    }
+  }, [data]);
+
 
   useEffect(() => {
     if (m_code) {
