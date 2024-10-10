@@ -6,7 +6,7 @@ import { Header, LeftPanel } from '../components/templates';
 const MainLayout: React.FC = () => {
     const location = useLocation();
  
-  const noLeftPanelPaths = ['/dashboard'];
+  const noLeftPanelPaths = ['/dashboard' , '/'];
   const showLeftPanel = !noLeftPanelPaths.includes(location.pathname);
 
   return (

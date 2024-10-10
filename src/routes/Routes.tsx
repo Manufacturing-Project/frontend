@@ -8,6 +8,11 @@ import { SuppliersPage } from '../pages/settings/suppliers/SuppliersPage';
 
 const routes: RouteObject[] = [
   {
+    path: '/',
+    element: <Dashboard />,
+
+  },
+  {
     path: '/dashboard',
     element: <Dashboard />,
 

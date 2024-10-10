@@ -26,28 +26,6 @@ export const Default = () => (
   </Wrapper>
 );
 
-// Story for loading state (you might want to mock your API)
-export const Loading = () => (
-  <Wrapper>
-    <CategoryPage />
-  </Wrapper>
-);
 
-// Story for empty state (when there are no categories)
-export const Empty = () => (
-  <Wrapper>
-    <CategoryPage />
-  </Wrapper>
-);
-
-// Example of how to add a category
-export const WithCategories = () => {
-  // You would typically mock the API response here
-  return (
-    <Wrapper>
-      <CategoryPage />
-    </Wrapper>
-  );
-};
 
 // Optionally, you can add stories for error states or interactions
