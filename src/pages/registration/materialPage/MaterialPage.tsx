@@ -165,14 +165,7 @@ const MaterialPage: React.FC<Props> = () => {
 
             checked={hasVariants}
             onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-            sx={{
-              '& .MuiSwitch-switchBase.Mui-checked': {
-                color: '#08B1BA',
-                '& + .MuiSwitch-track': {
-                  backgroundColor: '#08B1BA',
-                },
-          checked={hasVariants}
-          onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+           
           sx={{
             '& .MuiSwitch-switchBase.Mui-checked': {
               color: theme.colors.primary_color_green, 
@@ -180,7 +173,7 @@ const MaterialPage: React.FC<Props> = () => {
                 backgroundColor: theme.colors.primary_color_green, 
 
               },
-            }}
+            }}}
           />
         </Box>
       </Box>
