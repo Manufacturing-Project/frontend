@@ -30,7 +30,6 @@ const sampleItems = [
 export const Default = Template.bind({});
 Default.args = {
   items: sampleItems,
-  backgroundColor: '#f9f9f9',
   color: '#333',
   height: 'auto',
   rowPadding: '12px',
