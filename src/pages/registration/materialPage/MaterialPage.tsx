@@ -162,6 +162,7 @@ const MaterialPage: React.FC<Props> = () => {
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
           <Typography>This material has variants</Typography>
           <Switch
+
             checked={hasVariants}
             onChange={(e) => dispatch(setHasVariants(e.target.checked))}
             sx={{
@@ -170,6 +171,14 @@ const MaterialPage: React.FC<Props> = () => {
                 '& + .MuiSwitch-track': {
                   backgroundColor: '#08B1BA',
                 },
+          checked={hasVariants}
+          onChange={(e) => dispatch(setHasVariants(e.target.checked))}
+          sx={{
+            '& .MuiSwitch-switchBase.Mui-checked': {
+              color: theme.colors.primary_color_green, 
+              '& + .MuiSwitch-track': {
+                backgroundColor: theme.colors.primary_color_green, 
+
               },
             }}
           />

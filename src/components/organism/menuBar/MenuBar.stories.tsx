@@ -5,7 +5,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 
 const meta: Meta<typeof MenuBar> = {
-  title: 'Components/Molecules/MenuBar',
+  title: 'Components/Organism/MenuBar',
   component: MenuBar,
   parameters: {
     docs: {

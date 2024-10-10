@@ -26,28 +26,8 @@ export const Default = () => (
   </Wrapper>
 );
 
-// Story for loading state (you might want to mock your API)
-export const Loading = () => (
-  <Wrapper>
-    <UnitPage />
-  </Wrapper>
-);
 
-// Story for empty state (when there are no units)
-export const Empty = () => (
-  <Wrapper>
-    <UnitPage />
-  </Wrapper>
-);
 
-// Example of how to add a unit
-export const WithUnits = () => {
-  // You would typically mock the API response here
-  return (
-    <Wrapper>
-      <UnitPage />
-    </Wrapper>
-  );
-};
+
 
 // Optionally, you can add stories for error states or interactions

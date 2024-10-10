@@ -26,28 +26,6 @@ export const Default = () => (
   </Wrapper>
 );
 
-// Story for loading state (you might want to mock your API)
-export const Loading = () => (
-  <Wrapper>
-    <VariantsPage />
-  </Wrapper>
-);
 
-// Story for empty state (when there are no variants)
-export const Empty = () => (
-  <Wrapper>
-    <VariantsPage />
-  </Wrapper>
-);
-
-// Example of how to add a variant
-export const WithVariants = () => {
-  // You would typically mock the API response here
-  return (
-    <Wrapper>
-      <VariantsPage />
-    </Wrapper>
-  );
-};
 
 // Optionally, you can add stories for error states or interactions

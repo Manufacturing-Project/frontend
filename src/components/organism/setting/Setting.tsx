@@ -91,7 +91,8 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
             {title} 
           </Typography>
 
-          <Button
+          {items.length > 0 && (
+            <Button
             variant="contained"
             onClick={handleAddClick}
             sx={{
@@ -102,6 +103,7 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
           >
             Add New {buttonName}
           </Button>
+          )}
         </Box>
 
         <Box sx={{ paddingLeft: '80px', paddingTop: '20px' }}>
