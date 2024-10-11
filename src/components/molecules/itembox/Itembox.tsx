@@ -14,7 +14,6 @@ interface Item {
 
 export interface ItemboxProps {
   items: Item[];
-  backgroundColor: string;
   color: string;
   height: string;
   rowPadding: string;
@@ -25,7 +24,6 @@ export interface ItemboxProps {
 
 const Itembox: React.FC<ItemboxProps> = ({
   items,
-  backgroundColor,
   color,
   height,
   rowPadding,
