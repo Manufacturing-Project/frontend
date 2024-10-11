@@ -109,7 +109,7 @@ const MaterialPage: React.FC<Props> = ({
         display: "flex",
         flexDirection: "column",
         gap: "32px",
-        paddingLeft: '100px',
+        paddingLeft: '60px',
         backgroundColor: theme.colors.secondary_background_color,
         height: "100%",
         boxSizing: 'border-box' ,

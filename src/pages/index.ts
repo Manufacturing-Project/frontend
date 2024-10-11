@@ -1,7 +1,7 @@
-export { MaterialPage } from "./registration/materialPage/MaterialPage";
-export { UnitOfMeasure } from "./settings/unitOfMeasure/UnitOfMeasure";
-export { Category } from "./settings/category/Category";
-export { Variants } from "./settings/variants/variants";
+export { UnitPage } from "./settings/unit/UnitPage";
+export {CategoryPage} from "./settings/category/CategoryPage";
+export { VariantsPage } from "./settings/variant/VariantsPage";
 export { Dashboard } from "./dashboard/Dashboard";
 export { Product } from "./registration/ProductPage/Product";
-export { Suppliers } from "./settings/suppliers/Suppliers";
+export { SuppliersPage } from "./settings/suppliers/SuppliersPage";
+export { MaterialPage } from "./registration/materialPage/MaterialPage";
