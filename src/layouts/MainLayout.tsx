@@ -14,7 +14,7 @@ const MainLayout: React.FC = () => {
       <Box sx={{ height: '140px' }}>
          <Header />
         </Box>
-      <Box sx={{ display: 'flex', height: 'calc(100vh - 140px)', marginTop: '10px'  }}>
+      <Box sx={{ display: 'flex', height: 'calc(100vh - 140px)', marginTop: '10px', zIndex: '10'  }}>
         {showLeftPanel && (
         <Box sx={{ width: '300px', height: '100%', }}>
           <LeftPanel />
