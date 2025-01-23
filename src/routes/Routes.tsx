@@ -1,13 +1,13 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
-import { MaterialPage, Dashboard, CategoryPage, VariantsPage, UnitPage, Product, SuppliersPage } from '../pages';
+import { MaterialPage, Dashboard, CategoryPage, VariantsPage, UnitPage, Product, SuppliersPage , LoginPage , RegisterPage } from '../pages';
 
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Dashboard />,
+    element: <Dashboard/>,
 
   },
   {
@@ -41,6 +41,21 @@ const routes: RouteObject[] = [
       { path: '/setting/unit', element: <UnitPage /> },
     ],
   },
+
+  {path:'/users',
+    element: < RegisterPage/>,
+    children:[
+      {path: '/users/register' , element: <RegisterPage/>},
+    ]
+  },
+
+  {
+    path: '/auth',
+    element: <LoginPage/>,
+    children:[
+      {path: '/auth/login' , element: <LoginPage/>}
+    ]
+  }
 ];
 
 const generateFlattenRoutes = (routes: RouteObject[]): RouteObject[] => {

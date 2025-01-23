@@ -29,7 +29,13 @@ interface InputFieldProps {
   width?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean; // Added required property
+  id?: string;
+  name?: string;
+
+  
 }
+
 
 export const InputTextField: React.FC<InputFieldProps> = ({
   label,

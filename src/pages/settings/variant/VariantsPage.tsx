@@ -48,6 +48,8 @@ const VariantsPage: React.FC = () => {
     name: variant.variantName,
   }));
 
+  
+
   return (
     <Setting
       title="Variants"

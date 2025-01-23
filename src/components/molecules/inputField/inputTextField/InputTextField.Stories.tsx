@@ -1,7 +1,7 @@
 import { InputTextField } from './InputTextField'
 
 export default {
-  title: 'Components/Molecules/InputTextField',
+  title: 'Components/Molecules/InputField/InputTextField',
   component: InputTextField,
   tags: ['autodocs'],
     argTypes: {

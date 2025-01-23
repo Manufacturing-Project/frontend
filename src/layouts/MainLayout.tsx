@@ -4,26 +4,50 @@ import { Box } from '@mui/material';
 import { Header, LeftPanel } from '../components/templates';
 
 const MainLayout: React.FC = () => {
-    const location = useLocation();
+  const location = useLocation();
+
  
-  const noLeftPanelPaths = ['/dashboard' , '/'];
+  const noLeftPanelPaths = ['/dashboard', '/', '/auth/login', '/users/register'];
   const showLeftPanel = !noLeftPanelPaths.includes(location.pathname);
+
+ 
+  const noHeaderPaths = [ '/auth/login', '/users/register']; 
+
+  const showHeader = !noHeaderPaths.includes(location.pathname);
 
   return (
     <Box>
-      <Box sx={{ height: '140px' }}>
-         <Header />
+      {/* Header */}
+      {showHeader && (
+        <Box sx={{ height: '140px' }}>
+          <Header />
         </Box>
-      <Box sx={{ display: 'flex', height: 'calc(100vh - 140px)', marginTop: '10px', zIndex: '10'  }}>
+      )}
+
+      {/* Main Content */}
+      <Box
+        sx={{
+          display: 'flex',
+          height: `calc(100vh - ${showHeader ? '140px' : '0px'})`,
+          marginTop: showHeader ? '10px' : '0px',
+          zIndex: '10',
+        }}
+      >
+        {/* LeftPanel */}
         {showLeftPanel && (
-        <Box sx={{ width: '300px', height: '100%', }}>
-          <LeftPanel />
-        </Box>
+          <Box sx={{ width: '300px', height: '100%' }}>
+            <LeftPanel />
+          </Box>
         )}
-        <Box sx={{ width: showLeftPanel ? 'calc(100% - 305px)' : '100%',
+
+        {/* Outlet for nested routes */}
+        <Box
+          sx={{
+            width: showLeftPanel ? 'calc(100% - 305px)' : '100%',
             padding: '20px',
-            height: '150%',
-            alignItems: 'start',}}
+            height: '100%',
+            alignItems: 'start',
+          }}
         >
           <Outlet />
         </Box>
