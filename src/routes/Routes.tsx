@@ -1,7 +1,14 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
+
 import { MaterialPage, Dashboard, CategoryPage, VariantsPage, UnitPage, Product, SuppliersPage , LoginPage , RegisterPage } from '../pages';
+
+import { MaterialPage, Dashboard, CategoryPage, VariantsPage, UnitPage, Product, SuppliersPage } from '../pages';
+import { VariantsForMaterialPage } from '../pages/registration/variantPage/VaranitsForMaterialPage';
+import GeneratedMaterialTable from '../pages/registration/generatedMaterialsPage/GeneratedMaterialPage';
+import CommonPage from '../pages/registration/RegisterationPage';
+import RegisterationPage from '../pages/registration/RegisterationPage';
 
 
 const routes: RouteObject[] = [
@@ -19,7 +26,7 @@ const routes: RouteObject[] = [
     path: '/register',
     element: <RegisterLayout />,
     children: [
-      { path: '/register/material', element: <MaterialPage /> },
+      { path: '/register/material', element: <RegisterationPage  /> },
       {path: '/register/product', element: <Product />},
     ],
   },

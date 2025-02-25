@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CreateRawMaterial } from "./rawMaterialModel";
+import { AddVariant, CreateRawMaterial } from "./rawMaterialModel";
 import { BASE_URL } from '../../constant';
 
 export const rawMaterialApi = createApi({
@@ -27,7 +27,17 @@ export const rawMaterialApi = createApi({
         body: material,
       }),
     }),
+    addVariant: builder.mutation<void, { materialId: string; variantData: AddVariant }>({
+      query: ({ materialId, variantData }) => ({
+        url: `/${materialId}/variants`,
+        method: 'POST',
+        body: variantData,
+      }),
+    }),
+    getVariants: builder.query<AddVariant[], string>({
+      query: (materialId) => `/${materialId}/variants`,
+    }),
   }),
 });
 
-export const { useLazyGenerateMaterialCodeQuery, useLazyCheckMaterialCodeAvailabilityQuery, useCreateMaterialMutation } = rawMaterialApi;
+export const { useLazyGenerateMaterialCodeQuery, useLazyCheckMaterialCodeAvailabilityQuery, useCreateMaterialMutation, useAddVariantMutation, useGetVariantsQuery } = rawMaterialApi;

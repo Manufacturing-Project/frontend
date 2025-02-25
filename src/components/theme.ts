@@ -7,6 +7,7 @@ export const colors = {
   font_color_textfeild: '#000000',
   secondary_background_color: '#FFFFFF',
   border_color_grey: '#757575',
+  table_cell_color: "ergba(33, 150, 243, 0.08)",
   searchbar_color: '#DED8E1',
   font_searchbar: '#8BA3CB',
   alert_success: '#2E7D32',

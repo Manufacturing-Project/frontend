@@ -7,3 +7,8 @@ export interface CreateRawMaterial{
     description?: string;
     hasVariants: boolean; //boolean
   }
+
+  export interface AddVariant {
+    variant: string;
+    values: string[];
+  }
