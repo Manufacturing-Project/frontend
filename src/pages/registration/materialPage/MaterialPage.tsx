@@ -1,5 +1,5 @@
 import { Box, Button, Switch, Typography } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialApiSlice';
 import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,14 +22,18 @@ import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiS
 import { CreateUnit } from '../../../features/units/UnitModel';
 import Toaster, { ToasterRef } from '../../../components/molecules/toaster/Toaster'; // Import the Toaster component
 
+interface VariantsForMaterialPageProps {
+  onNext: () => void;
+}
+
+
 interface Option {
   id: string;
   name: string;
 }
 
-interface Props {}
 
-const MaterialPage: React.FC<Props> = () => {
+const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({onNext}) => {
   const { data: units } = useGetUnitsQuery();
   const { data: categories } = useGetCategoriesQuery();
 
@@ -52,6 +56,9 @@ const MaterialPage: React.FC<Props> = () => {
 
   // Create a ref for Toaster
   const toasterRef = useRef<ToasterRef>(null);
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page (1 = MaterialPage, 2 = VariantsPage, 3 = GeneratedMaterialTable)
+  const [showVariantsPage, setShowVariantsPage] = useState(false); // Track if Variants page should be shown
+  
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -92,6 +99,7 @@ const MaterialPage: React.FC<Props> = () => {
     try {
       const response = await createMaterial(material).unwrap();
       console.log('Material created successfully:', response);
+      dispatch(resetForm());
 
       // Show success toaster message
       toasterRef.current?.showToast('Material created successfully!', 'success');
@@ -101,6 +109,14 @@ const MaterialPage: React.FC<Props> = () => {
       // Show error toaster message
       toasterRef.current?.showToast('Failed to create material.', 'error');
     }
+  };
+
+  const handleBack = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -197,36 +213,7 @@ const MaterialPage: React.FC<Props> = () => {
       </Box>
 
       {/* Action Buttons */}
-      <Box sx={{ display: "flex", justifyContent: "end", gap: "16px", marginRight: "80px" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleRawMaterial}
-          sx={{
-            backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.secondary_background_color,
-            marginTop: '60px',
-            width: "99px",
-            height: "36px",
-          }}
-        >
-          Save
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => dispatch(resetForm())}
-          sx={{
-            backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.secondary_background_color,
-            marginTop: '60px',
-            width: "99px",
-            height: "36px",
-          }}
-        >
-          Cancel
-        </Button>
-      </Box>
+    
 
       {/* Toaster Component */}
       <Toaster ref={toasterRef} />

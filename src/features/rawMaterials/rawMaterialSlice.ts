@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Variant {
+  variant: string;
+  values: string[];
+}
+
 interface RawMaterialState {
     m_name: string;
     m_code: string;
@@ -9,8 +14,10 @@ interface RawMaterialState {
     description: string;
     hasVariants?: boolean;
     isCodeValid?: boolean;
+    variants: Variant[]; 
   }
-  
+
+
   const initialState: RawMaterialState = {
     m_name: '',
     m_code: '',
@@ -20,6 +27,7 @@ interface RawMaterialState {
     description: '',
     hasVariants: false,
     isCodeValid: true,
+    variants: [], 
   };
   
   const RawMaterialSlice = createSlice({
@@ -50,6 +58,9 @@ interface RawMaterialState {
       setIsCodeValid: (state, action: PayloadAction<boolean>) => {
         state.isCodeValid = action.payload;
       },
+      setVariants: (state, action: PayloadAction<Variant[]>) => {
+        state.variants = action.payload;
+      },
       resetForm: (state) => initialState,
     },
   });
@@ -63,6 +74,7 @@ interface RawMaterialState {
     setDescription,
     setHasVariants,
     setIsCodeValid,
+    setVariants,
     resetForm,
   } = RawMaterialSlice.actions;
   
