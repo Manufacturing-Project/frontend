@@ -48,12 +48,12 @@ const routes: RouteObject[] = [
       {path: '/users/register' , element: <RegisterPage/>},
     ]
   },
-
   {
     path: '/auth',
     element: <LoginPage/>,
     children:[
       {path: '/auth/login' , element: <LoginPage/>}
+
     ]
   }
 ];
