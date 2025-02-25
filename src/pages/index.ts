@@ -5,3 +5,5 @@ export { Dashboard } from "./dashboard/Dashboard";
 export { Product } from "./registration/ProductPage/Product";
 export { SuppliersPage } from "./settings/suppliers/SuppliersPage";
 export { MaterialPage } from "./registration/materialPage/MaterialPage";
+export {LoginPage}   from './login/Login';
+export {RegisterPage} from './register/Register';

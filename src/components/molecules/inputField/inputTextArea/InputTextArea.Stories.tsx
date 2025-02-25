@@ -1,7 +1,7 @@
 import { InputTextArea } from "./InputTextArea";
 
 export default {
-  title: 'Components/Molecules/Input Text Area',
+  title: 'Components/Molecules/InputField/InputTextArea',
   component:   InputTextArea,
   tags: ['autodocs'],
     argTypes: {

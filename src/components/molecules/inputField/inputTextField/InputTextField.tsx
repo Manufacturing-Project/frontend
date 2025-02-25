@@ -31,9 +31,17 @@ interface InputFieldProps {
   height?: string;
   value?: string | string[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+  required?: boolean; // Added required property
+  id?: string;
+  name?: string;
+
+  
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 
+
 }
+
 
 export const InputTextField: React.FC<InputFieldProps> = ({
   label,
