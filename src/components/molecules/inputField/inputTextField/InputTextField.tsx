@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import theme from "../../../theme"; // Ensure your theme path is correct
+import { string } from "prop-types";
 
 // InputFieldLabel Component
 interface LabelProps {
@@ -27,16 +28,21 @@ interface InputFieldProps {
   label: string;
   textPlaceholder: string;
   width?: string;
-  value?: string;
+  height?: string;
+  value?: string | string[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+
 }
 
 export const InputTextField: React.FC<InputFieldProps> = ({
   label,
   textPlaceholder,
   width = "340px",
+  height = "50px",
   value,
   onChange,
+  onKeyDown,
 }) => {
   return (
     <Box>
@@ -45,9 +51,10 @@ export const InputTextField: React.FC<InputFieldProps> = ({
         placeholder={textPlaceholder}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         sx={{
           width: width,
-          height: "50px",
+          height: height,
           backgroundColor: "white",
           borderRadius: 8,
           '& .MuiOutlinedInput-root': {

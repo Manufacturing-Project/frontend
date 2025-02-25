@@ -34,12 +34,14 @@ interface SelectFieldProps {
   value: string;
   onChange: (event: SelectChangeEvent<string>) => void;
   width?: string;
+  height?: string;
 }
 
 
       
 export const InputSelectField: React.FC<SelectFieldProps> = ({
   label,
+  height,
   options,
   value,
   onChange,
@@ -48,7 +50,7 @@ export const InputSelectField: React.FC<SelectFieldProps> = ({
 
   const selectFieldStyles = {
     width: width,
-    height: "50px", // Added height for consistency
+    height: height, // Added height for consistency
     backgroundColor: "white",
     ".MuiOutlinedInput-notchedOutline": {
       borderColor:  theme.colors.border_color_grey,
