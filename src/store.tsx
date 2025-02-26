@@ -6,9 +6,7 @@ import { variantsApi } from "./features/variants/variantApiSlice";
 import UnitSlice from "./features/units/UnitSlice";
 import RawMaterialSlice from "./features/rawMaterials/rawMaterialSlice";
 import userReducer from './features/user/UserSlice';
-import {userapi} from './features/user/UserApiSlice'
-import {authApi}  from "../src/features/authentication/Authaapislice";
-import AuthReducer from "../src/features/authentication/Authslice";
+import { userApi } from "./features/user/UserApiSlice";
 
 export const store = configureStore({
     reducer: {
@@ -16,11 +14,10 @@ export const store = configureStore({
         [unitsApi.reducerPath]: unitsApi.reducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
         [variantsApi.reducerPath]: variantsApi.reducer,
-        [authApi.reducerPath]: authApi.reducer,
-        [userapi.reducerPath]: userapi.reducer,
+        [userApi.reducerPath]: userApi.reducer,
         unit: UnitSlice,
         rawMaterial: RawMaterialSlice,
-        auth: AuthReducer,
+        
         user: userReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -29,8 +26,9 @@ export const store = configureStore({
             .concat(categoriesApi.middleware)
             .concat(variantsApi.middleware)
             .concat(unitsApi.middleware)
-            .concat(authApi.middleware)
-            .concat(userapi.middleware)
+            .concat(userApi.middleware)
+            
+            
 });
 
 export type RootState = ReturnType<typeof store.getState>;

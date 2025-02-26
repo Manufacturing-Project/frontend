@@ -10,31 +10,34 @@ import {
   Grid,
   Link,
 } from '@mui/material';
-import { useSignInMutation } from '../../features/authentication/Authaapislice'; // Adjust the path as per your project structure
+import { useLoginMutation } from '../../features/user/UserApiSlice'; // Adjust the path as per your project structure
 import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
-  const [username, setusername] = useState('');
+   
+  const navigate = useNavigate(); 
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [signIn, { isLoading }] = useSignInMutation();
+  const [signIn, { isLoading }] = useLoginMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!username || !password) {
+    if (!email || !password) {
       setError('Both fields are required.');
       return;
     }
 
     try {
-      const response = await signIn({ username , password }).unwrap();
+      const response = await signIn({ email , password }).unwrap();
       console.log('Login successful:', response);
       setError('');
       // Save the token or navigate to another page
       localStorage.setItem('token', response.token);
-      alert(`Welcome ${response.username}`);
+      navigate('/dashboard');
     } catch (err) {
       console.error('Login failed:', err);
       setError('Invalid email or password. Please try again.');
@@ -82,8 +85,8 @@ const LoginPage: React.FC = () => {
                   textPlaceholder="User Name"
                   label="User Name"
                   required
-                  value={username}
-                  onChange={(e) => setusername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setemail(e.target.value)}
                   id="email"
                   name="email"
                 />
@@ -139,7 +142,7 @@ const LoginPage: React.FC = () => {
               sx={{ fontSize: '12px', alignSelf: 'center' , marginTop: '20px' , marginLeft: '60px'}}
               >
                Don't have an account?
-              <Link href="/users/register" sx={{ textDecoration: 'none' }}>
+              <Link href="/auth/signup" sx={{ textDecoration: 'none' }}>
                 Sign up
               </Link>
             </Typography>

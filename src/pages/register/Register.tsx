@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, Grid, Link } from "@mui/material";
 import theme from "../../components/theme";
 import img from "../../assets/small-team-discussing-ideas-2194220-0.png";
-import { useRegisterUserMutation } from "../../features/user/UserApiSlice";
+import { useSignupMutation} from "../../features/user/UserApiSlice";
 import { setUser, setError, setLoading } from "../../features/user/UserSlice";
 import { useDispatch } from 'react-redux';
 import Toaster from "../../components/molecules/toaster/Toaster";
@@ -18,7 +18,7 @@ const RegisterPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setErrorLocal] = useState("");
   
-  const [registerUser, { isLoading }] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useSignupMutation();
     const dispatch = useDispatch();
 
   // Automatically set the username as the email when email changes

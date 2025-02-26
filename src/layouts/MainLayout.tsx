@@ -7,11 +7,11 @@ const MainLayout: React.FC = () => {
   const location = useLocation();
 
  
-  const noLeftPanelPaths = ['/dashboard', '/', '/auth/login', '/users/register'];
+  const noLeftPanelPaths = ['/dashboard', '/', '/auth/login', '/auth/signup'];
   const showLeftPanel = !noLeftPanelPaths.includes(location.pathname);
 
  
-  const noHeaderPaths = [ '/auth/login', '/users/register']; 
+  const noHeaderPaths = [ '/auth/login', '/auth/signup' , '/']; 
 
   const showHeader = !noHeaderPaths.includes(location.pathname);
 
