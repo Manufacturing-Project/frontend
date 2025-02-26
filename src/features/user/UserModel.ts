@@ -6,6 +6,7 @@ export interface UserRegistrationRequest {
   }
   
   export interface UserResponse {
+    token: string;
     id: string;
     email: string;
     username: string;
