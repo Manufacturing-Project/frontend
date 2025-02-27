@@ -8,6 +8,7 @@ import { VariantsForMaterialPage } from '../pages/registration/variantPage/Varan
 import GeneratedMaterialTable from '../pages/registration/generatedMaterialsPage/GeneratedMaterialPage';
 import CommonPage from '../pages/registration/RegisterationPage';
 import RegisterationPage from '../pages/registration/RegisterationPage';
+import ProtectedRoutes from './ProtectedRoutes';
 
 
 const routes: RouteObject[] = [
@@ -18,20 +19,19 @@ const routes: RouteObject[] = [
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
-
+    element: <ProtectedRoutes><Dashboard /></ProtectedRoutes>, 
   },
   {
     path: '/register',
-    element: <RegisterLayout />,
+    element: <ProtectedRoutes><RegisterLayout /></ProtectedRoutes>, 
     children: [
-      { path: '/register/material', element: <RegisterationPage  /> },
-      {path: '/register/product', element: <Product />},
+      { path: '/register/material', element: <RegisterationPage /> },
+      { path: '/register/product', element: <Product /> },
     ],
   },
   {
     path: '/manufacture',
-    element: <ManufactureLayout />,
+    element: <ProtectedRoutes><ManufactureLayout /></ProtectedRoutes>, 
     children: [
       { path: '/manufacture/purchase', element: <Product /> },
       { path: '/manufacture/history', element: <Product /> },
@@ -39,7 +39,7 @@ const routes: RouteObject[] = [
   },
   {
     path: '/setting',
-    element: <SettingLayout />,
+    element: <ProtectedRoutes><SettingLayout /></ProtectedRoutes>, 
     children: [
       { path: '/setting/variants', element: <VariantsPage /> },
       { path: '/setting/supplier', element: <SuppliersPage /> },
@@ -47,7 +47,6 @@ const routes: RouteObject[] = [
       { path: '/setting/unit', element: <UnitPage /> },
     ],
   },
-
   {path:'/auth',
     element: < RegisterPage/>,
     children:[
