@@ -14,6 +14,9 @@ import { useLoginMutation } from '../../features/user/UserApiSlice'; // Adjust t
 import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../features/user/UserSlice';
+import { UserResponse } from '../../features/user/UserModel';
 
 const LoginPage: React.FC = () => {
    
@@ -22,6 +25,7 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [signIn, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +40,15 @@ const LoginPage: React.FC = () => {
       console.log('Login successful:', response);
       setError('');
       // Save the token or navigate to another page
-      localStorage.setItem('token', response.token);
+      localStorage.setItem('token', response.token);  
+      const userResponse: UserResponse = {
+        token: response.token,
+        id: 'example-id',
+        email: email,
+        username: 'example-username',
+        createdAt: new Date().toISOString(), 
+      };
+      dispatch(setAuth(userResponse));
       navigate('/dashboard');
     } catch (err) {
       console.error('Login failed:', err);
