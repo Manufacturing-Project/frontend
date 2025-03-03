@@ -18,11 +18,13 @@ FROM nginx:stable-alpine
 
 # Copy the build output from the previous stage to serve with Nginx
 COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 
 COPY .env .env
 
 # Expose port 80 for the container  
-EXPOSE 3000
+EXPOSE 80
 
 # Start Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
