@@ -1,11 +1,6 @@
 import React from 'react';
-import { Box, Typography, Avatar } from '@mui/material';
-
+import { Box,  Avatar } from '@mui/material';
 import { SearchBar } from '../../molecules'; 
-
-import {  Logo } from '../../molecules';
-
-
 import { MenuBar } from '../../organism';
 import theme from '../../theme';
 import ProfileIcon from '../../../assets/user.png';
