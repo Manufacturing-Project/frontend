@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetUnitsQuery } from "../../features/units/UnitsApiSlice";
-import { useGetCategoriesQuery } from "../../features/categories/CategoryApiSlice";
-
 import { CreateRawMaterial } from "../../features/rawMaterials/rawMaterialModel";
 import Toaster, { ToasterRef } from "../../components/molecules/toaster/Toaster";
 import { useCreateMaterialMutation } from "../../features/rawMaterials/rawMaterialApiSlice";
@@ -13,13 +10,12 @@ import GeneratedMaterialTable from "./generatedMaterialsPage/GeneratedMaterialPa
 import { MaterialPage } from "./materialPage/MaterialPage";
 import { RootState } from "../../store";
 import theme from "../../components/theme";
-import { generateVariantCombinations } from "./generatedMaterialsPage/generateFunction";
 import { useNavigate } from "react-router-dom";
 
 const RegisterationPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { m_name, m_code, category, unit, reorderlevel, description, hasVariants, variants } = useSelector((state: RootState) => state.rawMaterial);
+  const { m_name, m_code, category, unit, reorderlevel, description, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [createMaterial] = useCreateMaterialMutation();
@@ -53,6 +49,7 @@ const RegisterationPage: React.FC = () => {
         console.log('Material created successfully:', response);
         dispatch(resetForm());
         toasterRef.current?.showToast('Material created successfully!', 'success');
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error('Failed to create material:', error);
@@ -226,13 +223,14 @@ const RegisterationPage: React.FC = () => {
               onClick={handleSaveAllMaterials}
               disabled={isLoading}
               sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                width: "99px",
-                height: "36px",
+              backgroundColor: theme.colors.primary_color_green,
+              width: "99px",
+              height: "36px",
               }}
             >
-              {isLoading ? "Saving..." : "Save"}
+              {isLoading ? "Saving..." : "Save" }
             </Button>
+             
           </Box>
         )}
                   <Toaster ref={toasterRef} />

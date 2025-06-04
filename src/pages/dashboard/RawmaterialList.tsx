@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useGetAllMaterialsQuery, useDeleteMaterialMutation, useUpdateMaterialMutation } from '../../features/rawMaterials/rawMaterialApiSlice';
+import { Box, Typography, Paper } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import {
+  useGetAllMaterialsQuery,
+  useDeleteMaterialMutation,
+  useUpdateMaterialMutation,
+} from '../../features/rawMaterials/rawMaterialApiSlice';
 import EditDialogBox from '../../components/molecules/editTableDialogBox/EditTableDialogBox';
 import CustomTable from '../../components/molecules/table/Table';
 import { CreateRawMaterial } from '../../features/rawMaterials/rawMaterialModel';
@@ -13,6 +19,8 @@ const RawMaterialList: React.FC = () => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState<CreateRawMaterial & { _id?: string } | null>(null);
 
+  const location = useLocation();
+
   const fields = [
     { label: 'Material Name', name: 'materialName' },
     { label: 'Material Code', name: 'materialCode' },
@@ -21,6 +29,10 @@ const RawMaterialList: React.FC = () => {
     { label: 'Reorder Level', name: 'reorderLevel' },
     { label: 'Description', name: 'description' },
   ];
+
+  useEffect(() => {
+    refetch();
+  }, [location.pathname]);
 
   const handleEdit = (material: any) => {
     setSelectedMaterial(material);
@@ -34,45 +46,55 @@ const RawMaterialList: React.FC = () => {
     }
   };
 
-const handleSave = async (updatedData: Record<string, any>) => {
-  try {
-    if (selectedMaterial?._id) {
-      const mergedData: CreateRawMaterial = {
-        ...selectedMaterial,
-        ...updatedData,
-      };
-      delete (mergedData as any)._id;
+  const handleSave = async (updatedData: Record<string, any>) => {
+    try {
+      if (selectedMaterial?._id) {
+        const mergedData: CreateRawMaterial = {
+          ...selectedMaterial,
+          ...updatedData,
+          reorderLevel: Number(updatedData.reorderLevel),
+        };
+        delete (mergedData as any)._id;
 
-      await updateMaterial({ materialId: selectedMaterial._id, updateData: mergedData }).unwrap();
-      setEditDialogOpen(false);
-      console.log('Updated data:', updatedData);
-      refetch();
+        await updateMaterial({ materialId: selectedMaterial._id, updateData: mergedData }).unwrap();
+        setEditDialogOpen(false);
+        console.log('Updated data:', updatedData);
+        refetch();
+      }
+    } catch (err) {
+      console.error('Error updating material:', err);
     }
-  } catch (err) {
-    console.error('Error updating material:', err);
-  }
-};
-
-
-  if (isLoading) return <CircularProgress />;
-  if (isError) return <p>Error loading raw materials.</p>;
+  };
 
   return (
-    <div>
-      <h2>Raw Material List</h2>
-      <CustomTable
-        columns={[
-          { header: 'Material Name', accessor: 'materialName' },
-          { header: 'Material Code', accessor: 'materialCode', align: 'right' },
-          { header: 'Category', accessor: 'category', align: 'right' },
-          { header: 'Unit', accessor: 'unitOfMeasure', align: 'right' },
-          { header: 'Reorder Level', accessor: 'reorderLevel', align: 'right' },
-          { header: 'Description', accessor: 'description', align: 'right' },
-        ]}
-        rows={materials || []}
-        onEdit={handleEdit}
-        onDelete={(row) => handleDelete(row._id)}
-      />
+    <Box sx={{ padding: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
+        Raw Material List
+      </Typography>
+
+      <Paper elevation={3} sx={{ padding: 2, borderRadius: 3 }}>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+            <CircularProgress />
+          </Box>
+        ) : isError ? (
+          <Typography color="error">Error loading raw materials.</Typography>
+        ) : (
+          <CustomTable
+            columns={[
+              { header: 'Material Name', accessor: 'materialName' },
+              { header: 'Material Code', accessor: 'materialCode', align: 'right' },
+              { header: 'Category', accessor: 'category', align: 'right' },
+              { header: 'Unit', accessor: 'unitOfMeasure', align: 'right' },
+              { header: 'Reorder Level', accessor: 'reorderLevel', align: 'right' },
+              { header: 'Description', accessor: 'description', align: 'right' },
+            ]}
+            rows={materials || []}
+            onEdit={handleEdit}
+            onDelete={(row) => handleDelete(row._id)}
+          />
+        )}
+      </Paper>
 
       {selectedMaterial && (
         <EditDialogBox
@@ -84,7 +106,7 @@ const handleSave = async (updatedData: Record<string, any>) => {
           onSave={handleSave}
         />
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Table, TableBody, TableCell,
-  TableContainer, TableHead, TableRow, Paper, IconButton
+  TableContainer, TableHead, TableRow, Paper, IconButton, Box
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
@@ -15,9 +15,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     position: 'sticky',
     top: 0,
     zIndex: 1,
+    whiteSpace: 'nowrap',
   },
   [`&.MuiTableCell-body`]: {
     fontSize: 14,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }));
 
@@ -34,6 +38,7 @@ interface Column {
   header: string;
   accessor: string;
   align?: 'left' | 'right' | 'center';
+  width?: string; // like '150px', '20%', etc.
 }
 
 interface CustomTableProps {
@@ -45,47 +50,59 @@ interface CustomTableProps {
 
 const CustomTable: React.FC<CustomTableProps> = ({ columns, rows, onEdit, onDelete }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map((col) => (
-              <StyledTableCell key={col.accessor} align={col.align || 'left'}>
-                {col.header}
-              </StyledTableCell>
-            ))}
-            {(onEdit || onDelete) && (
-              <StyledTableCell align="center">Actions</StyledTableCell>
-            )}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, index) => (
-            <StyledTableRow key={index}>
+    <Box sx={{ overflowX: 'auto' }}>
+      <TableContainer component={Paper}>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
               {columns.map((col) => (
-                <StyledTableCell key={col.accessor} align={col.align || 'left'}>
-                  {row[col.accessor]}
+                <StyledTableCell
+                  key={col.accessor}
+                  align={col.align || 'left'}
+                  sx={{ width: col.width }}
+                >
+                  {col.header}
                 </StyledTableCell>
               ))}
               {(onEdit || onDelete) && (
-                <StyledTableCell align="center">
-                  {onEdit && (
-                    <IconButton onClick={() => onEdit(row)} color="primary">
-                      <EditIcon />
-                    </IconButton>
-                  )}
-                  {onDelete && (
-                    <IconButton onClick={() => onDelete(row)} color="error">
-                      <DeleteIcon />
-                    </IconButton>
-                  )}
+                <StyledTableCell align="center" sx={{ width: '100px' }}>
+                  Actions
                 </StyledTableCell>
               )}
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, index) => (
+              <StyledTableRow key={index}>
+                {columns.map((col) => (
+                  <StyledTableCell
+                    key={col.accessor}
+                    align={col.align || 'left'}
+                    sx={{ width: col.width }}
+                  >
+                    {row[col.accessor]}
+                  </StyledTableCell>
+                ))}
+                {(onEdit || onDelete) && (
+                  <StyledTableCell align="center">
+                    {onEdit && (
+                      <IconButton onClick={() => onEdit(row)} color="primary">
+                        <EditIcon />
+                      </IconButton>
+                    )}
+                    {onDelete && (
+                      <IconButton onClick={() => onDelete(row)} color="error">
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                  </StyledTableCell>
+                )}
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 
