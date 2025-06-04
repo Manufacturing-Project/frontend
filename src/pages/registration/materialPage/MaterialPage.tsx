@@ -1,12 +1,13 @@
-import { Box, Button, Switch, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { useCreateMaterialMutation, useLazyCheckMaterialCodeAvailabilityQuery, useLazyGenerateMaterialCodeQuery } from '../../../features/rawMaterials/rawMaterialApiSlice';
-import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../store";
-import theme from "../../../components/theme";
+import { Box, Button, Switch, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import Done from "@mui/icons-material/Done";
 
-import Done from '@mui/icons-material/Done';
+import {
+  useCreateMaterialMutation,
+  useLazyCheckMaterialCodeAvailabilityQuery,
+  useLazyGenerateMaterialCodeQuery,
+} from "../../../features/rawMaterials/rawMaterialApiSlice";
 import {
   setMName,
   setMCode,
@@ -14,77 +15,69 @@ import {
   setUnit,
   setReorderLevel,
   setDescription,
-  setIsCodeValid,
   setHasVariants,
   resetForm,
 } from "../../../features/rawMaterials/rawMaterialSlice";
+import { useGetUnitsQuery } from "../../../features/units/UnitsApiSlice";
+import { useGetCategoriesQuery } from "../../../features/categories/CategoryApiSlice";
+import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
+import { CreateUnit } from "../../../features/units/UnitModel";
+import { RootState } from "../../../store";
+import theme from "../../../components/theme";
+import Toaster, { ToasterRef } from "../../../components/molecules/toaster/Toaster";
 import { InputTextField, InputTextArea, InputSelectField } from "../../../components/molecules";
-import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
-import { useGetCategoriesQuery } from '../../../features/categories/CategoryApiSlice';
-import { CreateUnit } from '../../../features/units/UnitModel';
-import Toaster, { ToasterRef } from '../../../components/molecules/toaster/Toaster'; // Import the Toaster component
 
 interface VariantsForMaterialPageProps {
   onNext: () => void;
 }
 
+const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
+  const dispatch = useDispatch();
+  const toasterRef = useRef<ToasterRef>(null);
 
-interface Option {
-  id: string;
-  name: string;
-}
-
-
-const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({onNext}) => {
   const { data: units } = useGetUnitsQuery();
   const { data: categories } = useGetCategoriesQuery();
 
-  const categoryoption = categories?.map((category: any) => ({
-    id: category._id,
-    name: category.name,
-  })) || [];
-
-  const unitoption = units?.map((unit: CreateUnit) => ({
+  const unitOptions = units?.map((unit: CreateUnit) => ({
     id: unit._id,
     name: unit.unitName,
   })) || [];
 
-  const dispatch = useDispatch();
-  const { m_name, m_code, category, unit, reorderlevel, description, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
+  const categoryOptions = categories?.map((category: any) => ({
+    id: category._id,
+    name: category.name,
+  })) || [];
 
-  const [triggerGenerateCode,  { data, isLoading, error }] = useLazyGenerateMaterialCodeQuery();
+  const {
+    m_name,
+    m_code,
+    category,
+    unit,
+    reorderlevel,
+    description,
+    hasVariants,
+  } = useSelector((state: RootState) => state.rawMaterial);
+
+  const [triggerGenerateCode, { data }] = useLazyGenerateMaterialCodeQuery();
   const [triggerCheckCode] = useLazyCheckMaterialCodeAvailabilityQuery();
   const [createMaterial] = useCreateMaterialMutation();
 
-  // Create a ref for Toaster
-  const toasterRef = useRef<ToasterRef>(null);
-  const [currentPage, setCurrentPage] = useState(1); // Track the current page (1 = MaterialPage, 2 = VariantsPage, 3 = GeneratedMaterialTable)
-  const [showVariantsPage, setShowVariantsPage] = useState(false); // Track if Variants page should be shown
-  
-
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      if (m_name) {
-        triggerGenerateCode(m_name);
-      }
+    const timer = setTimeout(() => {
+      if (m_name) triggerGenerateCode(m_name);
     }, 500);
-    return () => clearTimeout(delayDebounceFn);
+    return () => clearTimeout(timer);
   }, [m_name, triggerGenerateCode]);
 
   useEffect(() => {
-    if (data) {
-      dispatch(setMCode(data.materialCode));
-    }
+    if (data) dispatch(setMCode(data.materialCode));
   }, [data]);
 
-
   useEffect(() => {
-    if (m_code) {
-      const delayDebounceFn = setTimeout(() => {
-        triggerCheckCode(m_code);
-      }, 500);
-      return () => clearTimeout(delayDebounceFn);
-    }
+    const timer = setTimeout(() => {
+      if (m_code) triggerCheckCode(m_code);
+    }, 500);
+    return () => clearTimeout(timer);
   }, [m_code, triggerCheckCode]);
 
   const handleRawMaterial = async () => {
@@ -99,26 +92,12 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({onNext}) => {
     };
 
     try {
-      const response = await createMaterial(material).unwrap();
-      console.log('Material created successfully:', response);
+      await createMaterial(material).unwrap();
       dispatch(resetForm());
-
-      // Show success toaster message
-      toasterRef.current?.showToast('Material created successfully!', 'success');
+      toasterRef.current?.showToast("Material created successfully!", "success");
     } catch (error) {
-      console.error('Failed to create material:', error);
-
-      // Show error toaster message
-      toasterRef.current?.showToast('Failed to create material.', 'error');
+      toasterRef.current?.showToast("Failed to create material.", "error");
     }
-  };
-
-  const handleBack = () => {
-    setCurrentPage(currentPage - 1);
-  };
-
-  const handleNext = () => {
-    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -126,98 +105,100 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({onNext}) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "32px",
-        paddingLeft: '60px',
+        gap: 4,
+        p: "60px",
         backgroundColor: theme.colors.secondary_background_color,
         height: "100%",
-        boxSizing: 'border-box',
+        boxSizing: "border-box",
       }}
     >
-      <Typography variant="h4" gutterBottom>
-        Register Raw Material
-      </Typography>
+      <Typography variant="h4">Register Raw Material</Typography>
 
-      {/* Material Name and Code Fields */}
-      <Box sx={{ display: "flex", gap: "40px" }}>
+      <Box sx={{ display: "flex", gap: 5 }}>
         <InputTextField
           label="Material Name"
           textPlaceholder="Enter Material Name"
           value={m_name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMName(e.target.value))}
+          onChange={(e) => dispatch(setMName(e.target.value))}
           width="530px"
         />
         <InputTextField
           label="Material Code"
           textPlaceholder="Enter Material Code"
           value={m_code}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setMCode(e.target.value))}
+          onChange={(e) => dispatch(setMCode(e.target.value))}
           width="530px"
         />
       </Box>
 
-      {/* Category and Unit Fields */}
-      <Box sx={{ display: "flex", gap: "40px" }}>
+      <Box sx={{ display: "flex", gap: 5 }}>
         <InputSelectField
           label="Category"
-          options={categoryoption}
+          options={categoryOptions}
           value={category}
           onChange={(e) => dispatch(setCategory(e.target.value))}
           width="530px"
         />
         <InputSelectField
           label="Unit"
-          options={unitoption}
+          options={unitOptions}
           value={unit}
           onChange={(e) => dispatch(setUnit(e.target.value))}
           width="530px"
         />
       </Box>
 
-      {/* Reorder Level Field */}
-      <Box sx={{ display: "flex", gap: "40px", alignItems: 'end' }}>
+      <Box sx={{ display: "flex", gap: 5, alignItems: "flex-end" }}>
         <InputTextField
           label="Re-Order Level"
           textPlaceholder="Enter Re-Order Level"
           value={reorderlevel.toString()}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setReorderLevel(Number(e.target.value)))}
+          onChange={(e) => dispatch(setReorderLevel(Number(e.target.value)))}
           width="530px"
         />
 
-        {/* Has Variants Switch */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, width: "100%" }}>
           <Typography>This material has variants</Typography>
           <Switch
-
             checked={hasVariants}
             onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-           
-          sx={{
-            '& .MuiSwitch-switchBase.Mui-checked': {
-              color: theme.colors.primary_color_green, 
-              '& + .MuiSwitch-track': {
-                backgroundColor: theme.colors.primary_color_green, 
-
+            sx={{
+              "& .MuiSwitch-switchBase.Mui-checked": {
+                color: theme.colors.primary_color_green,
+                "& + .MuiSwitch-track": {
+                  backgroundColor: theme.colors.primary_color_green,
+                },
               },
-            }}}
+            }}
           />
         </Box>
       </Box>
 
-      {/* Description Field */}
-      <Box>
-        <InputTextArea
-          label="Description"
-          ariaLabel="description-textarea"
-          placeholder="Enter Description"
-          value={description}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => dispatch(setDescription(e.target.value))}
-        />
-      </Box>
+      <InputTextArea
+        label="Description"
+        ariaLabel="description-textarea"
+        placeholder="Enter Description"
+        value={description}
+        onChange={(e) => dispatch(setDescription(e.target.value))}
+      />
 
-      {/* Action Buttons */}
-    
+      {/* <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleRawMaterial}
+          startIcon={<Done />}
+          sx={{
+            backgroundColor: theme.colors.primary_color_green,
+            "&:hover": {
+              backgroundColor: theme.colors.primary_color_green,
+              opacity: 0.9,
+            },
+          }}
+        >
+          Save Material
+        </Button>
+      </Box> */}
 
-      {/* Toaster Component */}
       <Toaster ref={toasterRef} />
     </Box>
   );
