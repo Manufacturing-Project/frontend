@@ -43,6 +43,22 @@ interface InputFieldProps {
 }
 
 
+// ...existing code...
+interface InputFieldProps {
+  label: string;
+  textPlaceholder: string;
+  width?: string;
+  height?: string;
+  value?: string | string[];
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  id?: string;
+  name?: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  error?: boolean; // <-- Add this
+  helperText?: string; // <-- Add this
+}
+
 export const InputTextField: React.FC<InputFieldProps> = ({
   label,
   textPlaceholder,
@@ -51,6 +67,8 @@ export const InputTextField: React.FC<InputFieldProps> = ({
   value,
   onChange,
   onKeyDown,
+  error,        // <-- Add this
+  helperText,   // <-- Add this
 }) => {
   return (
     <Box>
@@ -60,6 +78,8 @@ export const InputTextField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        error={error}           // <-- Pass to TextField
+        helperText={helperText} // <-- Pass to TextField
         sx={{
           width: width,
           height: height,
@@ -67,23 +87,23 @@ export const InputTextField: React.FC<InputFieldProps> = ({
           borderRadius: 8,
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
-              borderColor: theme.colors.border_color_grey, // Default border color
+              borderColor: theme.colors.border_color_grey,
             },
             '&:hover fieldset': {
-              borderColor: theme.colors.border_color_grey, // Border color on hover
+              borderColor: theme.colors.border_color_grey,
             },
             '&.Mui-focused fieldset': {
-              borderColor: theme.colors.primary_color_green, // Border color when focused
+              borderColor: theme.colors.primary_color_green,
             },
           },
-          // Adding placeholder color
           '& .MuiInputBase-input::placeholder': {
-            color: theme.colors.border_color_grey, // Set your desired placeholder color
-            opacity: 1, // Show full opacity
+            color: theme.colors.border_color_grey,
+            opacity: 1,
           },
         }}
-        variant="outlined" // You can adjust the variant as needed
+        variant="outlined"
       />
     </Box>
   );
 };
+// ...existing code...

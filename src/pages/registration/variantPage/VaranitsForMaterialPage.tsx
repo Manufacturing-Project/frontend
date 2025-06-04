@@ -3,45 +3,33 @@ import { Box, Button, Typography, Chip } from '@mui/material';
 import theme from '../../../components/theme';
 import { InputSelectField, InputTextField } from '../../../components/molecules';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategory, setVariants } from '../../../features/rawMaterials/rawMaterialSlice';
+import { setVariants } from '../../../features/rawMaterials/rawMaterialSlice';
 import { useGetVariantsQuery } from '../../../features/variants/variantApiSlice';
 import { RootState } from '../../../store';
 
 interface VariantsForMaterialPageProps {}
 
-
-
-export interface InputFieldProps {
-
-  label: string;
-
-  textPlaceholder: string;
-
-  width: string;
-
-  height: string;
-
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-
-}
-
-const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = ({ }) => {
+const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = () => {
   const { data: variants } = useGetVariantsQuery();
-  const varaintOptions =
-    variants?.map((category: any) => ({
-      id: category._id,
-      name: category.name,
+
+  const variantOptions =
+    variants?.map((variantItem: any) => ({
+      id: variantItem._id,
+      name: variantItem.variantName,
     })) || [];
 
   const dispatch = useDispatch();
-  const { category } = useSelector((state: RootState) => state.rawMaterial);
 
   const [variantFields, setVariantFields] = useState<
     { variant: string; values: string[] }[]
   >([{ variant: '', values: [] }]);
 
+  // Track input value for each variant row
+  const [inputValues, setInputValues] = useState<string[]>(['']);
+
   const handleAddVariant = () => {
     setVariantFields([...variantFields, { variant: '', values: [] }]);
+    setInputValues([...inputValues, '']);
   };
 
   const handleFieldChange = (
@@ -49,41 +37,60 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = ({ }) =>
     field: 'variant',
     value: string
   ) => {
-    const updatedFields = [...variantFields];
-    updatedFields[index][field] = value; // Update the variant field
-    setVariantFields(updatedFields);
+    setVariantFields(prev =>
+      prev.map((item, idx) =>
+        idx === index
+          ? { ...item, [field]: value }
+          : item
+      )
+    );
+  };
+
+  const handleInputChange = (index: number, value: string) => {
+    setInputValues(prev => {
+      const updated = [...prev];
+      updated[index] = value;
+      return updated;
+    });
   };
 
   const handleAddValue = (
     index: number,
-    event: React.KeyboardEvent<HTMLInputElement> // Explicitly type event
+    event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    event.preventDefault(); // Prevent form submission
-    const input = event.currentTarget;
-    const value = input.value?.trim(); // Use optional chaining to avoid undefined issues
-  
-    if (event.key === 'Enter' && value) {
-      const updatedFields = [...variantFields];
-      updatedFields[index].values = [...updatedFields[index].values, value]; // Add value
-      setVariantFields(updatedFields);
-      input.value = ''; // Clear the input field
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const value = inputValues[index]?.trim();
+      if (value) {
+        setVariantFields(prev =>
+          prev.map((item, idx) =>
+            idx === index
+              ? { ...item, values: [...item.values, value] }
+              : item
+          )
+        );
+        setInputValues(prev => {
+          const updated = [...prev];
+          updated[index] = '';
+          return updated;
+        });
+      }
     }
   };
-  
-  
 
   const handleDeleteValue = (index: number, valueToDelete: string) => {
-    const updatedFields = [...variantFields];
-    updatedFields[index].values = updatedFields[index].values.filter(
-      (value) => value !== valueToDelete
+    setVariantFields(prev =>
+      prev.map((item, idx) =>
+        idx === index
+          ? { ...item, values: item.values.filter(val => val !== valueToDelete) }
+          : item
+      )
     );
-    setVariantFields(updatedFields);
   };
 
   useEffect(() => {
     dispatch(setVariants(variantFields));
   }, [variantFields, dispatch]);
-
 
   return (
     <Box
@@ -97,7 +104,7 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = ({ }) =>
         boxSizing: 'border-box',
       }}
     >
-      <Typography variant="h4"  >
+      <Typography variant="h4">
         Add Variants
       </Typography>
 
@@ -136,7 +143,7 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = ({ }) =>
         >
           <InputSelectField
             label={`Variant ${index + 1}`}
-            options={varaintOptions}
+            options={variantOptions}
             value={field.variant}
             onChange={(e) => handleFieldChange(index, 'variant', e.target.value)}
             width="300px"
@@ -146,7 +153,9 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = ({ }) =>
             <InputTextField
               label="Values"
               textPlaceholder="Enter Values"
-              onKeyDown={(e) => handleAddValue(index, e)} // Handle Enter for adding values
+              value={inputValues[index] || ''}
+              onChange={e => handleInputChange(index, e.target.value)}
+              onKeyDown={e => handleAddValue(index, e)}
               width="500px"
               height="40px"
             />
@@ -173,8 +182,6 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = ({ }) =>
           </Box>
         </Box>
       ))}
-
-     
     </Box>
   );
 };
