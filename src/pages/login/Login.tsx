@@ -10,26 +10,32 @@ import {
   Grid,
   Link,
 } from '@mui/material';
-import Done from '@mui/icons-material/Done';
 import { useLoginMutation } from '../../features/user/UserApiSlice';
 import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setAuth } from '../../features/user/UserSlice';
-import { UserResponse } from '../../features/user/UserModel';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-
-const loginValidationSchema = Yup.object({
-  email: Yup.string().email('Invalid email').required('User Name is required'),
-  password: Yup.string().required('Password is required').min(4, 'Password must be at least 4 characters'),
-});
+import { loginInitialValues } from '../../utils/forms/initialStatus/loginFormInitialStatus';
+import { loginValidationSchema } from '../../utils/forms/validationSchemas/loginValidationSchema';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [signIn, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
+
+  const handleSubmit = async (values: { email: string; password: string }, { setSubmitting, setFieldError }: any) => {
+    try {
+      const response = await signIn({ email: values.email, password: values.password }).unwrap();
+      localStorage.setItem('token', response.token);
+      navigate('/dashboard');
+    } catch (err) {
+      setFieldError('general', 'Invalid email or password. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <Box
@@ -58,27 +64,9 @@ const LoginPage: React.FC = () => {
             Welcome !
           </Typography>
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={loginInitialValues}
             validationSchema={loginValidationSchema}
-            onSubmit={async (values, { setSubmitting, setFieldError }) => {
-              try {
-                const response = await signIn({ email: values.email, password: values.password }).unwrap();
-                localStorage.setItem('token', response.token);
-                const userResponse: UserResponse = {
-                  token: response.token,
-                  id: 'example-id',
-                  email: values.email,
-                  username: 'example-username',
-                  createdAt: new Date().toISOString(),
-                };
-                dispatch(setAuth(userResponse));
-                navigate('/dashboard');
-              } catch (err) {
-                setFieldError('general', 'Invalid email or password. Please try again.');
-              } finally {
-                setSubmitting(false);
-              }
-            }}
+            onSubmit={handleSubmit}
           >
             {({
               values,
