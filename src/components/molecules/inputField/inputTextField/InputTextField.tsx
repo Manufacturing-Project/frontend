@@ -1,9 +1,6 @@
 import React from "react";
 import { Box, TextField, Typography } from "@mui/material";
-import theme from "../../../theme"; // Ensure your theme path is correct
-import { string } from "prop-types";
-
-// InputFieldLabel Component
+import theme from "../../../theme"; 
 interface LabelProps {
   label: string;
 }

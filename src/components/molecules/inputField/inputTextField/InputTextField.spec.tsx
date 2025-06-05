@@ -1,6 +1,4 @@
-// InputTextField.spec.tsx
 
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { InputTextField } from './InputTextField'; // Adjust the path as necessary
 
