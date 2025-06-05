@@ -12,16 +12,14 @@ import { useLoginMutation } from '../../features/user/UserApiSlice';
 import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import { loginInitialValues } from '../../utils/forms/initialStatus/loginFormInitialStatus';
-import { loginValidationSchema } from '../../utils/forms/validationSchemas/loginValidationSchema';
+import { loginInitialValues } from '../../utils/forms/initialStatus/FormInitialStatus';
+import { loginValidationSchema } from '../../utils/forms/validationSchemas/ValidationSchema';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [signIn, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
+  
 
   const handleSubmit = async (values: { email: string; password: string }, { setSubmitting, setFieldError }: any) => {
     try {

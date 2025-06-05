@@ -15,20 +15,14 @@ import { useDispatch } from "react-redux";
 import { setUser, setLoading } from "../../features/user/UserSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-
-const registerValidationSchema = Yup.object({
-
-  username: Yup.string().required("Username is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required").min(8, "Password must be at least 8 characters")
-                .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Password must include uppercase and number"),
-  confirmPassword: Yup.string().oneOf([Yup.ref("password"), undefined], "Passwords must match").required("Confirm Password is required"),
-});
+import {RegisterinitialValues} from "../../utils/forms/initialStatus/FormInitialStatus";
+import {RegisterValidationSchema } from "../../utils/forms/validationSchemas/ValidationSchema";
 
 
-const RegisterPage: React.FC = () => {
+
+
+  const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
   const [registerUser, { isLoading }] = useSignupMutation();
   const navigate = useNavigate();
@@ -43,8 +37,8 @@ const RegisterPage: React.FC = () => {
           <Typography component="h2" variant="h5" marginLeft="-220px">Welcome!</Typography>
 
           <Formik
-            initialValues={{ email: "", username: "", password: "", confirmPassword: "" }}
-            validationSchema={registerValidationSchema}
+            initialValues={RegisterinitialValues}
+            validationSchema={RegisterValidationSchema}
             onSubmit={async (values, { setSubmitting, setFieldError, resetForm }) => {
               try {
                 dispatch(setLoading(true));
