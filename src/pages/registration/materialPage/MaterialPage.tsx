@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, Switch, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import Done from "@mui/icons-material/Done";
-
 import {
   useCreateMaterialMutation,
   useLazyCheckMaterialCodeAvailabilityQuery,
@@ -26,10 +24,24 @@ import { RootState } from "../../../store";
 import theme from "../../../components/theme";
 import Toaster, { ToasterRef } from "../../../components/molecules/toaster/Toaster";
 import { InputTextField, InputTextArea, InputSelectField } from "../../../components/molecules";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
 interface VariantsForMaterialPageProps {
   onNext: () => void;
 }
+
+const validationSchema = Yup.object({
+  m_name: Yup.string().required("Material name is required"),
+  m_code: Yup.string().required("Material code is required"),
+  category: Yup.string().required("Category is required"),
+  unit: Yup.string().required("Unit is required"),
+  reorderlevel: Yup.number()
+    .typeError("Reorder level must be a number")
+    .min(0, "Reorder level must be non-negative")
+    .required("Reorder level is required"),
+  description: Yup.string().min(5, "Description must be at least 5 characters").required("Description is required"),
+});
 
 const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
   const dispatch = useDispatch();
@@ -101,7 +113,34 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
   };
 
   return (
-    <Box
+    <Formik 
+      initialValues={{
+        m_name: m_name || "",
+        m_code: m_code || "",
+        category: category || "",
+        unit: unit || "",
+        reorderlevel: reorderlevel || "",
+        description: description || "",
+        hasVariants: hasVariants || false,
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+       onNext();
+      }}
+      enableReinitialize
+    >
+
+{({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        setFieldValue,
+        handleSubmit,
+      }) => (
+        <Form>
+     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -201,6 +240,11 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
 
       <Toaster ref={toasterRef} />
     </Box>
+   </Form>
+      )}
+
+    </Formik>
+   
   );
 };
 

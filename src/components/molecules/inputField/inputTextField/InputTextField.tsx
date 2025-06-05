@@ -54,6 +54,8 @@ interface InputFieldProps {
   required?: boolean;
   id?: string;
   name?: string;
+  type?: string; 
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void; 
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   error?: boolean; // <-- Add this
   helperText?: string; // <-- Add this
@@ -67,7 +69,10 @@ export const InputTextField: React.FC<InputFieldProps> = ({
   value,
   onChange,
   onKeyDown,
-  error,        // <-- Add this
+  error,
+  type, 
+  name,
+  onBlur,     // <-- Add this
   helperText,   // <-- Add this
 }) => {
   return (
@@ -76,10 +81,13 @@ export const InputTextField: React.FC<InputFieldProps> = ({
       <TextField
         placeholder={textPlaceholder}
         value={value}
+        name={name}
         onChange={onChange}
         onKeyDown={onKeyDown}
         error={error}           // <-- Pass to TextField
-        helperText={helperText} // <-- Pass to TextField
+        helperText={helperText} 
+         type={type}
+         onBlur={onBlur}
         sx={{
           width: width,
           height: height,

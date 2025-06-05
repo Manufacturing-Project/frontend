@@ -1,60 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FullLogo } from "../../components/organism/fullLogo/FullLogo";
 import { InputTextField } from "../../components/molecules";
-import { Box, Checkbox, FormControlLabel } from '@mui/material';
-import Done from '@mui/icons-material/Done';
 import {
-  
+  Box,
+  Checkbox,
+  FormControlLabel,
   Button,
   Typography,
   Grid,
   Link,
 } from '@mui/material';
-import { useLoginMutation } from '../../features/user/UserApiSlice'; // Adjust the path as per your project structure
+import Done from '@mui/icons-material/Done';
+import { useLoginMutation } from '../../features/user/UserApiSlice';
 import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../features/user/UserSlice';
 import { UserResponse } from '../../features/user/UserModel';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+
+const loginValidationSchema = Yup.object({
+  email: Yup.string().email('Invalid email').required('User Name is required'),
+  password: Yup.string().required('Password is required').min(4, 'Password must be at least 4 characters'),
+});
 
 const LoginPage: React.FC = () => {
-   
-  const navigate = useNavigate(); 
-  const [email, setemail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const [signIn, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      setError('Both fields are required.');
-      return;
-    }
-
-    try {
-      const response = await signIn({ email , password }).unwrap();
-      console.log('Login successful:', response);
-      setError('');
-      // Save the token or navigate to another page
-      localStorage.setItem('token', response.token);  
-      const userResponse: UserResponse = {
-        token: response.token,
-        id: 'example-id',
-        email: email,
-        username: 'example-username',
-        createdAt: new Date().toISOString(), 
-      };
-      dispatch(setAuth(userResponse));
-      navigate('/dashboard');
-    } catch (err) {
-      console.error('Login failed:', err);
-      setError('Invalid email or password. Please try again.');
-    }
-  };
 
   return (
     <Box
@@ -67,12 +42,7 @@ const LoginPage: React.FC = () => {
       }}
     >
       <FullLogo />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-        }}
-      >
+      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
         <Box
           sx={{
             flex: 1,
@@ -84,81 +54,102 @@ const LoginPage: React.FC = () => {
             marginLeft: '20px'
           }}
         >
-          <Typography component="h2" variant="h6" marginLeft='-220px'>
+          <Typography component="h2" variant="h4" marginLeft='-210px' marginBottom={4}>
             Welcome !
           </Typography>
-          <Typography component="h1" variant="h5" marginLeft='-220px'>
-            Sign in to
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={18}>
-                <InputTextField
-                  textPlaceholder="User Name"
-                  label="User Name"
-                  required
-                  value={email}
-                  onChange={(e) => setemail(e.target.value)}
-                  id="email"
-                  name="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputTextField
-                  textPlaceholder="Password"
-                  label="Password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="psw"
-                  name="psw"
-                  
-                />
-              </Grid>
-            </Grid>
-            {error && (
-              <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-                {error}
-              </Typography>
-            )}
-
-      <Box sx={{ marginTop: '30px', fontSize: '12px', display: 'flex', flexDirection: 'row' }}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  icon={<Done />} 
-                  checkedIcon={<Done />} 
-                />
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={loginValidationSchema}
+            onSubmit={async (values, { setSubmitting, setFieldError }) => {
+              try {
+                const response = await signIn({ email: values.email, password: values.password }).unwrap();
+                localStorage.setItem('token', response.token);
+                const userResponse: UserResponse = {
+                  token: response.token,
+                  id: 'example-id',
+                  email: values.email,
+                  username: 'example-username',
+                  createdAt: new Date().toISOString(),
+                };
+                dispatch(setAuth(userResponse));
+                navigate('/dashboard');
+              } catch (err) {
+                setFieldError('general', 'Invalid email or password. Please try again.');
+              } finally {
+                setSubmitting(false);
               }
-              label="Remember Me"
-            />
-          </Box>
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              isSubmitting,
+              isValid,
+              dirty
+            }) => (
+              <Form>
+                <Grid container spacing={6}>
+                  <Grid item xs={12}>
+                    <InputTextField
+                      textPlaceholder='User Email'
+                      label="User Name"
+                      required
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={!!(touched.email && errors.email)}
+                      helperText={touched.email && errors.email ? errors.email : ""}
+                      id="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputTextField
+                      textPlaceholder='Password'
+                      label="Password"
+                      required
+                      name="password"
+                      type="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={!!(touched.password && errors.password)}
+                      helperText={touched.password && errors.password ? errors.password : ""}
+                      id="password"
+                    />
+                  </Grid>
+                </Grid>
+             
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isSubmitting || isLoading || !isValid || !dirty}
+                  sx={{
+                    backgroundColor: theme.colors.primary_color_green,
+                    color: theme.colors.secondary_background_color,
+                    marginTop: '40px',
+                    width: "350px",
+                    height: "36px",
+                  }}
+                >
+                  {isLoading ? 'Signing In...' : 'Sign In'}
+                </Button>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={isLoading}
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                color: theme.colors.secondary_background_color,
-                marginTop: '20px',
-                width: "350px",
-                height: "36px",
-              }}
-            >
-              {isLoading ? 'Signing In...' : 'Sign In'}
-            </Button>
-
-            <Typography
-              sx={{ fontSize: '12px', alignSelf: 'center' , marginTop: '20px' , marginLeft: '60px'}}
-              >
-               Don't have an account?
-              <Link href="/auth/signup" sx={{ textDecoration: 'none' }}>
-                Sign up
-              </Link>
-            </Typography>
-          </Box>
+                <Typography
+                  sx={{ fontSize: '12px', alignSelf: 'center', marginTop: '20px', marginLeft: '60px' }}
+                >
+                  Don't have an account?
+                  <Link href="/auth/signup" sx={{ textDecoration: 'none' }}>
+                    Sign up
+                  </Link>
+                </Typography>
+              </Form>
+            )}
+          </Formik>
         </Box>
 
         <Box
@@ -176,4 +167,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export {LoginPage};
+export { LoginPage };
