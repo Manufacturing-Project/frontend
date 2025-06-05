@@ -1,203 +1,163 @@
+import React from "react";
 import { FullLogo } from "../../components/organism/fullLogo/FullLogo";
 import { InputTextField } from "../../components/molecules";
-import React, { useState, useEffect } from "react";
-import { Box, Button, Typography, Grid, Link } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  Grid,
+  Link,
+} from "@mui/material";
 import theme from "../../components/theme";
 import img from "../../assets/small-team-discussing-ideas-2194220-0.png";
-import { useSignupMutation} from "../../features/user/UserApiSlice";
-import { setUser, setError, setLoading } from "../../features/user/UserSlice";
-import { useDispatch } from 'react-redux';
-import Toaster from "../../components/molecules/toaster/Toaster";
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
+import { useSignupMutation } from "../../features/user/UserApiSlice";
+import { useDispatch } from "react-redux";
+import { setUser, setLoading } from "../../features/user/UserSlice";
+import { toast, ToastContainer } from "react-toastify";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+
+const registerValidationSchema = Yup.object({
+
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required").min(8, "Password must be at least 8 characters")
+                .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Password must include uppercase and number"),
+  confirmPassword: Yup.string().oneOf([Yup.ref("password"), undefined], "Passwords must match").required("Confirm Password is required"),
+});
+
 
 const RegisterPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setErrorLocal] = useState("");
-  
+  const dispatch = useDispatch();
   const [registerUser, { isLoading }] = useSignupMutation();
-    const dispatch = useDispatch();
-
-  // Automatically set the username as the email when email changes
-  useEffect(() => {
-    setUsername(email);
-  }, [email]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Basic validation
-    if (!email || !password || !confirmPassword) {
-      setErrorLocal("All fields are required.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setErrorLocal("Passwords do not match.");
-      return;
-    }
-
-    try {
-      dispatch(setLoading(true));
-      const response = await registerUser({
-        email, username, password,
-        confirmPassword,
-      }).unwrap();
-
-
-      setEmail("");
-      setUsername("");
-      setPassword("");
-      setConfirmPassword("");
-      setErrorLocal("");
-
-      dispatch(setUser(response));
-      setErrorLocal("");
-
-      toast.success('Successfully Registered');
-      console.log("User registered successfully:", response);
-    } catch (err: any) {
-      setErrorLocal(err.data?.message || "Registration failed.");
-      toast.error("Registration Failed");
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-
+  const navigate = useNavigate();
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "80%",
-        height: "100vh",
-        marginLeft: "200px",
-      }}
-    >
+    <Box sx={{ display: "flex", flexDirection: "column", width: "80%", height: "100vh", marginLeft: "200px" }}>
       <FullLogo />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        {/* Left Side: Registration Form */}
-        <Box
-          sx={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 2,
-            marginLeft: "20px",
-          }}
-        >
-          <Typography component="h2" variant="h6" marginLeft="-220px">
-            Welcome!
-          </Typography>
-          <Typography component="h1" variant="h5" marginLeft="-220px">
-            Sign up to
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <InputTextField
-                  textPlaceholder="Email"
-                  label="Email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  id="email"
-                  name="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputTextField
-                  textPlaceholder="User Name"
-                  label="User Name"
-                  required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  id="username"
-                  name="username"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputTextField
-                  textPlaceholder="Password"
-                  label="Password"
-                  required
-                  
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  name="password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputTextField
-                  textPlaceholder="Confirm Password"
-                  label="Confirm Password"
-                  required
-                  
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                />
-              </Grid>
-            </Grid>
-            {error && (
-              <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-                {error}
-              </Typography>
-            )}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={isLoading}
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                color: theme.colors.secondary_background_color,
-                marginTop: "60px",
-                width: "350px",
-                height: "36px",
-              }}
-            >
-              {isLoading ? "Registering..." : "Sign Up"}
-            </Button>
-            <ToastContainer />
+    <Box sx={{ display: "flex", flexDirection: "row" }}>
+      
 
-            <Typography
-              sx={{
-                fontSize: "12px",
-                alignSelf: "center",
-                marginTop: "20px",
-                marginLeft: "60px",
-              }}
-            >
-              Already have an account?{" "}
-              <Link href="/auth/login" sx={{ textDecoration: "none" }}>
-                Login
-              </Link>
-            </Typography>
-          </Box>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 2, marginLeft: "20px" }}>
+
+          <Typography component="h2" variant="h5" marginLeft="-220px">Welcome!</Typography>
+
+          <Formik
+            initialValues={{ email: "", username: "", password: "", confirmPassword: "" }}
+            validationSchema={registerValidationSchema}
+            onSubmit={async (values, { setSubmitting, setFieldError, resetForm }) => {
+              try {
+                dispatch(setLoading(true));
+                const response = await registerUser(values).unwrap();
+                dispatch(setUser(response));
+                toast.success("Successfully Registered");
+                resetForm();
+                navigate('/dashboard');
+              } catch (err: any) {
+                toast.error(err?.data?.message || "Registration Failed");
+                setFieldError("general", err?.data?.message || "Registration Failed");
+              } finally {
+                dispatch(setLoading(false));
+                setSubmitting(false);
+              }
+            }}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, isSubmitting, isValid, dirty }) => (
+              <Form>
+                   <Grid container spacing={4}>
+                  <Grid item xs={12}>
+                    <InputTextField
+                      textPlaceholder="User Name"
+                      label="User Name"
+                      required
+                      name="username"
+                      value={values.username}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={!!(touched.username && errors.username)}
+                      helperText={touched.username && errors.username ? errors.username : ""}
+                      id="username"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputTextField
+                      textPlaceholder="Email"
+                      label="Email"
+                      required
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={!!(touched.email && errors.email)}
+                      helperText={touched.email && errors.email ? errors.email : ""}
+                      id="email"
+                    />
+                  </Grid>
+                  
+                  <Grid item xs={12}>
+                    <InputTextField
+                      textPlaceholder="Password"
+                      label="Password"
+                      required
+                      name="password"
+                      type="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={!!(touched.password && errors.password)}
+                      helperText={touched.password && errors.password ? errors.password : ""}
+                      id="password"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputTextField
+                      textPlaceholder="Confirm Password"
+                      label="Confirm Password"
+                      required
+                      name="confirmPassword"
+                      type="password"
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={!!(touched.confirmPassword && errors.confirmPassword)}
+                      helperText={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ""}
+                      id="confirmPassword"
+                    />
+
+                  </Grid>
+              </Grid>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isSubmitting || isLoading || !isValid || !dirty}
+                  sx={{
+                    backgroundColor: theme.colors.primary_color_green,
+                    color: theme.colors.secondary_background_color,
+                    marginTop: "40px",
+                    width: "350px",
+                    height: "36px",
+                  }}
+                >
+                  {isLoading ? "Registering..." : "Sign Up"}
+                </Button>
+
+                <Typography sx={{ fontSize: "12px", alignSelf: "center", marginTop: "20px", marginLeft: "60px" }}>
+                  Already have an account?{" "}
+                  <Link href="/auth/login" sx={{ textDecoration: "none" }}>
+                    Login
+                  </Link>
+                </Typography>
+
+                <ToastContainer />
+              </Form>
+            )}
+          </Formik>
         </Box>
 
         {/* Right Side: Image */}
-        <Box
-          sx={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <img src={img} width="600px" alt="Team Discussion" />
         </Box>
       </Box>

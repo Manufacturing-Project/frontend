@@ -3,8 +3,6 @@ import { FullLogo } from "../../components/organism/fullLogo/FullLogo";
 import { InputTextField } from "../../components/molecules";
 import {
   Box,
-  Checkbox,
-  FormControlLabel,
   Button,
   Typography,
   Grid,
