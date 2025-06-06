@@ -154,7 +154,7 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
                 label="Material Name"
                 name="m_name"
                 textPlaceholder="Enter Material Name"
-                value={values.m_name}
+                value={values.m_name} //check this
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.m_name && Boolean(errors.m_name)}
