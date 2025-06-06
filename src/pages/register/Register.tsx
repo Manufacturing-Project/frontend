@@ -16,8 +16,6 @@ import { setUser, setLoading } from "../../features/user/UserSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
-import {RegisterinitialValues} from "../../utils/forms/initialStatus/materialRegistration/FormInitialStatus";
-import {RegisterValidationSchema } from "../../utils/forms/validationSchemas/materialRegistration/ValidationSchema";
 import { RegisterinitialValues } from "../../utils/forms/initialStatus/authForm/authFormInitialStatus";
 import { RegisterValidationSchema } from "../../utils/forms/validationSchemas/authForm/authValidationSchema";
 
