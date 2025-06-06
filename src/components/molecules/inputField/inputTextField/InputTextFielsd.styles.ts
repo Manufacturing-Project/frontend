@@ -13,7 +13,7 @@ export const StyledInputLabel = styled(Typography)(() => ({
 export const StyledTextField = styled(TextField, {
   shouldForwardProp: (prop) => prop !== "width" && prop !== "height",
 })<StyledTextFieldProps>(({ width = "340px", height = "50px" }) => ({
-  width,
+  width : "100%",
   height,
   backgroundColor: "white",
   borderRadius: 8,

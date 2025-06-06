@@ -20,7 +20,7 @@ export const InputSelectField: React.FC<SelectFieldProps> = ({
   id,
   type,
   required = false,
-  width = "340px",
+  width = "100%",
 }) => {
   return (
     <StyledContainer>

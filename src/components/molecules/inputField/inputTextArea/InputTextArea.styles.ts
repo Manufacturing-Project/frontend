@@ -11,7 +11,7 @@ export const StyledTextAreaWrapper = styled(Box)(() => ({
 }));
 
 export const StyledTextArea = styled('textarea')(() => ({
-  width: "100%",
+  width : "100%",
   minHeight: "200px",
   marginRight: "10px",
   borderRadius: "4px",

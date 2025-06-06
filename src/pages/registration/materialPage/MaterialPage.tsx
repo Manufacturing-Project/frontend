@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Box, Switch, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 
 import {
   useCreateMaterialMutation,
@@ -17,6 +17,7 @@ import {
   setReorderLevel,
   setDescription,
   setHasVariants,
+  setRawMaterialData,
 } from "../../../features/rawMaterials/rawMaterialSlice";
 
 import { useGetUnitsQuery } from "../../../features/units/UnitsApiSlice";
@@ -44,7 +45,7 @@ const AutoCodeEffects: React.FC<{
   materialName: string;
   materialCode: string;
   setFieldValue: (field: string, value: any) => void;
-}> = ({ materialName, materialCode,setFieldValue }) => {
+}> = ({ materialName, materialCode, setFieldValue }) => {
   const [triggerGenerateCode, { data }] = useLazyGenerateMaterialCodeQuery();
   const [triggerCheckCode] = useLazyCheckMaterialCodeAvailabilityQuery();
 
@@ -68,6 +69,16 @@ const AutoCodeEffects: React.FC<{
     return () => clearTimeout(timer);
   }, [materialCode]);
 
+  return null;
+};
+
+const AutoSubmitEffect: React.FC = () => {
+  const { isValid, submitForm } = useFormikContext();
+  useEffect(() => {
+    if (isValid) {
+      submitForm();
+    }
+  }, [isValid]);
   return null;
 };
 
@@ -96,31 +107,22 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
     <Formik
       initialValues={rawMaterialInitialValues}
       validationSchema={rawMaterialValidationSchema}
-      onSubmit={async (values, { resetForm }) => {
-        const material: CreateRawMaterial = {
-          materialName: values.m_name,
-          materialCode: values.m_code,
-          category: values.m_status,
-          unitOfMeasure: values.m_unit,
-          reorderLevel: Number(values.m_reorderLevel),
-          description: values.m_description,
-          hasVariants: values.hasVariants,
-        };
-
+      onSubmit={async (values, {  }) => {
+        
         try {
-          await createMaterial(material).unwrap();
 
-          dispatch(setMName(values.m_name));
-          dispatch(setMCode(values.m_code));
-          dispatch(setCategory(values.m_status));
-          dispatch(setUnit(values.m_unit));
-          dispatch(setReorderLevel(Number(values.m_reorderLevel)));
-          dispatch(setDescription(values.m_description));
-          dispatch(setHasVariants(values.hasVariants));
+        dispatch(setRawMaterialData({
+  m_name: values.m_name,
+  m_code: values.m_code,
+  category: values.m_status,
+  unit: values.m_unit,
+  reorderlevel: Number(values.m_reorderLevel),
+  description: values.m_description,
+  hasVariants: values.hasVariants,
+}));
 
-          toasterRef.current?.showToast("Material created successfully!", "success");
-          resetForm();
-          onNext();
+
+         
         } catch (error) {
           toasterRef.current?.showToast("Failed to create material.", "error");
         }
@@ -128,13 +130,12 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
     >
       {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
         <Form>
-          {/* Auto-effects must be outside Formik's render logic */}
           <AutoCodeEffects
             materialName={values.m_name}
             materialCode={values.m_code}
             setFieldValue={setFieldValue}
-            
           />
+          <AutoSubmitEffect />
 
           <Box
             sx={{
@@ -149,73 +150,78 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
           >
             <Typography variant="h4">Register Raw Material</Typography>
 
-            <Box sx={{ display: "flex", gap: 5 }}>
-              <InputTextField
-                label="Material Name"
-                name="m_name"
-                textPlaceholder="Enter Material Name"
-                value={values.m_name} //check this
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.m_name && Boolean(errors.m_name)}
-                helperText={touched.m_name && errors.m_name ? errors.m_name : ""}
-                width="530px"
-              />
-              <InputTextField
-                label="Material Code"
-                name="m_code"
-                textPlaceholder="Enter Material Code"
-                value={values.m_code}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.m_code && Boolean(errors.m_code)}
-                helperText={touched.m_code && errors.m_code ? errors.m_code : ""}
-                width="530px"
-              />
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputTextField
+                  label="Material Name"
+                  name="m_name"
+                  textPlaceholder="Enter Material Name"
+                  value={values.m_name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.m_name && Boolean(errors.m_name)}
+                  helperText={touched.m_name && errors.m_name ? errors.m_name : ""}
+                />
+              </Box>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputTextField
+                  label="Material Code"
+                  name="m_code"
+                  textPlaceholder="Enter Material Code"
+                  value={values.m_code}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.m_code && Boolean(errors.m_code)}
+                  helperText={touched.m_code && errors.m_code ? errors.m_code : ""}
+                />
+              </Box>
             </Box>
 
-            <Box sx={{ display: "flex", gap: 5 }}>
-              <InputSelectField
-                label="Category"
-                name="m_status"
-                options={categoryOptions}
-                value={values.m_status}
-                onChange={(e: { target: { value: any; }; }) => setFieldValue("m_status", e.target.value)}
-                error={touched.m_status && Boolean(errors.m_status)}
-                helperText={touched.m_status && errors.m_status ? errors.m_status : ""}
-                width="530px"
-              />
-              <InputSelectField
-                label="Unit"
-                name="m_unit"
-                options={unitOptions}
-                value={values.m_unit}
-                onChange={(e: { target: { value: any; }; }) => setFieldValue("m_unit", e.target.value)}
-                error={touched.m_unit && Boolean(errors.m_unit)}
-                helperText={touched.m_unit && errors.m_unit ? errors.m_unit : ""}
-                width="530px"
-              />
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputSelectField
+                  label="Category"
+                  name="m_status"
+                  options={categoryOptions}
+                  value={values.m_status}
+                  onChange={(e) => setFieldValue("m_status", e.target.value)}
+                  error={touched.m_status && Boolean(errors.m_status)}
+                  helperText={touched.m_status && errors.m_status ? errors.m_status : ""}
+                />
+              </Box>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputSelectField
+                  label="Unit"
+                  name="m_unit"
+                  options={unitOptions}
+                  value={values.m_unit}
+                  onChange={(e) => setFieldValue("m_unit", e.target.value)}
+                  error={touched.m_unit && Boolean(errors.m_unit)}
+                  helperText={touched.m_unit && errors.m_unit ? errors.m_unit : ""}
+                />
+              </Box>
             </Box>
 
-            <Box sx={{ display: "flex", gap: 5, alignItems: "flex-end" }}>
-              <InputTextField
-                label="Re-Order Level"
-                name="m_reorderLevel"
-                textPlaceholder="Enter Re-Order Level"
-                value={values.m_reorderLevel?.toString() ?? ""}
-                type="number"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.m_reorderLevel && Boolean(errors.m_reorderLevel)}
-                helperText={
-                  touched.m_reorderLevel && errors.m_reorderLevel
-                    ? errors.m_reorderLevel
-                    : ""
-                }
-                width="530px"
-              />
+            <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 5 }}>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputTextField
+                  label="Re-Order Level"
+                  name="m_reorderLevel"
+                  textPlaceholder="Enter Re-Order Level"
+                  value={values.m_reorderLevel?.toString() ?? ""}
+                  type="number"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.m_reorderLevel && Boolean(errors.m_reorderLevel)}
+                  helperText={
+                    touched.m_reorderLevel && errors.m_reorderLevel
+                      ? errors.m_reorderLevel
+                      : ""
+                  }
+                />
+              </Box>
 
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2, width: "100%" }}>
+              <Box sx={{ flex: "1 1 45%", display: "flex", alignItems: "center", gap: 1 }}>
                 <Typography>This material has variants</Typography>
                 <Switch
                   checked={values.hasVariants}
@@ -242,15 +248,9 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
               onBlur={handleBlur}
               error={touched.m_description && Boolean(errors.m_description)}
               helperText={
-                touched.m_description && errors.m_description
-                  ? errors.m_description
-                  : ""
+                touched.m_description && errors.m_description ? errors.m_description : ""
               }
             />
-
-            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-              <button type="submit" style={{ display: "none" }} />
-            </Box>
 
             <Toaster ref={toasterRef} />
           </Box>

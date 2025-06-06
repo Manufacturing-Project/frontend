@@ -17,7 +17,6 @@ export const store = configureStore({
         [userApi.reducerPath]: userApi.reducer,
         unit: UnitSlice,
         rawMaterial: RawMaterialSlice,
-        
         user: userReducer,
     },
     middleware: (getDefaultMiddleware) =>

@@ -20,7 +20,7 @@ export const StyledFormControl = styled(FormControl)<{ width?: string }>(
 );
 
 export const selectFieldStyles = (width: string, height?: string) => ({
-  width,
+  width : "100%",
   height,
   backgroundColor: "white",
   ".MuiOutlinedInput-notchedOutline": {
