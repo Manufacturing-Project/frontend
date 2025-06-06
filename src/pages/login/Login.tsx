@@ -15,6 +15,10 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { loginInitialValues } from '../../utils/forms/initialStatus/materialRegistration/FormInitialStatus';
 import { loginValidationSchema } from '../../utils/forms/validationSchemas/materialRegistration/ValidationSchema';
+import * as Yup from 'yup';
+import { loginInitialValues } from '../../utils/forms/initialStatus/authForm/authFormInitialStatus';
+import { loginValidationSchema } from '../../utils/forms/validationSchemas/authForm/authValidationSchema';
+
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -24,8 +28,8 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (values: { email: string; password: string }, { setSubmitting, setFieldError }: any) => {
     try {
       const response = await signIn({ email: values.email, password: values.password }).unwrap();
-      localStorage.setItem('token', response.token);
       navigate('/dashboard');
+      localStorage.setItem('token', response.token);
     } catch (err) {
       setFieldError('general', 'Invalid email or password. Please try again.');
     } finally {
