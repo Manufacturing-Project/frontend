@@ -180,7 +180,7 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
                 name="m_status"
                 options={categoryOptions}
                 value={values.m_status}
-                onChange={(e) => setFieldValue("m_status", e.target.value)}
+                onChange={(e: { target: { value: any; }; }) => setFieldValue("m_status", e.target.value)}
                 error={touched.m_status && Boolean(errors.m_status)}
                 helperText={touched.m_status && errors.m_status ? errors.m_status : ""}
                 width="530px"
@@ -190,7 +190,7 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
                 name="m_unit"
                 options={unitOptions}
                 value={values.m_unit}
-                onChange={(e) => setFieldValue("m_unit", e.target.value)}
+                onChange={(e: { target: { value: any; }; }) => setFieldValue("m_unit", e.target.value)}
                 error={touched.m_unit && Boolean(errors.m_unit)}
                 helperText={touched.m_unit && errors.m_unit ? errors.m_unit : ""}
                 width="530px"
