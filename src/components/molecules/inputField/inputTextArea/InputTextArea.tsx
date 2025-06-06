@@ -5,6 +5,14 @@ import theme from "../../../theme"; // Assuming your theme is defined here
 // InputFieldLabel Component
 interface LabelProps {
   label: string;
+  name?: string;
+  ariaLabel?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  error?: boolean;
+  helperText?: string;
 }
 
 const InputFieldLabel: React.FC<LabelProps> = ({ label }) => {
@@ -25,11 +33,17 @@ const InputFieldLabel: React.FC<LabelProps> = ({ label }) => {
 // TextareaField Component
 interface TextareaFieldProps {
   label: string;
-  ariaLabel: string;
+  name?: string;
+  id?: string;
+  //pe?: string;
+  ariaLabel?: string;
   minRows?: number;
   placeholder: string;
   value: string;
+  error?: boolean;
+  helperText?: string;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
 }
 
 export const InputTextArea: React.FC<TextareaFieldProps> = ({
@@ -38,6 +52,12 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
   minRows = 15,
   placeholder,
   value,
+  name,
+  id,
+  //type,
+  error,
+  helperText,
+  onBlur,
   onChange,
 }) => {
   return (
@@ -57,7 +77,11 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
           minRows={minRows}
           placeholder={placeholder}
           value={value}
+          id={id}
+          name={name}
+       // type={type}
           onChange={onChange}
+          onBlur={onBlur}
           style={{
             width: "99%",
             marginRight: "10px",
@@ -69,9 +93,7 @@ export const InputTextArea: React.FC<TextareaFieldProps> = ({
           onFocus={(e) => {
             e.currentTarget.style.borderColor = theme.colors.primary_color_green; // Change border color on focus
           }}
-          onBlur={(e) => {
-            e.currentTarget.style.borderColor = theme.colors.border_color_grey; // Revert border color on blur
-          }}
+          
         />
       </Box>
     </Box>

@@ -28,6 +28,10 @@ interface InputFieldProps {
   height?: string;
   value?: string | string[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  error?: boolean; // Added error property
+  helperText?: string; // Added helperText property
+  type?: string; // Added type property
 
   required?: boolean; // Added required property
   id?: string;
@@ -40,23 +44,7 @@ interface InputFieldProps {
 }
 
 
-// ...existing code...
-interface InputFieldProps {
-  label: string;
-  textPlaceholder: string;
-  width?: string;
-  height?: string;
-  value?: string | string[];
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  id?: string;
-  name?: string;
-  type?: string; 
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void; 
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  error?: boolean; // <-- Add this
-  helperText?: string; // <-- Add this
-}
+
 
 export const InputTextField: React.FC<InputFieldProps> = ({
   label,

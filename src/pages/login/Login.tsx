@@ -13,8 +13,8 @@ import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { loginInitialValues } from '../../utils/forms/initialStatus/FormInitialStatus';
-import { loginValidationSchema } from '../../utils/forms/validationSchemas/ValidationSchema';
+import { loginInitialValues } from '../../utils/forms/initialStatus/materialRegistration/FormInitialStatus';
+import { loginValidationSchema } from '../../utils/forms/validationSchemas/materialRegistration/ValidationSchema';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();

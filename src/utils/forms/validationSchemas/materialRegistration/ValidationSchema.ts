@@ -13,12 +13,22 @@ export const loginValidationSchema = Yup.object({
     .matches(/[@$!%*?&#^()_\-+=]/, 'Password must contain at least one special character'),
 });
 
-
 export const RegisterValidationSchema = Yup.object({
-  ...loginValidationSchema.fields, 
+  ...loginValidationSchema.fields,
   username: Yup.string().required("Username is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), undefined], "Passwords must match")
     .required("Confirm Password is required"),
 });
 
+export const rawMaterialValidationSchema = Yup.object({
+  m_name: Yup.string().required("Material Name is required"),
+  m_code: Yup.string().required("Material Code is required"),
+  m_description: Yup.string().required("Description is required"),
+  m_reorderLevel: Yup.number()
+    .typeError("Reorder Level must be a number")
+    .required("Reorder Level is required"),
+  m_unit: Yup.string().required("Unit is required"),
+  m_status: Yup.string().required("Status is required"),
+  hasVariants: Yup.boolean().required("Has Variants is required"),
+});

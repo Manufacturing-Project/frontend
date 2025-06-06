@@ -1,10 +1,12 @@
 import React from "react";
-import { Select, MenuItem, SelectChangeEvent, Box, Typography } from "@mui/material";
+import { Select, MenuItem, SelectChangeEvent, Box, Typography, FormControl, FormHelperText } from "@mui/material";
 import theme from "../../../theme"; // Assuming your theme is defined here
+import { on } from "events";
 
 // InputFieldLabel Component
 interface LabelProps {
   label: string;
+  name?: string
 }
 
 const InputFieldLabel: React.FC<LabelProps> = ({ label }) => {
@@ -30,11 +32,18 @@ interface Option {
 
 interface SelectFieldProps {
   label: string;
+  name?: string;
   options: Option[];
   value: string;
   onChange: (event: SelectChangeEvent<string>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLSelectElement>) => void;
   width?: string;
   height?: string;
+  error?: boolean;
+  helperText?: string;
+  id?: string;
+  type?: string; // Added type property
+  required?: boolean; // Added required property
 }
 
 
@@ -44,7 +53,13 @@ export const InputSelectField: React.FC<SelectFieldProps> = ({
   height,
   options,
   value,
+  name,
   onChange,
+  error,
+  helperText,
+  type, // Added type for consistency
+  required = false, // Default to false if not provided
+  id,
   width = "340px",
 }) => {
 
@@ -68,17 +83,25 @@ export const InputSelectField: React.FC<SelectFieldProps> = ({
   return (
     <Box>
       <InputFieldLabel label={label} />
-      <Select
-        value={value}
-        onChange={onChange}
-       sx={selectFieldStyles}
+      <FormControl
+        sx={{ width: width }}
+        error={error}
       >
-        {options.map((option) => (
-          <MenuItem key={option.id} value={option.id}>
-            {option.name}
-          </MenuItem>
-        ))}
-      </Select>
+        <Select
+          value={value}
+          name={name}
+          onChange={onChange}
+          sx={selectFieldStyles}
+        >
+          {options.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </Select>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
+
     </Box>
   );
 };
