@@ -13,8 +13,8 @@ import Toaster, { ToasterRef } from "../../molecules/toaster/Toaster";
 import theme from "../../theme";
 import EmptyInfoBox from "../../molecules/emptyInfoBox/EmptyInfoBox";
 import { Form, Formik } from "formik";
-import { itemInitialValues } from "../../../utils/forms/initialStatus/infoBoxFormInitialStatus";
-import { itemValidationSchema } from "../../../utils/forms/validationSchemas/infoBoxInitialSchema";
+import { itemInitialValues } from "../../../utils/forms/initialStatus/settingsForm/settingFormInitialStatus";
+import { itemValidationSchema } from "../../../utils/forms/validationSchemas/settingsForm/settingFormInitialSchema";
 
 interface CommonItemPageProps {
   title: string;

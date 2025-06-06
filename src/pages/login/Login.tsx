@@ -17,8 +17,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { loginInitialValues } from '../../utils/forms/initialStatus/loginFormInitialStatus';
-import { loginValidationSchema } from '../../utils/forms/validationSchemas/loginValidationSchema';
+import { loginInitialValues } from '../../utils/forms/initialStatus/authForm/authFormInitialStatus';
+import { loginValidationSchema } from '../../utils/forms/validationSchemas/authForm/authValidationSchema';
+
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,8 +29,8 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (values: { email: string; password: string }, { setSubmitting, setFieldError }: any) => {
     try {
       const response = await signIn({ email: values.email, password: values.password }).unwrap();
-      localStorage.setItem('token', response.token);
       navigate('/dashboard');
+      localStorage.setItem('token', response.token);
     } catch (err) {
       setFieldError('general', 'Invalid email or password. Please try again.');
     } finally {
