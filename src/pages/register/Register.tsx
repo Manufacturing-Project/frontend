@@ -10,6 +10,42 @@ import {
 } from "@mui/material";
 import theme from "../../components/theme";
 import img from "../../assets/small-team-discussing-ideas-2194220-0.png";
+
+import { useSignupMutation} from "../../features/user/UserApiSlice";
+import { setUser, setError, setLoading } from "../../features/user/UserSlice";
+import { useDispatch } from 'react-redux';
+import Toaster from "../../components/molecules/toaster/Toaster";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+
+const RegisterPage: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setErrorLocal] = useState("");
+  
+
+import { useSignupMutation } from "../../features/user/UserApiSlice";
+import { useDispatch } from "react-redux";
+import { setUser, setLoading } from "../../features/user/UserSlice";
+import { toast, ToastContainer } from "react-toastify";
+import { Formik, Form } from "formik";
+import { useNavigate } from "react-router-dom";
+import {RegisterinitialValues} from "../../utils/forms/initialStatus/authForm/authFormInitialStatus";
+import {RegisterValidationSchema} from "../../utils/forms/validationSchemas/authForm/authValidationSchema";
+
+  const RegisterPage: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const [registerUser, { isLoading }] = useSignupMutation();
+    const dispatch = useDispatch();
+
+  // Automatically set the username as the email when email changes
+  useEffect(() => {
+    setUsername(email);
+  }, [email]);
+
 import { useSignupMutation } from "../../features/user/UserApiSlice";
 import { useDispatch } from "react-redux";
 import { setUser, setLoading } from "../../features/user/UserSlice";
@@ -18,6 +54,7 @@ import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import { RegisterinitialValues } from "../../utils/forms/initialStatus/authForm/authFormInitialStatus";
 import { RegisterValidationSchema } from "../../utils/forms/validationSchemas/authForm/authValidationSchema";
+
 
 
 

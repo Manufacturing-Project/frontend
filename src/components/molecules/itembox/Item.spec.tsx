@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // For better assertion messages
-import { Itembox, ItemboxProps } from './Itembox'; // Adjust the path accordingly
+import { Itembox, ItemboxProps } from './ItemDisplayBox'; // Adjust the path accordingly
 
 // Mock theme, as it might be used inside your component
 jest.mock('../../theme', () => ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Itembox, ItemboxProps } from './Itembox'; // Adjust the import path as needed
+import { Itembox, ItemboxProps } from './ItemDisplayBox'; // Adjust the import path as needed
 import { Provider } from 'react-redux';
 import { store } from '../../../store'; // Adjust the import path as needed
 import { Meta, StoryFn } from '@storybook/react'; // Import Meta and StoryFn types

@@ -5,6 +5,12 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+
+  Grid,
+} from '@mui/material';
+import { StyleTextField, StyleButton } from './EditTableBox.styled';
+import { EditDialogBoxProps } from '../../../utils/types/molecules/props/editDialogBoxProps';
+
   Button,
   Grid,
 } from '@mui/material';
@@ -46,6 +52,11 @@ const EditDialogBox: React.FC<EditDialogBoxProps> = ({
     onSave(formData);
   };
 
+  const handleClose = () => {
+    onClose();}
+
+
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{title}</DialogTitle>
@@ -53,8 +64,12 @@ const EditDialogBox: React.FC<EditDialogBoxProps> = ({
         <Grid container spacing={2} mt={1}>
           {fields.map((field) => (
             <Grid item xs={12} key={field.name}>
+
+              <StyleTextField
+
               <TextField
                 fullWidth
+
                 label={field.label}
                 name={field.name}
                 value={formData[field.name] || ''}
@@ -65,8 +80,13 @@ const EditDialogBox: React.FC<EditDialogBoxProps> = ({
         </Grid>
       </DialogContent>
       <DialogActions>
+
+       <StyleButton onClick={handleClose}>Cancel</StyleButton>
+        <StyleButton onClick={handleSubmit}>Save</StyleButton>
+
         <Button onClick={onClose} color="secondary">Cancel</Button>
         <Button onClick={handleSubmit} color="primary" variant="contained">Save</Button>
+
       </DialogActions>
     </Dialog>
   );
