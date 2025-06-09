@@ -17,9 +17,9 @@ import reg from "../../../assets/LeftRegistrionimage.png";
 import set from "../../../assets/LeftSettingImage.png";
 import man from "../../../assets/PurchaseImage.png";
 
-export interface LeftPanelProps {}
 
-const LeftPanel: React.FC<LeftPanelProps> = () => {
+
+const LeftPanel: React.FC = () => {
   const location = useLocation();
 
   const getPathName = () => {
@@ -70,17 +70,17 @@ const LeftPanel: React.FC<LeftPanelProps> = () => {
 
     return items.map((item) => (
       <ListItem
-  key={item.text}
-  component={Link}
-  to={item.to}
-  sx={{
-    //width:'200px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',  // Center the combined icon and text
-    backgroundColor: location.pathname === item.to ? theme.colors.primary_color_green : 'transparent', // Background when active
-    borderRadius: location.pathname === item.to ? '47px' : '0',
-    transition: 'background-color 0.1s', // Smooth transition
+          key={item.text}
+          component={Link}
+          to={item.to}
+          sx={{
+            //width:'200px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',  // Center the combined icon and text
+            backgroundColor: location.pathname === item.to ? theme.colors.primary_color_green : 'transparent', // Background when active
+            borderRadius: location.pathname === item.to ? '47px' : '0',
+            transition: 'background-color 0.1s', // Smooth transition
   }}
 >
   <Box

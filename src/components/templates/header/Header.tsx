@@ -1,14 +1,13 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import { Box, Typography, Avatar } from '@mui/material';
 
+=======
+>>>>>>> Stashed changes
 import { SearchBar } from '../../molecules'; 
-
-import {  Logo } from '../../molecules';
 import { MenuBar } from '../../organism';
-import theme from '../../theme';
-import ProfileIcon from '../../../assets/user.png';
 import { FullLogo } from '../../organism/fullLogo/FullLogo';
-
+import { StyledHeaderContainerBox , StyledAvatarBox , StyledSecondRowBox , StyledfirstRowBox } from './Header.styled';
 const Header: React.FC = () => {
   /* Temporary search options */
   const searchOptions = ['Dashboard', 'Registration', 'Manufacture', 'Setting']; 
@@ -18,51 +17,19 @@ const Header: React.FC = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: theme.colors.secondary_background_color,
-        boxShadow: `0px 2px 4px ${theme.colors.black_Transparent_1}`,
-        position: 'fixed',
-        width: '100%',
-        zIndex: '2',
-        
-        
-      }}
-    >
+    <StyledHeaderContainerBox >
       {/* First Row: Logo, Heading, and Search Bar */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: '10px 0',
-          height: '70px',
-        }}
-      >
+      <StyledfirstRowBox>
         <FullLogo />
         <SearchBar options={searchOptions}  onChange={handleSearchChange} />
-        <Avatar
-          alt="Remy Sharp"
-          src={ProfileIcon}
-          sx={{ 
-            display: 'inline-block',
-            cursor: 'pointer',
-            marginRight: '40px',
-            width: '45px',
-            height: '45px',
-          }}
-        />
-      </Box>
+        <StyledAvatarBox/>
+      </StyledfirstRowBox>
 
       {/* Second Row: Menu Bar */}
-      <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'center',
-            height: '50px', 
-          }}>
+      <StyledSecondRowBox >
         <MenuBar />
-      </Box>
-    </Box>
+      </StyledSecondRowBox>
+    </StyledHeaderContainerBox>
   );
 };
 

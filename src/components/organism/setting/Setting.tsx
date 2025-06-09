@@ -1,4 +1,5 @@
 // src/components/organism/CommonItemPage.tsx
+<<<<<<< Updated upstream
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Itembox } from '../../molecules/itembox/Itembox';
@@ -21,6 +22,23 @@ interface CommonItemPageProps {
   updateItem: (id: string, name: string) => Promise<void>;
   deleteItem: (id: string) => Promise<void>;
 }
+=======
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { Itembox } from "../../molecules/itembox/ItemDisplayBox";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Toaster, { ToasterRef } from "../../molecules/toaster/Toaster";
+import theme from "../../theme";
+import EmptyInfoBox from "../../molecules/emptyInfoBox/EmptyInfoBox";
+import { Form, Formik } from "formik";
+import { itemInitialValues } from "../../../utils/forms/initialStatus/settingsForm/settingFormInitialStatus";
+import { itemValidationSchema } from "../../../utils/forms/validationSchemas/settingsForm/settingFormInitialSchema";
+import { StyleAddButton , StyleButton ,StyleItemBoxContainer,StyleTextField,StyledContainerBox,StyledTitle,StyledTitleBox } from "./Setting.Styled";
+import { CommonItemPageProps } from "../../../utils/types/organism/commonItemPageProps";
+>>>>>>> Stashed changes
 
 const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, createItem, updateItem, deleteItem }) => {
   const dispatch = useDispatch();
@@ -85,6 +103,7 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
 
   return (
     <div>
+<<<<<<< Updated upstream
       <Box sx={{ height: '100%', background: theme.colors.secondary_background_color }}>
         <Box sx={{ marginLeft: '60px' }}>
           <Typography variant="h6" sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '32px' }}>
@@ -103,9 +122,23 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
           >
             Add New {buttonName}
           </Button>
-          )}
-        </Box>
+=======
+      <StyledContainerBox>
+        <StyledTitleBox>
+          <StyledTitle>
+            {title}
+          </StyledTitle>
 
+          {items.length > 0 && (
+            <StyleAddButton
+              onClick={handleAddClick}>
+              Add New {buttonName}
+            </StyleAddButton>
+>>>>>>> Stashed changes
+          )}
+        </StyledTitleBox>
+
+<<<<<<< Updated upstream
         <Box sx={{ paddingLeft: '80px', paddingTop: '20px' }}>
           {items.length > 0 ? (
             <Itembox
@@ -145,9 +178,68 @@ const Setting: React.FC<CommonItemPageProps> = ({ title, buttonName , items, cre
                 Save
               </Button>
             </DialogActions>
+=======
+        <StyleItemBoxContainer>
+          {items.length > 0
+            ? (
+              <Itembox
+                items={items}
+                color={theme.colors.emtybox_color}
+                height="250px"
+                rowPadding="12px"
+                onUpdate={handleUpdate}
+                onDelete={handleDelete}
+                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+              />
+            )
+            : (
+              <EmptyInfoBox
+                text={`No ${title.toLowerCase()} have been added yet.`}
+                buttonText={`Add New ${title}`}
+                onButtonClick={handleAddClick}
+              />
+            )}
+          <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+            <DialogTitle>
+              {selectedItem ? `Update ${title}` : `Add New ${title}`}
+            </DialogTitle>
+            <Formik
+            initialValues={selectedItem ? { name: selectedItem.name } : itemInitialValues}
+            validationSchema={itemValidationSchema}
+            onSubmit={handleSave}
+            enableReinitialize
+        >
+  {({
+    values, errors, touched,handleChange, handleBlur, isSubmitting,isValid, dirty,
+  }) => (
+    <Form>
+      <DialogContent>
+        <StyleTextField
+          autoFocus
+          label={title}
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={!!(touched.name && errors.name)}
+          helperText={touched.name && errors.name ? errors.name : ''}
+        />
+      </DialogContent>
+      <DialogActions>
+        <StyleButton onClick={handleDialogClose} >
+          Cancel
+        </StyleButton>
+        <StyleButton type="submit"   disabled={isSubmitting || !isValid || !dirty} >
+          Save
+        </StyleButton>
+      </DialogActions>
+    </Form>
+  )}
+  </Formik>
+>>>>>>> Stashed changes
           </Dialog>
-        </Box>
-      </Box>
+        </StyleItemBoxContainer>
+      </StyledContainerBox>
       <Toaster ref={toasterRef} duration={3000} />
     </div>
   );

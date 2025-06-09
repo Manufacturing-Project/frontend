@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, Grid, Link } from "@mui/material";
 import theme from "../../components/theme";
 import img from "../../assets/small-team-discussing-ideas-2194220-0.png";
+<<<<<<< Updated upstream
 import { useSignupMutation} from "../../features/user/UserApiSlice";
 import { setUser, setError, setLoading } from "../../features/user/UserSlice";
 import { useDispatch } from 'react-redux';
@@ -18,6 +19,19 @@ const RegisterPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setErrorLocal] = useState("");
   
+=======
+import { useSignupMutation } from "../../features/user/UserApiSlice";
+import { useDispatch } from "react-redux";
+import { setUser, setLoading } from "../../features/user/UserSlice";
+import { toast, ToastContainer } from "react-toastify";
+import { Formik, Form } from "formik";
+import { useNavigate } from "react-router-dom";
+import {RegisterinitialValues} from "../../utils/forms/initialStatus/authForm/authFormInitialStatus";
+import {RegisterValidationSchema} from "../../utils/forms/validationSchemas/authForm/authValidationSchema";
+
+  const RegisterPage: React.FC = () => {
+  const dispatch = useDispatch();
+>>>>>>> Stashed changes
   const [registerUser, { isLoading }] = useSignupMutation();
     const dispatch = useDispatch();
 
