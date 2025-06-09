@@ -24,12 +24,10 @@ export interface ItemboxProps {
 
 const Itembox: React.FC<ItemboxProps> = ({
   items,
-  color,
   height,
   rowPadding,
   onUpdate,
-  onDelete,
-  boxShadow
+  onDelete
 }) => {
   const [editItemId, setEditItemId] = React.useState<string | null>(null);
   const [editItemName, setEditItemName] = React.useState<string>('');

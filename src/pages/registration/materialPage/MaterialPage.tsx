@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Box, Button, Switch, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import Done from "@mui/icons-material/Done";
+import React, { useEffect, useRef } from "react";
+import { Box, Switch, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Formik, Form, useFormikContext } from "formik";
 
 import {
   useCreateMaterialMutation,
   useLazyCheckMaterialCodeAvailabilityQuery,
   useLazyGenerateMaterialCodeQuery,
 } from "../../../features/rawMaterials/rawMaterialApiSlice";
+
 import {
   setMName,
   setMCode,
@@ -16,20 +17,70 @@ import {
   setReorderLevel,
   setDescription,
   setHasVariants,
-  resetForm,
+  setRawMaterialData,
 } from "../../../features/rawMaterials/rawMaterialSlice";
+
 import { useGetUnitsQuery } from "../../../features/units/UnitsApiSlice";
 import { useGetCategoriesQuery } from "../../../features/categories/CategoryApiSlice";
+
 import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
 import { CreateUnit } from "../../../features/units/UnitModel";
-import { RootState } from "../../../store";
+
 import theme from "../../../components/theme";
 import Toaster, { ToasterRef } from "../../../components/molecules/toaster/Toaster";
-import { InputTextField, InputTextArea, InputSelectField } from "../../../components/molecules";
+
+import {
+  InputTextField,
+  InputTextArea,
+  InputSelectField,
+} from "../../../components/molecules";
+import { rawMaterialValidationSchema } from "../../../utils/forms/validationSchemas/materialRegistration/ValidationSchema";
+import { rawMaterialInitialValues } from "../../../utils/forms/initialStatus/materialRegistration/FormInitialStatus";
 
 interface VariantsForMaterialPageProps {
   onNext: () => void;
 }
+
+const AutoCodeEffects: React.FC<{
+  materialName: string;
+  materialCode: string;
+  setFieldValue: (field: string, value: any) => void;
+}> = ({ materialName, materialCode, setFieldValue }) => {
+  const [triggerGenerateCode, { data }] = useLazyGenerateMaterialCodeQuery();
+  const [triggerCheckCode] = useLazyCheckMaterialCodeAvailabilityQuery();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (materialName) triggerGenerateCode(materialName);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [materialName]);
+
+  useEffect(() => {
+    if (data) {
+      setFieldValue("m_code", data.materialCode);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (materialCode) triggerCheckCode(materialCode);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [materialCode]);
+
+  return null;
+};
+
+const AutoSubmitEffect: React.FC = () => {
+  const { isValid, submitForm } = useFormikContext();
+  useEffect(() => {
+    if (isValid) {
+      submitForm();
+    }
+  }, [isValid]);
+  return null;
+};
 
 const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
   const dispatch = useDispatch();
@@ -38,169 +89,174 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
   const { data: units } = useGetUnitsQuery();
   const { data: categories } = useGetCategoriesQuery();
 
-  const unitOptions = units?.map((unit: CreateUnit) => ({
-    id: unit._id,
-    name: unit.unitName,
-  })) || [];
+  const unitOptions =
+    units?.map((unit: CreateUnit) => ({
+      id: unit._id,
+      name: unit.unitName,
+    })) || [];
 
-  const categoryOptions = categories?.map((category: any) => ({
-    id: category._id,
-    name: category.name,
-  })) || [];
+  const categoryOptions =
+    categories?.map((category: any) => ({
+      id: category._id,
+      name: category.name,
+    })) || [];
 
-  const {
-    m_name,
-    m_code,
-    category,
-    unit,
-    reorderlevel,
-    description,
-    hasVariants,
-  } = useSelector((state: RootState) => state.rawMaterial);
-
-  const [triggerGenerateCode, { data }] = useLazyGenerateMaterialCodeQuery();
-  const [triggerCheckCode] = useLazyCheckMaterialCodeAvailabilityQuery();
   const [createMaterial] = useCreateMaterialMutation();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (m_name) triggerGenerateCode(m_name);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [m_name, triggerGenerateCode]);
-
-  useEffect(() => {
-    if (data) dispatch(setMCode(data.materialCode));
-  }, [data]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (m_code) triggerCheckCode(m_code);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [m_code, triggerCheckCode]);
-
-  const handleRawMaterial = async () => {
-    const material: CreateRawMaterial = {
-      materialName: m_name,
-      materialCode: m_code,
-      category,
-      unitOfMeasure: unit,
-      reorderLevel: reorderlevel,
-      description,
-      hasVariants: hasVariants ?? false,
-    };
-
-    try {
-      await createMaterial(material).unwrap();
-      dispatch(resetForm());
-      toasterRef.current?.showToast("Material created successfully!", "success");
-    } catch (error) {
-      toasterRef.current?.showToast("Failed to create material.", "error");
-    }
-  };
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-        p: "60px",
-        backgroundColor: theme.colors.secondary_background_color,
-        height: "100%",
-        boxSizing: "border-box",
+    <Formik
+      initialValues={rawMaterialInitialValues}
+      validationSchema={rawMaterialValidationSchema}
+      onSubmit={async (values, {  }) => {
+        
+        try {
+
+        dispatch(setRawMaterialData({
+  m_name: values.m_name,
+  m_code: values.m_code,
+  category: values.m_status,
+  unit: values.m_unit,
+  reorderlevel: Number(values.m_reorderLevel),
+  description: values.m_description,
+  hasVariants: values.hasVariants,
+}));
+
+
+         
+        } catch (error) {
+          toasterRef.current?.showToast("Failed to create material.", "error");
+        }
       }}
     >
-      <Typography variant="h4">Register Raw Material</Typography>
-
-      <Box sx={{ display: "flex", gap: 5 }}>
-        <InputTextField
-          label="Material Name"
-          textPlaceholder="Enter Material Name"
-          value={m_name}
-          onChange={(e) => dispatch(setMName(e.target.value))}
-          width="530px"
-        />
-        <InputTextField
-          label="Material Code"
-          textPlaceholder="Enter Material Code"
-          value={m_code}
-          onChange={(e) => dispatch(setMCode(e.target.value))}
-          width="530px"
-        />
-      </Box>
-
-      <Box sx={{ display: "flex", gap: 5 }}>
-        <InputSelectField
-          label="Category"
-          options={categoryOptions}
-          value={category}
-          onChange={(e) => dispatch(setCategory(e.target.value))}
-          width="530px"
-        />
-        <InputSelectField
-          label="Unit"
-          options={unitOptions}
-          value={unit}
-          onChange={(e) => dispatch(setUnit(e.target.value))}
-          width="530px"
-        />
-      </Box>
-
-      <Box sx={{ display: "flex", gap: 5, alignItems: "flex-end" }}>
-        <InputTextField
-          label="Re-Order Level"
-          textPlaceholder="Enter Re-Order Level"
-          value={reorderlevel.toString()}
-          onChange={(e) => dispatch(setReorderLevel(Number(e.target.value)))}
-          width="530px"
-        />
-
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, width: "100%" }}>
-          <Typography>This material has variants</Typography>
-          <Switch
-            checked={hasVariants}
-            onChange={(e) => dispatch(setHasVariants(e.target.checked))}
-            sx={{
-              "& .MuiSwitch-switchBase.Mui-checked": {
-                color: theme.colors.primary_color_green,
-                "& + .MuiSwitch-track": {
-                  backgroundColor: theme.colors.primary_color_green,
-                },
-              },
-            }}
+      {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+        <Form>
+          <AutoCodeEffects
+            materialName={values.m_name}
+            materialCode={values.m_code}
+            setFieldValue={setFieldValue}
           />
-        </Box>
-      </Box>
+          <AutoSubmitEffect />
 
-      <InputTextArea
-        label="Description"
-        ariaLabel="description-textarea"
-        placeholder="Enter Description"
-        value={description}
-        onChange={(e) => dispatch(setDescription(e.target.value))}
-      />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 4,
+              p: "60px",
+              backgroundColor: theme.colors.secondary_background_color,
+              height: "100%",
+              boxSizing: "border-box",
+            }}
+          >
+            <Typography variant="h4">Register Raw Material</Typography>
 
-      {/* <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button
-          variant="contained"
-          onClick={handleRawMaterial}
-          startIcon={<Done />}
-          sx={{
-            backgroundColor: theme.colors.primary_color_green,
-            "&:hover": {
-              backgroundColor: theme.colors.primary_color_green,
-              opacity: 0.9,
-            },
-          }}
-        >
-          Save Material
-        </Button>
-      </Box> */}
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputTextField
+                  label="Material Name"
+                  name="m_name"
+                  textPlaceholder="Enter Material Name"
+                  value={values.m_name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.m_name && Boolean(errors.m_name)}
+                  helperText={touched.m_name && errors.m_name ? errors.m_name : ""}
+                />
+              </Box>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputTextField
+                  label="Material Code"
+                  name="m_code"
+                  textPlaceholder="Enter Material Code"
+                  value={values.m_code}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.m_code && Boolean(errors.m_code)}
+                  helperText={touched.m_code && errors.m_code ? errors.m_code : ""}
+                />
+              </Box>
+            </Box>
 
-      <Toaster ref={toasterRef} />
-    </Box>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputSelectField
+                  label="Category"
+                  name="m_status"
+                  options={categoryOptions}
+                  value={values.m_status}
+                  onChange={(e) => setFieldValue("m_status", e.target.value)}
+                  error={touched.m_status && Boolean(errors.m_status)}
+                  helperText={touched.m_status && errors.m_status ? errors.m_status : ""}
+                />
+              </Box>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputSelectField
+                  label="Unit"
+                  name="m_unit"
+                  options={unitOptions}
+                  value={values.m_unit}
+                  onChange={(e) => setFieldValue("m_unit", e.target.value)}
+                  error={touched.m_unit && Boolean(errors.m_unit)}
+                  helperText={touched.m_unit && errors.m_unit ? errors.m_unit : ""}
+                />
+              </Box>
+            </Box>
+
+            <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 5 }}>
+              <Box sx={{ flex: "1 1 45%" }}>
+                <InputTextField
+                  label="Re-Order Level"
+                  name="m_reorderLevel"
+                  textPlaceholder="Enter Re-Order Level"
+                  value={values.m_reorderLevel?.toString() ?? ""}
+                  type="number"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.m_reorderLevel && Boolean(errors.m_reorderLevel)}
+                  helperText={
+                    touched.m_reorderLevel && errors.m_reorderLevel
+                      ? errors.m_reorderLevel
+                      : ""
+                  }
+                />
+              </Box>
+
+              <Box sx={{ flex: "1 1 45%", display: "flex", alignItems: "center", gap: 1 }}>
+                <Typography>This material has variants</Typography>
+                <Switch
+                  checked={values.hasVariants}
+                  onChange={(e) => setFieldValue("hasVariants", e.target.checked)}
+                  sx={{
+                    "& .MuiSwitch-switchBase.Mui-checked": {
+                      color: theme.colors.primary_color_green,
+                      "& + .MuiSwitch-track": {
+                        backgroundColor: theme.colors.primary_color_green,
+                      },
+                    },
+                  }}
+                />
+              </Box>
+            </Box>
+
+            <InputTextArea
+              label="Description"
+              name="m_description"
+              ariaLabel="description-textarea"
+              placeholder="Enter Description"
+              value={values.m_description}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.m_description && Boolean(errors.m_description)}
+              helperText={
+                touched.m_description && errors.m_description ? errors.m_description : ""
+              }
+            />
+
+            <Toaster ref={toasterRef} />
+          </Box>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

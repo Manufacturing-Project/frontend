@@ -5,6 +5,6 @@ export {InputSelectField} from './inputField/inputSelectField/InputSelectField';
 export {Itembox} from './itembox/ItemDisplayBox';
 export {SearchBar} from './searchbar/SearchBar';
 export { Logo } from './logo/Logo';
-export { TableCells } from './tableCell/TableCells';
+
 
  

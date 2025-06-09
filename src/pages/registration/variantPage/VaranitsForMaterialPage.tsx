@@ -145,7 +145,7 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = () => {
             label={`Variant ${index + 1}`}
             options={variantOptions}
             value={field.variant}
-            onChange={(e) => handleFieldChange(index, 'variant', e.target.value)}
+            onChange={(e: { target: { value: string; }; }) => handleFieldChange(index, 'variant', e.target.value)}
             width="300px"
             height="56px"
           />

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AddVariant, CreateRawMaterial } from "./rawMaterialModel";
 import { BASE_URL } from '../../constant';
+import { get } from 'http';
 
 export const rawMaterialApi = createApi({
   reducerPath: 'rawMaterialApi',
@@ -37,7 +38,29 @@ export const rawMaterialApi = createApi({
     getVariants: builder.query<AddVariant[], string>({
       query: (materialId) => `/${materialId}/variants`,
     }),
+
+    getAllMaterials: builder.query<CreateRawMaterial[] , void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+  }),
+
+    deleteMaterial: builder.mutation<void, string>({
+      query: (materialId) => ({
+        url: `/${materialId}`,
+        method: 'DELETE',
+      }),
+    }),
+    updateMaterial: builder.mutation<void, { materialId: string; updateData: CreateRawMaterial }>({
+      query: ({ materialId, updateData }) => ({
+        url: `/${materialId}`,
+        method: 'PUT',
+        body: updateData,
+      }),
+    }),
+
   }),
 });
 
-export const { useLazyGenerateMaterialCodeQuery, useLazyCheckMaterialCodeAvailabilityQuery, useCreateMaterialMutation, useAddVariantMutation, useGetVariantsQuery } = rawMaterialApi;
+export const { useLazyGenerateMaterialCodeQuery, useLazyCheckMaterialCodeAvailabilityQuery, useCreateMaterialMutation, useAddVariantMutation, useGetVariantsQuery ,useGetAllMaterialsQuery , useDeleteMaterialMutation , useUpdateMaterialMutation} = rawMaterialApi;

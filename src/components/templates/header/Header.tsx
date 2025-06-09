@@ -1,9 +1,11 @@
 import React from 'react';
-<<<<<<< Updated upstream
+
+
 import { Box, Typography, Avatar } from '@mui/material';
 
-=======
->>>>>>> Stashed changes
+
+import { Box,  Avatar } from '@mui/material';
+
 import { SearchBar } from '../../molecules'; 
 import { MenuBar } from '../../organism';
 import { FullLogo } from '../../organism/fullLogo/FullLogo';

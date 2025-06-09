@@ -2,11 +2,7 @@ import flattenDeep from 'lodash/flattenDeep';
 import { RouteObject } from 'react-router-dom';
 import {RegisterLayout, SettingLayout, ManufactureLayout} from '../layouts';
 
-import { MaterialPage, Dashboard, CategoryPage, VariantsPage, UnitPage, Product, SuppliersPage , LoginPage , RegisterPage } from '../pages';
-
-import { VariantsForMaterialPage } from '../pages/registration/variantPage/VaranitsForMaterialPage';
-import GeneratedMaterialTable from '../pages/registration/generatedMaterialsPage/GeneratedMaterialPage';
-import CommonPage from '../pages/registration/RegisterationPage';
+import {  Dashboard, CategoryPage, VariantsPage, UnitPage, Product, SuppliersPage , LoginPage , RegisterPage } from '../pages';
 import RegisterationPage from '../pages/registration/RegisterationPage';
 import ProtectedRoutes from './ProtectedRoutes';
 
