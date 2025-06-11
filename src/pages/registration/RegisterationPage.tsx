@@ -5,7 +5,7 @@ import { useGetUnitsQuery } from "../../features/units/UnitsApiSlice";
 import { useGetCategoriesQuery } from "../../features/categories/CategoryApiSlice";
 
 import { CreateRawMaterial } from "../../features/rawMaterials/rawMaterialModel";
-import { ToasterRef } from "../../components/molecules/toaster/Toaster";
+import { ToasterRef } from "../../utils/types/molecules/props/toasterProps";
 import { useCreateMaterialMutation } from "../../features/rawMaterials/rawMaterialApiSlice";
 import { resetForm } from "../../features/rawMaterials/rawMaterialSlice";
 import { VariantsForMaterialPage } from "./variantPage/VaranitsForMaterialPage";

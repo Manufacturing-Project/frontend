@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import CustomTable from './Table';
+import CustomTable from './CustomTable';
 
 const meta: Meta<typeof CustomTable> = {
   title: 'Components/Common/CustomTable',
