@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Box, Switch, Typography } from "@mui/material";
+import { Typography, Switch } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Formik, Form, useFormikContext } from "formik";
 
@@ -10,20 +10,12 @@ import {
 } from "../../../features/rawMaterials/rawMaterialApiSlice";
 
 import {
-  setMName,
-  setMCode,
-  setCategory,
-  setUnit,
-  setReorderLevel,
-  setDescription,
-  setHasVariants,
   setRawMaterialData,
 } from "../../../features/rawMaterials/rawMaterialSlice";
 
 import { useGetUnitsQuery } from "../../../features/units/UnitsApiSlice";
 import { useGetCategoriesQuery } from "../../../features/categories/CategoryApiSlice";
 
-import { CreateRawMaterial } from "../../../features/rawMaterials/rawMaterialModel";
 import { CreateUnit } from "../../../features/units/UnitModel";
 
 import theme from "../../../components/theme";
@@ -38,9 +30,8 @@ import {
 import { rawMaterialValidationSchema } from "../../../utils/forms/validationSchemas/materialRegistration/ValidationSchema";
 import { rawMaterialInitialValues } from "../../../utils/forms/initialStatus/materialRegistration/FormInitialStatus";
 
-interface VariantsForMaterialPageProps {
-  onNext: () => void;
-}
+import { Wrapper, Section, VariantSwitchWrapper } from "./MaterialPage.styled";
+import { VariantsForMaterialPageProps } from "../../../utils/types/pages/materialPage.types";
 
 const AutoCodeEffects: React.FC<{
   materialName: string;
@@ -55,20 +46,20 @@ const AutoCodeEffects: React.FC<{
       if (materialName) triggerGenerateCode(materialName);
     }, 500);
     return () => clearTimeout(timer);
-  }, [materialName]);
+  }, [materialName, triggerGenerateCode]);
 
   useEffect(() => {
     if (data) {
       setFieldValue("m_code", data.materialCode);
     }
-  }, [data]);
+  }, [data, setFieldValue]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (materialCode) triggerCheckCode(materialCode);
     }, 500);
     return () => clearTimeout(timer);
-  }, [materialCode]);
+  }, [materialCode, triggerCheckCode]);
 
   return null;
 };
@@ -79,7 +70,7 @@ const AutoSubmitEffect: React.FC = () => {
     if (isValid) {
       submitForm();
     }
-  }, [isValid]);
+  }, [isValid, submitForm]);
   return null;
 };
 
@@ -108,22 +99,22 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
     <Formik
       initialValues={rawMaterialInitialValues}
       validationSchema={rawMaterialValidationSchema}
-      onSubmit={async (values, {  }) => {
-        
+      onSubmit={async (values) => {
         try {
-
-        dispatch(setRawMaterialData({
-  m_name: values.m_name,
-  m_code: values.m_code,
-  category: values.m_status,
-  unit: values.m_unit,
-  reorderlevel: Number(values.m_reorderLevel),
-  description: values.m_description,
-  hasVariants: values.hasVariants,
-}));
-
-
-         
+          dispatch(
+            setRawMaterialData({
+              m_name: values.m_name,
+              m_code: values.m_code,
+              category: values.m_status,
+              unit: values.m_unit,
+              reorderlevel: Number(values.m_reorderLevel),
+              description: values.m_description,
+              hasVariants: values.hasVariants,
+            })
+          );
+          // You can call createMaterial API here if needed
+          // await createMaterial(values).unwrap();
+          onNext();
         } catch (error) {
           toasterRef.current?.showToast("Failed to create material.", "error");
         }
@@ -138,91 +129,73 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
           />
           <AutoSubmitEffect />
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 4,
-              p: "60px",
-              backgroundColor: theme.colors.secondary_background_color,
-              height: "100%",
-              boxSizing: "border-box",
-            }}
-          >
+          <Wrapper>
             <Typography variant="h4">Register Raw Material</Typography>
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-              <Box sx={{ flex: "1 1 45%" }}>
-                <InputTextField
-                  label="Material Name"
-                  name="m_name"
-                  textPlaceholder="Enter Material Name"
-                  value={values.m_name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.m_name && Boolean(errors.m_name)}
-                  helperText={touched.m_name && errors.m_name ? errors.m_name : ""}
-                />
-              </Box>
-              <Box sx={{ flex: "1 1 45%" }}>
-                <InputTextField
-                  label="Material Code"
-                  name="m_code"
-                  textPlaceholder="Enter Material Code"
-                  value={values.m_code}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.m_code && Boolean(errors.m_code)}
-                  helperText={touched.m_code && errors.m_code ? errors.m_code : ""}
-                />
-              </Box>
-            </Box>
+            <Section>
+              <InputTextField
+                label="Material Name"
+                name="m_name"
+                textPlaceholder="Enter Material Name"
+                value={values.m_name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.m_name && Boolean(errors.m_name)}
+                helperText={touched.m_name && errors.m_name ? errors.m_name : ""}
+              />
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-              <Box sx={{ flex: "1 1 45%" }}>
-                <InputSelectField
-                  label="Category"
-                  name="m_status"
-                  options={categoryOptions}
-                  value={values.m_status}
-                  onChange={(e) => setFieldValue("m_status", e.target.value)}
-                  error={touched.m_status && Boolean(errors.m_status)}
-                  helperText={touched.m_status && errors.m_status ? errors.m_status : ""}
-                />
-              </Box>
-              <Box sx={{ flex: "1 1 45%" }}>
-                <InputSelectField
-                  label="Unit"
-                  name="m_unit"
-                  options={unitOptions}
-                  value={values.m_unit}
-                  onChange={(e) => setFieldValue("m_unit", e.target.value)}
-                  error={touched.m_unit && Boolean(errors.m_unit)}
-                  helperText={touched.m_unit && errors.m_unit ? errors.m_unit : ""}
-                />
-              </Box>
-            </Box>
+              <InputTextField
+                label="Material Code"
+                name="m_code"
+                textPlaceholder="Enter Material Code"
+                value={values.m_code}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.m_code && Boolean(errors.m_code)}
+                helperText={touched.m_code && errors.m_code ? errors.m_code : ""}
+              />
+            </Section>
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 5 }}>
-              <Box sx={{ flex: "1 1 45%" }}>
-                <InputTextField
-                  label="Re-Order Level"
-                  name="m_reorderLevel"
-                  textPlaceholder="Enter Re-Order Level"
-                  value={values.m_reorderLevel?.toString() ?? ""}
-                  type="number"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.m_reorderLevel && Boolean(errors.m_reorderLevel)}
-                  helperText={
-                    touched.m_reorderLevel && errors.m_reorderLevel
-                      ? errors.m_reorderLevel
-                      : ""
-                  }
-                />
-              </Box>
+            <Section>
+              <InputSelectField
+                label="Category"
+                name="m_status"
+                options={categoryOptions}
+                value={values.m_status}
+                onChange={(e) => setFieldValue("m_status", e.target.value)}
+                error={touched.m_status && Boolean(errors.m_status)}
+                helperText={touched.m_status && errors.m_status ? errors.m_status : ""}
+              />
 
-              <Box sx={{ flex: "1 1 45%", display: "flex", alignItems: "center", gap: 1 }}>
+              <InputSelectField
+                label="Unit"
+                name="m_unit"
+                options={unitOptions}
+                value={values.m_unit}
+                onChange={(e) => setFieldValue("m_unit", e.target.value)}
+                error={touched.m_unit && Boolean(errors.m_unit)}
+                helperText={touched.m_unit && errors.m_unit ? errors.m_unit : ""}
+              />
+            </Section>
+
+            <Section>
+              <InputTextField
+                label="Re-Order Level"
+                name="m_reorderLevel"
+                textPlaceholder="Enter Re-Order Level"
+                value={values.m_reorderLevel?.toString() ?? ""}
+                type="number"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.m_reorderLevel && Boolean(errors.m_reorderLevel)}
+                helperText={
+                  touched.m_reorderLevel && errors.m_reorderLevel
+                    ? errors.m_reorderLevel
+                    : ""
+                }
+              />
+
+              <VariantSwitchWrapper>
                 <Typography>This material has variants</Typography>
                 <Switch
                   checked={values.hasVariants}
@@ -236,8 +209,8 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
                     },
                   }}
                 />
-              </Box>
-            </Box>
+              </VariantSwitchWrapper>
+            </Section>
 
             <InputTextArea
               label="Description"
@@ -254,7 +227,7 @@ const MaterialPage: React.FC<VariantsForMaterialPageProps> = ({ onNext }) => {
             />
 
             <Toaster ref={toasterRef} />
-          </Box>
+          </Wrapper>
         </Form>
       )}
     </Formik>
