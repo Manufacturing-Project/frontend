@@ -9,11 +9,6 @@ import {
   Grid,
 } from '@mui/material';
 import { StyleTextField, StyleButton } from './EditTableBox.styled';
-import { EditDialogBoxProps } from '../../../utils/types/molecules/props/editDialogBoxProps';
-
-  Button,
-  Grid,
-} from '@mui/material';
 
 interface FieldConfig {
   label: string;
@@ -67,9 +62,6 @@ const EditDialogBox: React.FC<EditDialogBoxProps> = ({
 
               <StyleTextField
 
-              <TextField
-                fullWidth
-
                 label={field.label}
                 name={field.name}
                 value={formData[field.name] || ''}
@@ -84,8 +76,8 @@ const EditDialogBox: React.FC<EditDialogBoxProps> = ({
        <StyleButton onClick={handleClose}>Cancel</StyleButton>
         <StyleButton onClick={handleSubmit}>Save</StyleButton>
 
-        <Button onClick={onClose} color="secondary">Cancel</Button>
-        <Button onClick={handleSubmit} color="primary" variant="contained">Save</Button>
+        <StyleButton onClick={onClose} color="secondary">Cancel</StyleButton>
+        <StyleButton onClick={handleSubmit} color="primary" variant="contained">Save</StyleButton>
 
       </DialogActions>
     </Dialog>

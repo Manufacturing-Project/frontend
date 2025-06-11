@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react'; // Correcting the import of Meta and StoryFn
-import EmptyInfoBox, { EmptyInfoBoxProps } from './EmptyInfoBox';
+import EmptyInfoBox from './EmptyInfoBox';
+import { EmptyInfoBoxProps } from '../../../utils/types/molecules/props/emptyInfoBoxProps';
 
 export default {
   title: 'Components/Molecules/EmptyInfoBox',
