@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
       <FullLogo />
       <StyledSecondBox>
         <StyledLofincontainerBox>
-          <StyledLoginTitle>
+          <StyledLoginTitle variant='h5'>
             Welcome !
           </StyledLoginTitle>
           <Formik

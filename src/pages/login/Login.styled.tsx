@@ -29,17 +29,22 @@ export const StyledLofincontainerBox = styled(Box)({
 })
 export const StyledLoginTitle = styled(Typography)({
 
-        component: 'h2',
-        variant: 'h4',
+        
+        variant: 'h3',
         marginLeft: '-210px',
         marginBottom: 4
 })
 export const StyledButton = styled(Button)({
-                    backgroundColor: theme.colors.primary_color_green,
-                    color: theme.colors.secondary_background_color,
-                    marginTop: '40px',
-                    width: "350px",
-                    height: "36px",
+                backgroundColor: theme.colors.primary_color_green,
+                color: theme.colors.secondary_background_color,
+                marginTop: 40,
+                width: '100%',
+                height: 36,
+                "&:disabled": {
+                backgroundColor: theme.colors.primary_color_green,
+                opacity: 0.5,
+                color: theme.colors.secondary_background_color,
+                },
 })
 
 export const Styledtext = styled(Typography)({
