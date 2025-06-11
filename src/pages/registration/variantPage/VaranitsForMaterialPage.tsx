@@ -1,48 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Typography, Chip } from '@mui/material';
+import { Typography, Chip } from '@mui/material';
 import theme from '../../../components/theme';
 import { InputSelectField, InputTextField } from '../../../components/molecules';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setVariants } from '../../../features/rawMaterials/rawMaterialSlice';
 import { useGetVariantsQuery } from '../../../features/variants/variantApiSlice';
-import { RootState } from '../../../store';
+import {
+  Wrapper,
+  GridRow,
+  GridItem,
+  AddButtonStyled,
+  ChipsContainer,
+  FieldsGrid,
+} from './VariantsForMaterialPage.styled';
+import { VariantField } from '../../../utils/types/pages/variantsForMaterialPage.types';
 
-interface VariantsForMaterialPageProps {}
-
-const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = () => {
+const VariantsForMaterialPage: React.FC = () => {
   const { data: variants } = useGetVariantsQuery();
-
-  const variantOptions =
-    variants?.map((variantItem: any) => ({
-      id: variantItem._id,
-      name: variantItem.variantName,
-    })) || [];
-
   const dispatch = useDispatch();
 
-  const [variantFields, setVariantFields] = useState<
-    { variant: string; values: string[] }[]
-  >([{ variant: '', values: [] }]);
+  const variantOptions =
+    variants?.map((v: any) => ({ id: v._id, name: v.variantName })) || [];
 
-  // Track input value for each variant row
+  const [variantFields, setVariantFields] = useState<VariantField[]>([
+    { variant: '', values: [] },
+  ]);
   const [inputValues, setInputValues] = useState<string[]>(['']);
 
   const handleAddVariant = () => {
-    setVariantFields([...variantFields, { variant: '', values: [] }]);
-    setInputValues([...inputValues, '']);
+    setVariantFields(prev => [...prev, { variant: '', values: [] }]);
+    setInputValues(prev => [...prev, '']);
   };
 
-  const handleFieldChange = (
-    index: number,
-    field: 'variant',
-    value: string
-  ) => {
+  const handleFieldChange = (index: number, value: string) => {
     setVariantFields(prev =>
-      prev.map((item, idx) =>
-        idx === index
-          ? { ...item, [field]: value }
-          : item
-      )
+      prev.map((item, idx) => (idx === index ? { ...item, variant: value } : item))
     );
   };
 
@@ -54,19 +46,14 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = () => {
     });
   };
 
-  const handleAddValue = (
-    index: number,
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      const value = inputValues[index]?.trim();
+  const handleAddValue = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const value = inputValues[index].trim();
       if (value) {
         setVariantFields(prev =>
           prev.map((item, idx) =>
-            idx === index
-              ? { ...item, values: [...item.values, value] }
-              : item
+            idx === index ? { ...item, values: [...item.values, value] } : item
           )
         );
         setInputValues(prev => {
@@ -78,11 +65,11 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = () => {
     }
   };
 
-  const handleDeleteValue = (index: number, valueToDelete: string) => {
+  const handleDeleteValue = (index: number, valToRemove: string) => {
     setVariantFields(prev =>
       prev.map((item, idx) =>
         idx === index
-          ? { ...item, values: item.values.filter(val => val !== valueToDelete) }
+          ? { ...item, values: item.values.filter(val => val !== valToRemove) }
           : item
       )
     );
@@ -93,96 +80,50 @@ const VariantsForMaterialPage: React.FC<VariantsForMaterialPageProps> = () => {
   }, [variantFields, dispatch]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "32px",
-        paddingLeft: '60px',
-        backgroundColor: theme.colors.secondary_background_color,
-        height: "100%",
-        boxSizing: 'border-box',
-      }}
-    >
-      <Typography variant="h4">
-        Add Variants
-      </Typography>
+    <Wrapper>
+      <Typography variant="h4">Add Variants</Typography>
 
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          marginBottom: '16px',
-        }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddVariant}
-          sx={{
-            backgroundColor: theme.colors.primary_color_green,
-            color: theme.colors.secondary_background_color,
-            width: '120px',
-            height: '40px',
-            textTransform: 'capitalize',
-          }}
-        >
-          Add Variant
-        </Button>
-      </Box>
+      <AddButtonStyled onClick={handleAddVariant}>Add Variant</AddButtonStyled>
 
-      {variantFields.map((field, index) => (
-        <Box
-          key={index}
-          sx={{
-            display: 'flex',
-            gap: '24px',
-            alignItems: 'flex-start',
-            marginBottom: '16px',
-          }}
-        >
-          <InputSelectField
-            label={`Variant ${index + 1}`}
-            options={variantOptions}
-            value={field.variant}
-            onChange={(e: { target: { value: string; }; }) => handleFieldChange(index, 'variant', e.target.value)}
-            width="300px"
-            height="56px"
-          />
-          <Box sx={{ width: '500px' }}>
-            <InputTextField
-              label="Values"
-              textPlaceholder="Enter Values"
-              value={inputValues[index] || ''}
-              onChange={e => handleInputChange(index, e.target.value)}
-              onKeyDown={e => handleAddValue(index, e)}
-              width="500px"
-              height="40px"
-            />
-            <Box
-              sx={{
-                display: 'flex',
-                gap: '8px',
-                flexWrap: 'wrap',
-                marginTop: '8px',
-              }}
-            >
-              {field.values.map((val, idx) => (
-                <Chip
-                  key={idx}
-                  label={val}
-                  onDelete={() => handleDeleteValue(index, val)}
-                  sx={{
-                    backgroundColor: '#e0e0e0',
-                    fontSize: '14px',
-                  }}
-                />
-              ))}
-            </Box>
-          </Box>
-        </Box>
-      ))}
-    </Box>
+      <FieldsGrid>
+        {variantFields.map((field, index) => (
+          <GridRow key={index}>
+            <GridItem>
+              <InputSelectField
+                label={`Variant ${index + 1}`}
+                options={variantOptions}
+                value={field.variant}
+                onChange={(e: { target: { value: string } }) =>
+                  handleFieldChange(index, e.target.value)
+                }
+                width="100%"
+                height="56px"
+              />
+            </GridItem>
+            <GridItem>
+              <InputTextField
+                label="Values"
+                textPlaceholder="Enter Values"
+                value={inputValues[index] || ''}
+                onChange={e => handleInputChange(index, e.target.value)}
+                onKeyDown={e => handleAddValue(index, e)}
+                width="100%"
+                height="40px"
+              />
+              <ChipsContainer>
+                {field.values.map((val, idx) => (
+                  <Chip
+                    key={idx}
+                    label={val}
+                    onDelete={() => handleDeleteValue(index, val)}
+                  />
+                ))}
+              </ChipsContainer>
+            </GridItem>
+          </GridRow>
+        ))}
+      </FieldsGrid>
+    </Wrapper>
   );
 };
 
