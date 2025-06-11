@@ -1,6 +1,7 @@
 import React, { createRef } from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'; // Import act
-import Toaster, { ToasterRef } from './Toaster'; // Adjust the import path as necessary
+import Toaster from "../../../components/molecules/toaster/Toaster";
+import { ToasterRef } from "../../../utils/types/molecules/props/toasterProps";
 
 describe('Toaster Component', () => {
   let toasterRef: React.RefObject<ToasterRef>;

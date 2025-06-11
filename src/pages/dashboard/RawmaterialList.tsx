@@ -8,7 +8,7 @@ import {
   useUpdateMaterialMutation,
 } from '../../features/rawMaterials/rawMaterialApiSlice';
 import EditDialogBox from '../../components/molecules/editTableDialogBox/EditTableDialogBox';
-import CustomTable from '../../components/molecules/table/Table';
+import CustomTable from '../../components/molecules/table/CustomTable';
 import { CreateRawMaterial } from '../../features/rawMaterials/rawMaterialModel';
 
 const RawMaterialList: React.FC = () => {

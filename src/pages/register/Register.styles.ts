@@ -36,6 +36,7 @@ export const StyledButton = styled(Button)({
   backgroundColor: theme.colors.primary_color_green,
   color: theme.colors.secondary_background_color,
   marginTop: 40,
+
   width: '100%',
   height: 36,
   "&:disabled": {

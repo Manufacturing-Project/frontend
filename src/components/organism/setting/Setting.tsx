@@ -7,7 +7,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Toaster, { ToasterRef } from '../../molecules/toaster/Toaster';
+import Toaster from "../../../components/molecules/toaster/Toaster";
+import { ToasterRef } from "../../../utils/types/molecules/props/toasterProps";
 import theme from '../../theme';
 import EmptyInfoBox from '../../molecules/emptyInfoBox/EmptyInfoBox';
 
