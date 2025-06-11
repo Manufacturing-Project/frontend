@@ -1,14 +1,8 @@
+// src/pages/register/Register.tsx
 import React from "react";
 import { FullLogo } from "../../components/organism/fullLogo/FullLogo";
 import { InputTextField } from "../../components/molecules";
-import {
-  Box,
-  Button,
-  Typography,
-  Grid,
-  Link,
-} from "@mui/material";
-import theme from "../../components/theme";
+import { Grid, Link } from "@mui/material";
 import img from "../../assets/small-team-discussing-ideas-2194220-0.png";
 import { useSignupMutation } from "../../features/user/UserApiSlice";
 import { useDispatch } from "react-redux";
@@ -16,26 +10,32 @@ import { setUser, setLoading } from "../../features/user/UserSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
-import {RegisterinitialValues} from "../../utils/forms/initialStatus/authForm/authFormInitialStatus";
-import {RegisterValidationSchema} from "../../utils/forms/validationSchemas/authForm/authValidationSchema";
-import { useState } from "react";
+import { RegisterinitialValues } from "../../utils/forms/initialStatus/authForm/authFormInitialStatus";
+import { RegisterValidationSchema } from "../../utils/forms/validationSchemas/authForm/authValidationSchema";
 
-  const RegisterPage: React.FC = () => {
+import {
+  Container,
+  ContentWrapper,
+  FormWrapper,
+  WelcomeText,
+  StyledButton,
+  ImageWrapper,
+  StyledTypography,
+} from "./Register.styles";
 
-
+const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
   const [registerUser, { isLoading }] = useSignupMutation();
   const navigate = useNavigate();
+
   return (
-
-      <Box sx={{ display: "flex", flexDirection: "column", width: "80%", height: "100vh", marginLeft: "200px" }}>
+    <Container>
       <FullLogo />
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
-      
-
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 2, marginLeft: "20px" }}>
-
-          <Typography component="h2" variant="h5" marginLeft="-220px">Welcome!</Typography>
+      <ContentWrapper>
+        <FormWrapper>
+          <WelcomeText as="h2" variant="h5">
+            Welcome!
+          </WelcomeText>
 
           <Formik
             initialValues={RegisterinitialValues}
@@ -47,7 +47,7 @@ import { useState } from "react";
                 dispatch(setUser(response));
                 toast.success("Successfully Registered");
                 resetForm();
-                navigate('/dashboard');
+                navigate("/dashboard");
               } catch (err: any) {
                 toast.error(err?.data?.message || "Registration Failed");
                 setFieldError("general", err?.data?.message || "Registration Failed");
@@ -59,7 +59,7 @@ import { useState } from "react";
           >
             {({ values, errors, touched, handleChange, handleBlur, isSubmitting, isValid, dirty }) => (
               <Form>
-                   <Grid container spacing={4}>
+                <Grid container spacing={4}>
                   <Grid item xs={12}>
                     <InputTextField
                       textPlaceholder="User Name"
@@ -88,7 +88,6 @@ import { useState } from "react";
                       id="email"
                     />
                   </Grid>
-                  
                   <Grid item xs={12}>
                     <InputTextField
                       textPlaceholder="Password"
@@ -118,46 +117,37 @@ import { useState } from "react";
                       helperText={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ""}
                       id="confirmPassword"
                     />
-
                   </Grid>
-              </Grid>
+                </Grid>
 
-                <Button
+                <StyledButton
                   type="submit"
                   fullWidth
                   variant="contained"
                   disabled={isSubmitting || isLoading || !isValid || !dirty}
-                  sx={{
-                    backgroundColor: theme.colors.primary_color_green,
-                    color: theme.colors.secondary_background_color,
-                    marginTop: "40px",
-                    width: "350px",
-                    height: "36px",
-                  }}
                 >
                   {isLoading ? "Registering..." : "Sign Up"}
-                </Button>
+                </StyledButton>
 
-                <Typography sx={{ fontSize: "12px", alignSelf: "center", marginTop: "20px", marginLeft: "60px" }}>
+                <StyledTypography>
                   Already have an account?{" "}
                   <Link href="/auth/login" sx={{ textDecoration: "none" }}>
                     Login
                   </Link>
-                </Typography>
+                </StyledTypography>
 
                 <ToastContainer />
               </Form>
             )}
           </Formik>
-        </Box>
+        </FormWrapper>
 
-        {/* Right Side: Image */}
-        <Box sx={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <ImageWrapper>
           <img src={img} width="600px" alt="Team Discussion" />
-        </Box>
-      </Box>
-    </Box>
-  ); 
+        </ImageWrapper>
+      </ContentWrapper>
+    </Container>
+  );
 };
 
 export { RegisterPage };
