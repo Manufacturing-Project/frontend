@@ -15,16 +15,8 @@ import { StyledContainerBox, StyledTitleBox, StyledTitle, StyleAddButton, StyleI
 import { Form, Formik } from "formik";
 import { itemInitialValues } from "../../../utils/forms/initialStatus/settingsForm/settingFormInitialStatus";
 import { itemValidationSchema } from "../../../utils/forms/validationSchemas/settingsForm/settingFormInitialSchema";
+import {CommonItemPageProps} from "../../../utils/types/organism/commonItemPageProps";
 
-
-interface CommonItemPageProps {
-  title: string;
-  items: { id: string; name: string }[];
-  buttonName: string;
-  createItem: (name: string) => Promise<void>;
-  updateItem: (id: string, name: string) => Promise<void>;
-  deleteItem: (id: string) => Promise<void>;
-}
 
 
 const Setting: React.FC<CommonItemPageProps> = (
