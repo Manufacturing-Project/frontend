@@ -1,10 +1,9 @@
 import React from 'react';
 
 
-import { Box, Typography, Avatar } from '@mui/material';
 
 
-import { Box,  Avatar } from '@mui/material';
+
 
 import { SearchBar } from '../../molecules'; 
 import { MenuBar } from '../../organism';
