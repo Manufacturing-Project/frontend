@@ -1,21 +1,14 @@
 import React from 'react';
 import { FullLogo } from "../../components/organism/fullLogo/FullLogo";
 import { InputTextField } from "../../components/molecules";
-import {
-  Box,
-  Button,
-  Typography,
-  Grid,
-  Link,
-} from '@mui/material';
+import { Grid} from '@mui/material';
 import { useLoginMutation } from '../../features/user/UserApiSlice';
-import theme from '../../components/theme';
 import img from '../../assets/small-team-discussing-ideas-2194220-0.png';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { loginInitialValues } from '../../utils/forms/initialStatus/authForm/authFormInitialStatus';
 import { loginValidationSchema } from '../../utils/forms/validationSchemas/authForm/authValidationSchema';
-
+import { StyledContainerBox , StyledSecondBox , StyledButton ,StyledImageBox ,StyledLink , StyledLofincontainerBox , StyledLoginTitle , Styledimage , Styledtext  } from './Login.styled';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,31 +28,13 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '80%',
-        height: '100vh',
-        marginLeft: '200px'
-      }}
-    >
+    <StyledContainerBox>
       <FullLogo />
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 2,
-            marginLeft: '20px'
-          }}
-        >
-          <Typography component="h2" variant="h4" marginLeft='-210px' marginBottom={4}>
+      <StyledSecondBox>
+        <StyledLofincontainerBox>
+          <StyledLoginTitle>
             Welcome !
-          </Typography>
+          </StyledLoginTitle>
           <Formik
             initialValues={loginInitialValues}
             validationSchema={loginValidationSchema}
@@ -108,47 +83,29 @@ const LoginPage: React.FC = () => {
                   </Grid>
                 </Grid>
              
-                <Button
+                <StyledButton
                   type="submit"
-                  fullWidth
                   variant="contained"
-                  disabled={isSubmitting || isLoading || !isValid || !dirty}
-                  sx={{
-                    backgroundColor: theme.colors.primary_color_green,
-                    color: theme.colors.secondary_background_color,
-                    marginTop: '40px',
-                    width: "350px",
-                    height: "36px",
-                  }}
-                >
+                  disabled={isSubmitting || isLoading || !isValid || !dirty}>
                   {isLoading ? 'Signing In...' : 'Sign In'}
-                </Button>
+                </StyledButton>
 
-                <Typography
-                  sx={{ fontSize: '12px', alignSelf: 'center', marginTop: '20px', marginLeft: '60px' }}
-                >
+                <Styledtext>
                   Don't have an account?
-                  <Link href="/auth/signup" sx={{ textDecoration: 'none' }}>
+                  <StyledLink to="/auth/signup">
                     Sign up
-                  </Link>
-                </Typography>
+                  </StyledLink>
+                </Styledtext>
               </Form>
             )}
           </Formik>
-        </Box>
+        </StyledLofincontainerBox>
 
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img src={img} width="600px" alt="Team Discussion" />
-        </Box>
-      </Box>
-    </Box>
+        <StyledImageBox>
+          <Styledimage src={img}  alt="Team Discussion" />
+        </StyledImageBox>
+      </StyledSecondBox>
+    </StyledContainerBox>
   );
 };
 

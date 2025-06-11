@@ -19,7 +19,8 @@ import { useGetCategoriesQuery } from "../../../features/categories/CategoryApiS
 import { CreateUnit } from "../../../features/units/UnitModel";
 
 import theme from "../../../components/theme";
-import Toaster, { ToasterRef } from "../../../components/molecules/toaster/Toaster";
+import Toaster from "../../../components/molecules/toaster/Toaster";
+import { ToasterRef } from "../../../utils/types/molecules/props/toasterProps";
 
 import {
   InputTextField,

@@ -1,52 +1,14 @@
+// CustomTable.tsx
 import React from 'react';
 import {
-  Table, TableBody, TableCell,
-  TableContainer, TableHead, TableRow, Paper, IconButton, Box
+  Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, Paper, IconButton, Box
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.MuiTableCell-head`]: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-    fontWeight: 'bold',
-    position: 'sticky',
-    top: 0,
-    zIndex: 1,
-    whiteSpace: 'nowrap',
-  },
-  [`&.MuiTableCell-body`]: {
-    fontSize: 14,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-interface Column {
-  header: string;
-  accessor: string;
-  align?: 'left' | 'right' | 'center';
-  width?: string; // like '150px', '20%', etc.
-}
-
-interface CustomTableProps {
-  columns: Column[];
-  rows: Record<string, any>[];
-  onEdit?: (row: Record<string, any>) => void;
-  onDelete?: (row: Record<string, any>) => void;
-}
+import { StyledTableCell, StyledTableRow } from './CustomTable.styled';
+import { CustomTableProps } from '../../../utils/types/molecules/props/customTableProps';
 
 const CustomTable: React.FC<CustomTableProps> = ({ columns, rows, onEdit, onDelete }) => {
   return (

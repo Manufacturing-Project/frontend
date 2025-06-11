@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import theme from "../../components/theme";
 import img from "../../assets/small-team-discussing-ideas-2194220-0.png";
-
-
 import { useSignupMutation } from "../../features/user/UserApiSlice";
 import { useDispatch } from "react-redux";
 import { setUser, setLoading } from "../../features/user/UserSlice";
@@ -24,19 +22,15 @@ import { useState } from "react";
 
   const RegisterPage: React.FC = () => {
 
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setErrorLocal] = useState("");
-  
+
   const dispatch = useDispatch();
   const [registerUser, { isLoading }] = useSignupMutation();
   const navigate = useNavigate();
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "80%", height: "100vh", marginLeft: "200px" }}>
+
+      <Box sx={{ display: "flex", flexDirection: "column", width: "80%", height: "100vh", marginLeft: "200px" }}>
       <FullLogo />
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
       
 
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 2, marginLeft: "20px" }}>
