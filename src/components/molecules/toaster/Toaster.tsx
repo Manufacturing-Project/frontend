@@ -1,25 +1,19 @@
 // Toaster.tsx
-import  { useState, forwardRef, useImperativeHandle } from 'react';
-import { Snackbar, Alert } from '@mui/material';
+
+import { useState, forwardRef, useImperativeHandle } from 'react';
+import { Snackbar } from '@mui/material';
 import theme from '../../theme';
 
-type ToastType = 'success' | 'error' | 'warning';
-
-interface ToasterProps {
-  duration?: number;
-}
-
-export interface ToasterRef {
-  showToast: (msg: string, toastType: ToastType) => void;
-}
+import { StyledAlert } from './Toaster.styled';
+import { ToasterProps, ToasterRef, ToastType } from '../../../utils/types/molecules/props/toasterProps';
 
 const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [type, setType] = useState<ToastType>('success');
 
-  const handleShowToast = (message: string, toastType: ToastType) => {
-    setMessage(message);
+  const handleShowToast = (msg: string, toastType: ToastType) => {
+    setMessage(msg);
     setType(toastType);
     setOpen(true);
   };
@@ -35,13 +29,13 @@ const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) 
   const getCustomColor = (toastType: ToastType) => {
     switch (toastType) {
       case 'error':
-        return theme.colors.alert_error; 
+        return theme.colors.alert_error;
       case 'success':
-        return theme.colors.alert_success; 
+        return theme.colors.alert_success;
       case 'warning':
-        return theme.colors.alert_warning; 
+        return theme.colors.alert_warning;
       default:
-        return ''; 
+        return '';
     }
   };
 
@@ -52,17 +46,14 @@ const Toaster = forwardRef<ToasterRef, ToasterProps>(({ duration = 3000 }, ref) 
       onClose={handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
-      <Alert
+      <StyledAlert
         onClose={handleClose}
         severity={type}
-        sx={{
-          width: '400px',
-          backgroundColor: getCustomColor(type) || undefined,
-          color: theme.colors.secondary_background_color, 
-        }}
+        bgcolor={getCustomColor(type)}
+        fontcolor={theme.colors.secondary_background_color}
       >
-        {message} 
-      </Alert>
+        {message}
+      </StyledAlert>
     </Snackbar>
   );
 });

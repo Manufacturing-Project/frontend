@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import Toaster, { ToasterRef } from './Toaster';
+import Toaster from "../../../components/molecules/toaster/Toaster";
+import { ToasterRef } from "../../../utils/types/molecules/props/toasterProps";
 import Button from '@mui/material/Button';
 
 // Meta export to provide Storybook with component metadata
