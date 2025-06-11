@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableHead, 
-  TableRow, 
-  IconButton, 
-  Typography, 
-  Box,
-  TextField,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+import {
+  Table, TableBody, TableContainer, TableHead,
+  IconButton, Table as MuiTable,
+  TableCell,
   Button
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -21,39 +10,30 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { generateVariantCombinations } from './generateFunction';
-import theme from '../../../components/theme';
 import { useGetUnitsQuery } from '../../../features/units/UnitsApiSlice';
-
-interface TableRowData {
-  code: string;
-  name: string;
-  reorderLevel: number;
-  unitOfMeasure: string;
-  description: string;
-}
-
-interface EditDialogData {
-  open: boolean;
-  rowIndex: number;
-  data: TableRowData | null;
-}
-
-interface GeneratedMaterialTableProps {
-  onMaterialsChange?: (materials: TableRowData[]) => void;
-}
-
+import {
+  TableRowData,
+  EditDialogData,
+  GeneratedMaterialTableProps
+} from '../../../utils/types/pages/generatedMaterialsPage.types';
+import {
+  Container,
+  HeaderText,
+  CustomTableCell,
+  StyledTableRow,
+  StyledIconColor,
+  StyledDialog,
+  StyledDialogTitle,
+  StyledDialogContent,
+  StyledTextField,
+  StyledDialogActions,
+  SaveButton
+} from './GeneratedMaterialTable.styled';
 
 const GeneratedMaterialTable: React.FC<GeneratedMaterialTableProps> = ({ onMaterialsChange }) => {
-  const {
-    m_name,
-    m_code,
-    unit,
-    reorderlevel,  
-    description,
-    variants,
-  } = useSelector((state: RootState) => state.rawMaterial);
+  const { m_name, m_code, unit, reorderlevel, description, variants } = useSelector((state: RootState) => state.rawMaterial);
+  const { data: units } = useGetUnitsQuery();
 
-  // Generate variant combinations
   const generatedVariants = variants.length
     ? generateVariantCombinations(m_name, m_code, variants).map(({ code, name }) => ({
         code,
@@ -64,22 +44,13 @@ const GeneratedMaterialTable: React.FC<GeneratedMaterialTableProps> = ({ onMater
       }))
     : [];
 
-    const { data: units } = useGetUnitsQuery();
-
-  // Initialize rows state
   const [rows, setRows] = useState<TableRowData[]>([]);
-  const [editDialog, setEditDialog] = useState<EditDialogData>({
-    open: false,
-    rowIndex: -1,
-    data: null
-  });
+  const [editDialog, setEditDialog] = useState<EditDialogData>({ open: false, rowIndex: -1, data: null });
 
-  // Update rows whenever generatedVariants change
   useEffect(() => {
     setRows(generatedVariants);
   }, [generatedVariants]);
 
-  // Notify parent component when materials change
   useEffect(() => {
     if (onMaterialsChange) {
       onMaterialsChange(rows);
@@ -87,11 +58,7 @@ const GeneratedMaterialTable: React.FC<GeneratedMaterialTableProps> = ({ onMater
   }, [rows, onMaterialsChange]);
 
   const handleEdit = (rowIndex: number) => {
-    setEditDialog({
-      open: true,
-      rowIndex,
-      data: { ...rows[rowIndex] }
-    });
+    setEditDialog({ open: true, rowIndex, data: { ...rows[rowIndex] } });
   };
 
   const handleSaveEdit = () => {
@@ -120,8 +87,8 @@ const GeneratedMaterialTable: React.FC<GeneratedMaterialTableProps> = ({ onMater
   };
 
   const getUnitName = (unitId: string): string => {
-  return units?.find(u => u._id === unitId)?.unitName || unitId;
-};
+    return units?.find(u => u._id === unitId)?.unitName || unitId;
+  };
 
   const handleDelete = (rowIndex: number) => {
     const updatedRows = rows.filter((_, index) => index !== rowIndex);
@@ -129,132 +96,58 @@ const GeneratedMaterialTable: React.FC<GeneratedMaterialTableProps> = ({ onMater
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '32px',
-        paddingLeft: '60px',
-        backgroundColor: theme.colors.secondary_background_color,
-        height: '100%',
-        boxSizing: 'border-box',
-      }}
-    >
-      <Typography variant="h4">Generated Materials ({rows.length})</Typography>
+    <Container>
+      <HeaderText>Generated Materials ({rows.length})</HeaderText>
 
       <TableContainer sx={{ maxHeight: 400 }}>
-        <Table>
+        <MuiTable>
           <TableHead>
-            <TableRow>
-              <TableCell align="center" sx={{ backgroundColor: theme.colors.table_cell_color }}>
-                <Typography variant="body1">Code</Typography>
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: theme.colors.table_cell_color }}>
-                <Typography variant="body1">Name</Typography>
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: theme.colors.table_cell_color }}>
-                <Typography variant="body1">Reorder Level</Typography>
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: theme.colors.table_cell_color }}>
-                <Typography variant="body1">Unit of Measure</Typography>
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: theme.colors.table_cell_color }}>
-                <Typography variant="body1">Description</Typography>
-              </TableCell>
-              <TableCell align="center" sx={{ backgroundColor: theme.colors.table_cell_color }}>
-                <Typography variant="body1">Action</Typography>
-              </TableCell>
-            </TableRow>
+            <StyledTableRow>
+              {['Code', 'Name', 'Reorder Level', 'Unit of Measure', 'Description', 'Action'].map((header) => (
+                <CustomTableCell align="center" key={header}>
+                  <HeaderText variant="body1">{header}</HeaderText>
+                </CustomTableCell>
+              ))}
+            </StyledTableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{
-                  backgroundColor: 'rgba(33, 150, 243, 0.08)',
-                }}
-              >
-                <TableCell align="center">
-                  <Typography variant="body1">{row.code}</Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="body1">{row.name}</Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="body1">{row.reorderLevel}</Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="body1">{getUnitName(row.unitOfMeasure)}</Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="body1">{row.description}</Typography>
-                </TableCell>
+              <StyledTableRow key={index}>
+                <TableCell align="center">{row.code}</TableCell>
+                <TableCell align="center">{row.name}</TableCell>
+                <TableCell align="center">{row.reorderLevel}</TableCell>
+                <TableCell align="center">{getUnitName(row.unitOfMeasure)}</TableCell>
+                <TableCell align="center">{row.description}</TableCell>
                 <TableCell align="center">
                   <IconButton onClick={() => handleEdit(index)}>
-                    <EditIcon sx={{ color: theme.colors.border_color_grey }} />
+                    <EditIcon sx={StyledIconColor} />
                   </IconButton>
                   <IconButton onClick={() => handleDelete(index)}>
-                    <DeleteIcon sx={{ color: theme.colors.border_color_grey }} />
+                    <DeleteIcon sx={StyledIconColor} />
                   </IconButton>
                 </TableCell>
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
-        </Table>
+        </MuiTable>
       </TableContainer>
 
       {/* Edit Dialog */}
-      <Dialog open={editDialog.open} onClose={handleCancelEdit} maxWidth="sm" fullWidth>
-        <DialogTitle>Edit Material</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
-            <TextField
-              label="Material Code"
-              value={editDialog.data?.code || ''}
-              onChange={(e) => handleEditFieldChange('code', e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label="Material Name"
-              value={editDialog.data?.name || ''}
-              onChange={(e) => handleEditFieldChange('name', e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label="Reorder Level"
-              type="number"
-              value={editDialog.data?.reorderLevel || 0}
-              onChange={(e) => handleEditFieldChange('reorderLevel', Number(e.target.value))}
-              fullWidth
-            />
-            <TextField
-              label="Unit of Measure"
-              value={editDialog.data?.unitOfMeasure || ''}
-              onChange={(e) => handleEditFieldChange('unitOfMeasure', e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label="Description"
-              value={editDialog.data?.description || ''}
-              onChange={(e) => handleEditFieldChange('description', e.target.value)}
-              multiline
-              rows={3}
-              fullWidth
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
+      <StyledDialog open={editDialog.open} onClose={handleCancelEdit} maxWidth="sm" fullWidth>
+        <StyledDialogTitle>Edit Material</StyledDialogTitle>
+        <StyledDialogContent>
+          <StyledTextField label="Material Code" value={editDialog.data?.code || ''} onChange={(e) => handleEditFieldChange('code', e.target.value)} fullWidth />
+          <StyledTextField label="Material Name" value={editDialog.data?.name || ''} onChange={(e) => handleEditFieldChange('name', e.target.value)} fullWidth />
+          <StyledTextField label="Reorder Level" type="number" value={editDialog.data?.reorderLevel || 0} onChange={(e) => handleEditFieldChange('reorderLevel', Number(e.target.value))} fullWidth />
+          <StyledTextField label="Unit of Measure" value={editDialog.data?.unitOfMeasure || ''} onChange={(e) => handleEditFieldChange('unitOfMeasure', e.target.value)} fullWidth />
+          <StyledTextField label="Description" value={editDialog.data?.description || ''} onChange={(e) => handleEditFieldChange('description', e.target.value)} multiline rows={3} fullWidth />
+        </StyledDialogContent>
+        <StyledDialogActions>
           <Button onClick={handleCancelEdit}>Cancel</Button>
-          <Button 
-            onClick={handleSaveEdit} 
-            variant="contained"
-            sx={{ backgroundColor: theme.colors.primary_color_green }}
-          >
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+          <SaveButton onClick={handleSaveEdit} variant="contained">Save</SaveButton>
+        </StyledDialogActions>
+      </StyledDialog>
+    </Container>
   );
 };
 

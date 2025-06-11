@@ -1,29 +1,32 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetUnitsQuery } from "../../features/units/UnitsApiSlice";
-import { useGetCategoriesQuery } from "../../features/categories/CategoryApiSlice";
-
-import { CreateRawMaterial } from "../../features/rawMaterials/rawMaterialModel";
 import { ToasterRef } from "../../components/molecules/toaster/Toaster";
 import { useCreateMaterialMutation } from "../../features/rawMaterials/rawMaterialApiSlice";
-import { resetForm } from "../../features/rawMaterials/rawMaterialSlice";
 import { VariantsForMaterialPage } from "./variantPage/VaranitsForMaterialPage";
 import GeneratedMaterialTable from "./generatedMaterialsPage/GeneratedMaterialPage";
 import { MaterialPage } from "./materialPage/MaterialPage";
 import { RootState } from "../../store";
-import theme from "../../components/theme";
+
+import {
+  Container,
+  ButtonsWrapper,
+  ButtonsGroup,
+  NextButton,
+  SmallButton,
+} from "./RegisterationPage.styled"
 
 const RegisterationPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { m_name, m_code, category, unit, reorderlevel, description, hasVariants } = useSelector((state: RootState) => state.rawMaterial);
+  const { m_name, m_code, category, unit, reorderlevel, description, hasVariants } = useSelector(
+    (state: RootState) => state.rawMaterial
+  );
 
-  const [currentPage, setCurrentPage] = useState(1); // Track the current page (1 = MaterialPage, 2 = VariantsPage, 3 = GeneratedMaterialTable)
+  const [currentPage, setCurrentPage] = useState(1);
   const [createMaterial] = useCreateMaterialMutation();
   const toasterRef = useRef<ToasterRef>(null);
 
   const handleRawMaterial = async () => {
-    const material: CreateRawMaterial = {
+    const material = {
       materialName: m_name,
       materialCode: m_code,
       category,
@@ -34,48 +37,37 @@ const RegisterationPage: React.FC = () => {
     };
 
     try {
-    //   const response = await createMaterial(material).unwrap();
-    //   console.log('Material created successfully:', response);
-    //   dispatch(resetForm());
+      // await createMaterial(material).unwrap();
+      // dispatch(resetForm());
+      // toasterRef.current?.showToast("Material created successfully!", "success");
 
-    //   // Show success toaster message
-    //   toasterRef.current?.showToast('Material created successfully!', 'success');
-
-      // If the material has variants, move to the variants page
       if (hasVariants) {
-        setCurrentPage(2); // Move to VariantsForMaterialPage
-      } 
+        setCurrentPage(2);
+      }
     } catch (error) {
-      console.error('Failed to create material:', error);
-
-      // Show error toaster message
-      toasterRef.current?.showToast('Failed to create material.', 'error');
+      console.error("Failed to create material:", error);
+      toasterRef.current?.showToast("Failed to create material.", "error");
     }
   };
 
   const handleBack = () => {
-    setCurrentPage(currentPage - 1); // Go to the previous page
+    setCurrentPage((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    setCurrentPage(currentPage + 1); // Go to the next page
+    setCurrentPage((prev) => prev + 1);
   };
 
   const handleSave = () => {
-    // setCurrentPage(currentPage + 1); // Go to the next page
+    // save logic here
   };
 
   const renderPage = () => {
     switch (currentPage) {
       case 1:
-        return (
-          <MaterialPage
-            onNext={handleNext}
-            // onRawMaterial={handleRawMaterial}
-          />
-        );
+        return <MaterialPage onNext={handleNext} />;
       case 2:
-        return <VariantsForMaterialPage/>;
+        return <VariantsForMaterialPage />;
       case 3:
         return <GeneratedMaterialTable />;
       default:
@@ -84,109 +76,32 @@ const RegisterationPage: React.FC = () => {
   };
 
   return (
-    <Box sx={{ padding: "20px", display: "flex", flexDirection: "column" }}>
+    <Container>
       {renderPage()}
-  
-      {/* Render buttons based on the current page */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end", // Correct way to align buttons to the right
-          marginTop: "20px",
-        }}
-      >
+
+      <ButtonsWrapper>
         {currentPage === 1 && (
-          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "32px" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                color: "#fff",
-                width: "120px",
-                height: "40px",
-                textTransform: "capitalize",
-              }}
-              onClick={handleRawMaterial}
-            >
-              Next
-            </Button>
-          </Box>
+          <ButtonsGroup gap="32px">
+            <NextButton onClick={handleRawMaterial}>Next</NextButton>
+          </ButtonsGroup>
         )}
+
         {currentPage === 2 && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end", // Correct alignment for "Back" and "Next"
-              gap: "16px",
-              marginTop: "32px",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleBack}
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                width: "99px",
-                height: "36px",
-              }}
-            >
-              Back
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleNext}
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                width: "99px",
-                height: "36px",
-              }}
-            >
-              Next
-            </Button>
-          </Box>
+          <ButtonsGroup marginTop="32px">
+            <SmallButton onClick={handleBack}>Back</SmallButton>
+            <SmallButton onClick={handleNext}>Next</SmallButton>
+          </ButtonsGroup>
         )}
+
         {currentPage === 3 && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end", // Correct alignment for "Back" and "Save"
-              gap: "16px",
-              marginTop: "32px",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleBack}
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                width: "99px",
-                height: "36px",
-              }}
-            >
-              Back
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSave}
-              sx={{
-                backgroundColor: theme.colors.primary_color_green,
-                width: "99px",
-                height: "36px",
-              }}
-            >
-              Save
-            </Button>
-          </Box>
+          <ButtonsGroup marginTop="32px">
+            <SmallButton onClick={handleBack}>Back</SmallButton>
+            <SmallButton onClick={handleSave}>Save</SmallButton>
+          </ButtonsGroup>
         )}
-      </Box>
-    </Box>
+      </ButtonsWrapper>
+    </Container>
   );
-  
 };
 
 export default RegisterationPage;

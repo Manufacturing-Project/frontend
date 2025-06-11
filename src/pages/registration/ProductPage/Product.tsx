@@ -3,18 +3,15 @@ import { Box } from '@mui/material';
 import Lottie from 'react-lottie';
 import productAnimation from '../../../assets/UnderDevelopment.json'; // Adjust this path based on your project structure
 
-interface Props {
-  // Define your props here
-}
 
-const Product: React.FC<Props> = (props) => {
+const Product: React.FC = () => {
 
   const defaultOptions = {
-    loop: true, // Set to false if you don't want it to loop
-    autoplay: true, // Autoplay the animation
-    animationData: productAnimation, // The animation JSON file
+    loop: true, 
+    autoplay: true,
+    animationData: productAnimation,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice', // Adjust the aspect ratio as needed
+      preserveAspectRatio: 'xMidYMid slice', 
     },
   };
 
